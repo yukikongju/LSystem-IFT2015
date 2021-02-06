@@ -10,12 +10,5 @@ package lindenmayer;
  * @author emuli
  */
 public class LSystem {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
     
 }

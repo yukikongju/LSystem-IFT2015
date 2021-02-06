@@ -9,7 +9,7 @@ package lindenmayer;
  *
  * @author emuli
  */
-public class LSystem {
+public class Main {
 
     /**
      * @param args the command line arguments
