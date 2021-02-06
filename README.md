@@ -13,6 +13,7 @@
 2. Add the jar file to the project 
    
    -> from the command line: check out the link above
+   
    -> from your IDE: In your IDE, right click on the project:
 	select Properties > select Libraries > click Add Jar/Folder button
 
@@ -21,9 +22,10 @@
 ## [Implementation](#implementation)
 
 - [ ] 1. Reading JSON File
-- [ ] 2. Implement turtle's actions
-- [ ] 3. Graphical view
-- [ ] 4. Postscript implementation
+- [ ] 2. Implement Axioms and Rules
+- [ ] 3. Implement turtle's actions
+- [ ] 4. Graphical view
+- [ ] 5. Postscript implementation
 
 ## [Ressources](#ressources)
 

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package lindenmayer;
+import org.json.*;
 
 /**
  *
@@ -11,4 +12,10 @@ package lindenmayer;
  */
 public class LSystem {
     
+    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
+        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
+        JSONArray alphabet = input.getJSONArray("alphabet");
+        String axiom = input.getString("axiom");
+        //to continue
+    }
 }
