@@ -9,8 +9,12 @@
 
 ## [Prerequisites](#prerequisites)
 
-
-
+1. Download the JSON-java jar file from https://github.com/stleary/JSON-java
+2. Add the jar file to the project 
+   
+   -> from the command line: check out the link above
+   -> from your IDE: In your IDE, right click on the project:
+	select Properties > select Libraries > click Add Jar/Folder button
 
 ## [Usage](#usage)
 
