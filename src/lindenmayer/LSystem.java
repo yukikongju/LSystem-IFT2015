@@ -1,21 +1,17 @@
 package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
     
     private String file;
+    private int numIter;
     private HashMap<Character, Symbol> alphabet;
     private String axiom;
 //    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
@@ -25,14 +21,18 @@ public class LSystem extends AbstractLSystem {
     private double angle;
     private int[] start;
     
+    private TurtleModel turtle;
+    
     /** TODO: Constructor **/
-    public LSystem(String file) throws IOException{
+    public LSystem(String file, int numIter) throws IOException{
+        this.numIter = numIter;
         this.file = file;
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
         this.actions = new HashMap<>();
         this.start = new int[3];
         this.readJSONFile();
+        this.initTurtleModel();
     }
     
 //    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
@@ -119,7 +119,33 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void tell(Turtle turtle, Symbol sym) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // ISSUE: changer Turtle abstraction because we now have constructor
+        String action = getActionFromSymbol(sym);
+        switch(action){
+            case "draw":
+                this.turtle.draw();
+                break;
+            case "move":
+                this.turtle.move();
+                break;
+            case "turnL":
+                this.turtle.turnL();
+                break;
+            case "turnR":
+                this.turtle.turnR();
+                break;
+            case "push":
+                this.turtle.push();
+                break;
+            case "pop":
+                this.turtle.pop();
+                break;
+            case "stay":
+                this.turtle.stay();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -129,6 +155,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
+        // TODO: UI de la tortue
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -163,5 +190,18 @@ public class LSystem extends AbstractLSystem {
             setAction(sym, action);
         }
  }
+
+    private void initTurtleModel() {
+        // TODO: initialize the turtle with the json file
+        turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
+                this.angle, this.step);
+        // dummy 
+//        Symbol symbol = getSymbolFromCharacter('R');
+//        tell(turtle, symbol);
+    }
+
+    private String getActionFromSymbol(Symbol sym) {
+        return (String) this.actions.get(sym);
+    }
 
 }
