@@ -1,21 +1,12 @@
 package lindenmayer;
+
 import java.awt.geom.Rectangle2D;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.*;
 
-
-/**
- *
- * @author emuli
- */
 public class LSystem extends AbstractLSystem {
     
     private String file;
@@ -27,7 +18,7 @@ public class LSystem extends AbstractLSystem {
     private int step;
     private double angle;
     private int[] start;
-    private TurtleUI turtle;
+    private TurtleModel turtle;
     
     /** TODO: Constructor **/
     public LSystem(String file) throws IOException{
@@ -37,6 +28,7 @@ public class LSystem extends AbstractLSystem {
         this.actions = new HashMap<>();
         this.start = new int[3];
         this.readJSONFile();
+        this.initTurtleModel();
     }
     
 //    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
@@ -159,5 +151,11 @@ public class LSystem extends AbstractLSystem {
             setAction(sym, action);
         }
  }
+
+    private void initTurtleModel() {
+        // TODO: initialize the turtle with the json file
+        turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
+                this.angle, this.step);
+    }
 
 }
