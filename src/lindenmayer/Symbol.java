@@ -21,5 +21,6 @@ public class Symbol {
      * * Common interface to a string of symbols. *
      */
     public interface Seq extends Iterable<Symbol> {
+        // TODO
     }
 }

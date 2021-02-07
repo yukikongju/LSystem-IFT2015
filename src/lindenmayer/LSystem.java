@@ -1,8 +1,10 @@
 package lindenmayer;
+
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,17 +13,12 @@ import java.util.Map;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.json.*;
 
-
-/**
- *
- * @author emuli
- */
 public class LSystem extends AbstractLSystem {
     
     private String file;
     private HashMap<Character, Symbol> alphabet;
     private String axiom;
-//    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
+//    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
     private HashMap<Symbol, List<Symbol>> rules;
     private HashMap<Symbol, String> actions;
     private int step;
@@ -73,7 +70,7 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
             addRule(sym, expansion);
         }
-
+        
         // add parameters
         readParametersFromJSONFile(parameters);
     }
@@ -89,8 +86,16 @@ public class LSystem extends AbstractLSystem {
     @Override
     public void addRule(Symbol sym, String expansion) {
         // add rule with its expansion
+        // ISSUE: not implemented liked the prof asked
         // 1. Get a list of symbol from the string expansion
+        ArrayList<Symbol> symbolExpansion = new ArrayList<>();
+        for(int i=0; i<expansion.length(); i++){
+            Symbol temp = getSymbolFromCharacter(expansion.charAt(i));
+            symbolExpansion.add(temp);
+        }
+//        System.out.println(symbolExpansion);
         // 2. Add the rule to HashMap
+        this.rules.put(sym, symbolExpansion);
     }
 
     @Override
