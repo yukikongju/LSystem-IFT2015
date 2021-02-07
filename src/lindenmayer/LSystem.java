@@ -24,7 +24,7 @@ import org.json.*;
 public class LSystem extends AbstractLSystem {
     
     private String file;
-    private HashSet<Symbol> alphabet;
+    private HashMap<Character, Symbol> alphabet;
     
     private String axiom;
     private HashMap<Symbol, List<Symbol.Seq>> rules, actions;
@@ -36,7 +36,7 @@ public class LSystem extends AbstractLSystem {
     /** TODO: Constructor **/
     public LSystem(String file) throws IOException{
         this.file = file;
-        this.alphabet = new HashSet<>();
+        this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
         this.actions = new HashMap<>();
         this.readJSONFile();
@@ -50,12 +50,13 @@ public class LSystem extends AbstractLSystem {
         JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
         JSONArray alphabet = input.getJSONArray("alphabet");
         String axiom = input.getString("axiom");
-        JSONObject rules = new JSONObject(input, "rules");
+        JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
         JSONObject actions = new JSONObject(input, "actions");
         JSONObject parameters = new JSONObject(input, "parameters");
         
         // Set axiom
         this.setAxiom(axiom);
+        
         // read and add alphabet
         for(int i=0; i< alphabet.length(); i++){
             char character =  alphabet.get(i).toString().charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
@@ -68,13 +69,13 @@ public class LSystem extends AbstractLSystem {
     public Symbol addSymbol(char sym) {
         // add symbol to alphabet and return symbol
         Symbol symbol = new Symbol(sym);
-        this.alphabet.add(symbol);
+        this.alphabet.put(sym, symbol);
         return symbol;
     }
 
     @Override
     public void addRule(Symbol sym, String expansion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // add rule with its expansion
     }
 
     @Override
