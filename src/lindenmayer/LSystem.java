@@ -28,7 +28,7 @@ public class LSystem extends AbstractLSystem {
     
     private String axiom;
     private HashMap<Symbol, List<Symbol.Seq>> rules, actions;
-    private int steps;
+    private int step;
     private double angle;
     private int[] start;
     private TurtleUI turtle;
@@ -39,6 +39,7 @@ public class LSystem extends AbstractLSystem {
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
         this.actions = new HashMap<>();
+        this.start = new int[3];
         this.readJSONFile();
     }
     
@@ -52,7 +53,7 @@ public class LSystem extends AbstractLSystem {
         String axiom = input.getString("axiom");
         JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
         JSONObject actions = new JSONObject(input, "actions");
-        JSONObject parameters = new JSONObject(input, "parameters");
+        JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
         
         // Set axiom
         this.setAxiom(axiom);
@@ -79,7 +80,8 @@ public class LSystem extends AbstractLSystem {
 //            addRule(sym, expansion);
         }
 
-        
+        // add parameters
+        readParametersFromJSONFile(parameters);
     }
 
     @Override
@@ -130,6 +132,16 @@ public class LSystem extends AbstractLSystem {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    private void readParametersFromJSONFile(JSONObject parameters) {
+        System.out.println(parameters);
+            this.angle = parameters.getDouble("angle");
+            this.step = parameters.getInt("step");
+            JSONArray temp = parameters.getJSONArray("start");
+            for (int i=0;i<temp.length();i++){ 
+                int position = Integer.parseInt(temp.get(i).toString());
+                this.start[i] = position;
+            }     
+    }
 
-    
+
 }
