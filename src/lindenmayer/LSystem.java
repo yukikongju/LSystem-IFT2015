@@ -25,9 +25,9 @@ public class LSystem extends AbstractLSystem {
     
     private String file;
     private HashMap<Character, Symbol> alphabet;
-    
     private String axiom;
-    private HashMap<Symbol, List<Symbol.Seq>> rules, actions;
+//    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
+    private HashMap<Symbol, List<Symbol>> rules, actions;
     private int step;
     private double angle;
     private int[] start;
@@ -60,8 +60,7 @@ public class LSystem extends AbstractLSystem {
         
         // add alphabet
         for(int i=0; i< alphabet.length(); i++){
-            // ISSUE: alphabet is a JSONArray
-            char character =  alphabet.get(i).toString().charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
+            char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
             Symbol symbol = addSymbol(character);
         }
         
@@ -70,14 +69,13 @@ public class LSystem extends AbstractLSystem {
         while(keys.hasNext()){
             String symbol = keys.next(); 
             // ISSUE: read expansion as string, not JSONArray
-            // System.out.println(rules.get(symbol).toString().getClass());
             String expansion = rules.get(symbol).toString();
             expansion = expansion.replace("\"", "");
             expansion = expansion.replace("[", "");
             expansion = expansion.replace("]", "");
-//            char c = symbol.charAt(0);
-//            Symbol sym = (Symbol) alphabet.get(c);
-//            addRule(sym, expansion);
+            char c = symbol.charAt(0);
+            Symbol sym = (Symbol) this.alphabet.get(c);
+            addRule(sym, expansion);
         }
 
         // add parameters
@@ -95,6 +93,8 @@ public class LSystem extends AbstractLSystem {
     @Override
     public void addRule(Symbol sym, String expansion) {
         // add rule with its expansion
+        // 1. Get a list of symbol from the string expansion
+        // 2. Add the rule to HashMap
     }
 
     @Override
@@ -133,14 +133,13 @@ public class LSystem extends AbstractLSystem {
     }
 
     private void readParametersFromJSONFile(JSONObject parameters) {
-        System.out.println(parameters);
-            this.angle = parameters.getDouble("angle");
-            this.step = parameters.getInt("step");
-            JSONArray temp = parameters.getJSONArray("start");
-            for (int i=0;i<temp.length();i++){ 
-                int position = Integer.parseInt(temp.get(i).toString());
-                this.start[i] = position;
-            }     
+        this.angle = parameters.getDouble("angle");
+        this.step = parameters.getInt("step");
+        JSONArray temp = parameters.getJSONArray("start");
+        for (int i=0;i<temp.length();i++){ 
+            int position = Integer.parseInt(temp.get(i).toString());
+            this.start[i] = position;
+        }     
     }
 
 
