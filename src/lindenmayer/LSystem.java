@@ -24,7 +24,6 @@ public class LSystem extends AbstractLSystem {
     private int step;
     private double angle;
     private int[] start;
-    private TurtleUI turtle;
     
     /** TODO: Constructor **/
     public LSystem(String file) throws IOException{
