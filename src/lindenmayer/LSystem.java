@@ -14,6 +14,7 @@ public class LSystem extends AbstractLSystem {
     private String axiom;
 //    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
     private HashMap<Symbol, List<Symbol>> rules;
+//    private static HashMap<Symbol, String> actions;
     private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
@@ -185,7 +186,7 @@ public class LSystem extends AbstractLSystem {
         turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
                 this.angle, this.step);
         // dummy 
-//        Symbol symbol = new Symbol('+');
+//        Symbol symbol = getSymbolFromCharacter('R');
 //        tell(turtle, symbol);
     }
 
