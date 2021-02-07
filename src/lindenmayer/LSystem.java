@@ -57,11 +57,28 @@ public class LSystem extends AbstractLSystem {
         // Set axiom
         this.setAxiom(axiom);
         
-        // read and add alphabet
+        // add alphabet
         for(int i=0; i< alphabet.length(); i++){
+            // ISSUE: alphabet is a JSONArray
             char character =  alphabet.get(i).toString().charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
             Symbol symbol = addSymbol(character);
         }
+        
+        // add rules
+        Iterator<String> keys = rules.keys();
+        while(keys.hasNext()){
+            String symbol = keys.next(); 
+            // ISSUE: read expansion as string, not JSONArray
+            // System.out.println(rules.get(symbol).toString().getClass());
+            String expansion = rules.get(symbol).toString();
+            expansion = expansion.replace("\"", "");
+            expansion = expansion.replace("[", "");
+            expansion = expansion.replace("]", "");
+//            char c = symbol.charAt(0);
+//            Symbol sym = (Symbol) alphabet.get(c);
+//            addRule(sym, expansion);
+        }
+
         
     }
 
