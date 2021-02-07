@@ -10,11 +10,11 @@ import org.json.*;
 public class LSystem extends AbstractLSystem {
     
     private String file;
+    private int numIter;
     private HashMap<Character, Symbol> alphabet;
     private String axiom;
 //    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
     private HashMap<Symbol, List<Symbol>> rules;
-//    private static HashMap<Symbol, String> actions;
     private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
@@ -22,7 +22,8 @@ public class LSystem extends AbstractLSystem {
     private TurtleModel turtle;
     
     /** TODO: Constructor **/
-    public LSystem(String file) throws IOException{
+    public LSystem(String file, int numIter) throws IOException{
+        this.numIter = numIter;
         this.file = file;
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
@@ -110,7 +111,6 @@ public class LSystem extends AbstractLSystem {
     public void tell(Turtle turtle, Symbol sym) {
         // ISSUE: changer Turtle abstraction because we now have constructor
         String action = getActionFromSymbol(sym);
-        // ISSUE: action gives null -> ce n'est pas le meme objet en memoire
         switch(action){
             case "draw":
                 this.turtle.draw();
