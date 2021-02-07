@@ -59,10 +59,7 @@ public class LSystem extends AbstractLSystem {
         this.setAxiom(axiom);
         
         // add alphabet
-        for(int i=0; i< alphabet.length(); i++){
-            char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
-            Symbol symbol = addSymbol(character);
-        }
+        readAlphabetFromJSONFile(alphabet);
         
         // add rules
         Iterator<String> keys = rules.keys();
@@ -142,5 +139,11 @@ public class LSystem extends AbstractLSystem {
         }     
     }
 
+    private void readAlphabetFromJSONFile(JSONArray alphabet) {
+        for(int i=0; i< alphabet.length(); i++){
+                char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
+                Symbol symbol = addSymbol(character);
+            }    
+    }
 
 }
