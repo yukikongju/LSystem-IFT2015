@@ -21,7 +21,7 @@
 
 ## [Implementation](#implementation)
 
-- [ ] 1. Reading JSON File
+- [r] 1. Reading JSON File
 - [ ] 2. Implement Axioms and Rules
 - [ ] 3. Implement turtle's actions
 - [ ] 4. Graphical view
@@ -30,10 +30,10 @@
 ### Part 1 - JSON File
 
 - [x] Add alphabet
-- [ ] Add rules
+- [r] Add rules
 - [x] add axiom
-- [ ] add actions
-- [ ] read parameters
+- [x] add actions
+- [x] read parameters
 
 ## [Ressources](#ressources)
 

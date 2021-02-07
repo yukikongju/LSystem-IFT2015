@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lindenmayer;
 import java.awt.geom.Rectangle2D;
 import java.io.FileNotFoundException;
@@ -27,7 +22,8 @@ public class LSystem extends AbstractLSystem {
     private HashMap<Character, Symbol> alphabet;
     private String axiom;
 //    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
-    private HashMap<Symbol, List<Symbol>> rules, actions;
+    private HashMap<Symbol, List<Symbol>> rules;
+    private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
     private int[] start;
@@ -52,17 +48,17 @@ public class LSystem extends AbstractLSystem {
         JSONArray alphabet = input.getJSONArray("alphabet");
         String axiom = input.getString("axiom");
         JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
-        JSONObject actions = new JSONObject(input, "actions");
+        JSONObject actions = new JSONObject(input, "actions").getJSONObject("actions");
         JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
         
         // Set axiom
         this.setAxiom(axiom);
         
         // add alphabet
-        for(int i=0; i< alphabet.length(); i++){
-            char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
-            Symbol symbol = addSymbol(character);
-        }
+        readAlphabetFromJSONFile(alphabet);
+        
+        // set actions
+        readActionsFromJSONFile(actions);
         
         // add rules
         Iterator<String> keys = rules.keys();
@@ -73,8 +69,8 @@ public class LSystem extends AbstractLSystem {
             expansion = expansion.replace("\"", "");
             expansion = expansion.replace("[", "");
             expansion = expansion.replace("]", "");
-            char c = symbol.charAt(0);
-            Symbol sym = (Symbol) this.alphabet.get(c);
+            char character = symbol.charAt(0);
+            Symbol sym = getSymbolFromCharacter(character);
             addRule(sym, expansion);
         }
 
@@ -99,7 +95,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void setAction(Symbol sym, String action) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.actions.put(sym, action);
     }
 
     @Override
@@ -142,5 +138,26 @@ public class LSystem extends AbstractLSystem {
         }     
     }
 
+    private void readAlphabetFromJSONFile(JSONArray alphabet) {
+        for(int i=0; i< alphabet.length(); i++){
+                char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
+                Symbol symbol = addSymbol(character);
+            }    
+    }
+
+    private Symbol getSymbolFromCharacter(char character) {
+        return (Symbol) this.alphabet.get(character);
+    }
+
+    private void readActionsFromJSONFile(JSONObject actions) {
+        Iterator<String> actionKeys = actions.keys();
+        while(actionKeys.hasNext()){
+            String symbol = actionKeys.next();
+            char character = symbol.charAt(0);
+            String action = actions.getString(symbol);
+            Symbol sym = getSymbolFromCharacter(character);
+            setAction(sym, action);
+        }
+ }
 
 }
