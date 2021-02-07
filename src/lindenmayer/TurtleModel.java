@@ -1,13 +1,14 @@
 package lindenmayer;
 
 import java.awt.geom.Point2D;
+import java.util.Observable;
 import java.util.Stack;
 
 /**
  *
  * @author emuli
  */
-public class TurtleModel implements Turtle {
+public class TurtleModel extends Observable implements Turtle  {
     
     private float x,y;
     private double theta, angle;
@@ -105,6 +106,13 @@ public class TurtleModel implements Turtle {
     @Override
     public void setUnits(double step, double delta) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void majObserver(){
+        // send updated value to ui
+        // TODO: add majObserver() in tell()???
+        setChanged();
+        notifyObservers();
     }
     
 }

@@ -19,18 +19,22 @@ public class LSystem extends AbstractLSystem {
     private int step;
     private double angle;
     private int[] start;
+    
     private TurtleModel turtle;
+    private GUI gui;
     
     /** TODO: Constructor **/
     public LSystem(String file, int numIter) throws IOException{
-        this.numIter = numIter;
         this.file = file;
+        this.numIter = numIter;
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
         this.actions = new HashMap<>();
         this.start = new int[3];
         this.readJSONFile();
         this.initTurtleModel();
+        this.gui = new GUI(this, turtle);
+
     }
     
 //    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
@@ -145,7 +149,9 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
-        // TODO: UI de la tortue
+        // TODO: bounding box de la tortue + change tell function 
+//        if(this.numIter == 0) return tell(this.turtle, this.getAxiom());
+        
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

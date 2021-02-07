@@ -17,6 +17,10 @@ public class Main {
         
         // 3. Initialize LSystem
         LSystem system = new LSystem(file2, numIter);
+        
+        
+        // 4. GUi
+//        GUI gui = new GUI();
     }
     
 }
