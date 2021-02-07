@@ -107,7 +107,34 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void tell(Turtle turtle, Symbol sym) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // ISSUE: changer Turtle abstraction because we now have constructor
+        String action = getActionFromSymbol(sym);
+        // ISSUE: action gives null -> ce n'est pas le meme objet en memoire
+        switch(action){
+            case "draw":
+                this.turtle.draw();
+                break;
+            case "move":
+                this.turtle.move();
+                break;
+            case "turnL":
+                this.turtle.turnL();
+                break;
+            case "turnR":
+                this.turtle.turnR();
+                break;
+            case "push":
+                this.turtle.push();
+                break;
+            case "pop":
+                this.turtle.pop();
+                break;
+            case "stay":
+                this.turtle.stay();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -117,6 +144,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
+        // TODO: UI de la tortue
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -156,6 +184,13 @@ public class LSystem extends AbstractLSystem {
         // TODO: initialize the turtle with the json file
         turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
                 this.angle, this.step);
+        // dummy 
+//        Symbol symbol = new Symbol('+');
+//        tell(turtle, symbol);
+    }
+
+    private String getActionFromSymbol(Symbol sym) {
+        return (String) this.actions.get(sym);
     }
 
 }
