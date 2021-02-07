@@ -27,6 +27,14 @@
 - [ ] 4. Graphical view
 - [ ] 5. Postscript implementation
 
+### Part 1 - JSON File
+
+- [x] Add alphabet
+- [ ] Add rules
+- [x] add axiom
+- [ ] add actions
+- [ ] read parameters
+
 ## [Ressources](#ressources)
 
 
