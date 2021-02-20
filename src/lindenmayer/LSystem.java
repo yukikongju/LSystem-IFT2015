@@ -199,11 +199,8 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
 //            System.out.println(keys);
 //            System.out.println(symbol);
-            String expansion = rules.get(symbol).toString();
-            
-            // TO FIX: read all expansions inside ""
+//            String expansion = rules.get(symbol).toString();
             JSONArray allExpansions = rules.getJSONArray(symbol);
-            
             
 //            System.out.println(allExpansions.get(0));
 //            String[] rulesExpansions = expansion.split(",");
@@ -230,11 +227,15 @@ public class LSystem extends AbstractLSystem {
 
     private Symbol.Seq getSequenceFromStringExpansion(Symbol sym, String expansion) {
         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
+//        System.out.println(sym);
         for(int j=0; j<expansion.length(); j++){
             Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
             symbolExpansion.add(temp);
         }
         Symbol.Seq seq = sym.new Sequence(symbolExpansion);
+        // BATARD: remove null starting character manually lol
+        
+        System.out.println(seq);
         return seq;
     }
 
