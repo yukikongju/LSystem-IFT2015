@@ -90,11 +90,8 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void setAxiom(String str) {
-//        this.axiom = str;
-//        System.out.println(str);
         char character = str.charAt(0);
         Symbol sym = getSymbolFromCharacter(character);
-//        System.out.println(sym);
         this.axiom = getSequenceFromStringExpansion(sym, str);
 //        System.out.println(this.axiom.toString());
     }
@@ -169,33 +166,28 @@ public class LSystem extends AbstractLSystem {
 //       2. for each symbol, get the corresponding substitution with rewrite
 //       3. append the substitution to the auxiliary
 //       4. 
-//        System.out.println(n);
+
+        System.out.println(n);
 //        System.out.println(this.rounds);
 
-        if(n>=this.rounds) {
-            System.out.println("sdfdsf");
-            return this.axiom;
-        }
+        if(n>=this.rounds) return seq;
         
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
-//        System.out.println(newSequence.getSequences());
         
-        ArrayList<Symbol> sequence = this.axiom.getSequences();
+//        ArrayList<Symbol> sequence = this.axiom.getSequences();
+        ArrayList<Symbol> sequence = seq.getSequences();
+
 
         for(int i=0; i<sequence.size(); i++){
             Sequence substitution = rewrite(sequence.get(i));
             newSequence.concatToSequence(substitution);
 //            System.out.println(substitution);
         }
-        
+        n++;
         System.out.println(newSequence);
-        
-//        this.axiom = newSequence;
-        
+        return applyRules(newSequence, n); // new sequence
 
-        applyRules(newSequence, n++); // new sequence
-        return this.axiom; // new sequence
     }
 
     @Override
