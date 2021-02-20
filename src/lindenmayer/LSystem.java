@@ -42,8 +42,7 @@ public class LSystem extends AbstractLSystem {
         this.start = new int[3];
         this.readJSONFile();
         this.initTurtleModel();
-        this.applyRules(this.axiom, 0);
-//        this.getAxiom();
+        this.axiom = this.applyRules(this.axiom, 0);
     }
     
     private void readJSONFile() throws java.io.IOException {
@@ -103,20 +102,6 @@ public class LSystem extends AbstractLSystem {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-//    @Override
-//    public Symbol.Seq rewrite(Symbol sym) { // untested
-//        if(this.rules.containsKey(sym)){
-//            // get random rule
-//            Random random = new Random();
-//            List<Symbol.Seq> allRules = this.rules.get(sym);
-////            System.out.println(allRules.size());
-//            int index = random.nextInt(allRules.size()) % allRules.size(); // verify randomness
-//            return allRules.get(index);
-//        }
-//        // return the same key if no mappings
-//        return getSequenceFromSymbol(sym);
-//    }
-
      public Sequence rewrite(Symbol sym) { // untested
         if(this.rules.containsKey(sym)){
             // get random rule
@@ -162,27 +147,16 @@ public class LSystem extends AbstractLSystem {
 
 //    @Override
     public Sequence applyRules(Sequence seq, int n) { //replace Symbol.Seq by this.axiom
-//       1. traverse the sequence symbol by symbol
-//       2. for each symbol, get the corresponding substitution with rewrite
-//       3. append the substitution to the auxiliary
-//       4. 
-
-        System.out.println(n);
-//        System.out.println(this.rounds);
-
         if(n>=this.rounds) return seq;
         
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
         
-//        ArrayList<Symbol> sequence = this.axiom.getSequences();
         ArrayList<Symbol> sequence = seq.getSequences();
-
 
         for(int i=0; i<sequence.size(); i++){
             Sequence substitution = rewrite(sequence.get(i));
             newSequence.concatToSequence(substitution);
-//            System.out.println(substitution);
         }
         n++;
         System.out.println(newSequence);
@@ -229,7 +203,6 @@ public class LSystem extends AbstractLSystem {
  }
 
     private void initTurtleModel() {
-        // TODO: initialize the turtle with the json file
         turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
                 this.angle, this.step);
     }
@@ -239,8 +212,6 @@ public class LSystem extends AbstractLSystem {
     }
 
     private void readRulesFromJSONFile(JSONObject rules) {
-        // TODO
-
         Iterator<String> keys = rules.keys();
         while(keys.hasNext()){ // iterate through each axiom in rules
             String symbol = keys.next();
@@ -257,7 +228,6 @@ public class LSystem extends AbstractLSystem {
                 allRules.add(symbolExpansion);
             }
             this.rules.put(sym, allRules);
-            
         }
     }
 
