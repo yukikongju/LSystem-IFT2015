@@ -41,6 +41,7 @@ public class Symbol {
         }
         
         public Sequence(){
+            this.sequences = new ArrayList<>();
         }
 
         public ArrayList<Symbol> getSequences() {

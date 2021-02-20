@@ -42,7 +42,8 @@ public class LSystem extends AbstractLSystem {
         this.start = new int[3];
         this.readJSONFile();
         this.initTurtleModel();
-        this.applyRules(this.axiom, this.rounds);
+        this.applyRules(this.axiom, 0);
+//        this.getAxiom();
     }
     
     private void readJSONFile() throws java.io.IOException {
@@ -100,7 +101,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Symbol.Seq getAxiom() {
-        applyRules(axiom, 0);
+//        applyRules(axiom, 0);
         return null; // to change
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -162,13 +163,14 @@ public class LSystem extends AbstractLSystem {
         }
     }
 
-    @Override
-    public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
+//    @Override
+    public Sequence applyRules(Sequence seq, int n) { //replace Symbol.Seq by this.axiom
 //       1. traverse the sequence symbol by symbol
 //       2. for each symbol, get the corresponding substitution with rewrite
 //       3. append the substitution to the auxiliary
 //       4. 
-        System.out.println(n);
+//        System.out.println(n);
+//        System.out.println(this.rounds);
 
         if(n>=this.rounds) {
             System.out.println("sdfdsf");
@@ -177,21 +179,23 @@ public class LSystem extends AbstractLSystem {
         
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
-        System.out.println(newSequence.getSequences());
+//        System.out.println(newSequence.getSequences());
         
         ArrayList<Symbol> sequence = this.axiom.getSequences();
 
         for(int i=0; i<sequence.size(); i++){
             Sequence substitution = rewrite(sequence.get(i));
             newSequence.concatToSequence(substitution);
-            System.out.println(substitution);
+//            System.out.println(substitution);
         }
         
         System.out.println(newSequence);
         
+//        this.axiom = newSequence;
+        
 
-        applyRules(this.axiom, n++);
-        return null;
+        applyRules(newSequence, n++); // new sequence
+        return this.axiom; // new sequence
     }
 
     @Override
@@ -279,6 +283,11 @@ public class LSystem extends AbstractLSystem {
         ArrayList<Symbol> sequence = new ArrayList<>();
         sequence.add(sym);
         return sym.new Sequence(sequence);
+    }
+
+    @Override
+    public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
