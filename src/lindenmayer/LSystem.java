@@ -93,10 +93,6 @@ public class LSystem extends AbstractLSystem {
         // ISSUE: not implemented liked the prof asked
         // 1. Get a list of symbol from the string expansion
 
-        // the new interface
-        Symbol symbol = new Symbol('R'); // test with arbitrary char
-        Symbol.Seq seq = symbol.new Sequence();
-        seq.print();
         
         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
         for(int i=0; i<expansion.length(); i++){
@@ -106,6 +102,13 @@ public class LSystem extends AbstractLSystem {
         System.out.println(symbolExpansion);
         // 2. Add the rule to HashMap
         this.rules.put(sym, symbolExpansion);
+        
+        
+        // the new interface (test)
+        Symbol symbol = new Symbol('R'); // test with arbitrary char
+        Symbol.Seq seq = symbol.new Sequence(symbolExpansion);
+//        System.out.println(seq);
+        seq.print();
     }
 
     @Override

@@ -17,7 +17,7 @@ public class Main {
         int numIter = 3;
         
         // 3. Initialize LSystem
-        LSystem system = new LSystem(file3, numIter);
+        LSystem system = new LSystem(file2, numIter);
     }
     
 }

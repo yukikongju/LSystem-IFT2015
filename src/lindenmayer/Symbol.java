@@ -25,30 +25,53 @@ public class Symbol {
      */
    
     public interface Seq extends Iterable<Symbol>{
-        // TODO
-   
+        Iterator<Symbol> iterator();
+        
         void print();
+        
+        
     }
     
     public class Sequence implements Symbol.Seq{
-//        private ArrayList<Symbol> sequences;
-//        
-//        @Override
-//        public Iterator<Symbol> iterator() {
-//            Iterator<Symbol> temp = sequences.iterator();
-//            return temp;
-//        }
-
-        @Override
-        public void print() {
-            System.out.println("testintintti");
+        private ArrayList<Symbol> sequences;
+        
+        public Sequence(ArrayList<Symbol> sequences){
+            this.sequences = sequences;
         }
 
         @Override
         public Iterator<Symbol> iterator() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            //TODO
+            Iterator<Symbol> temp = sequences.iterator();
+            while(temp.hasNext()){
+                System.out.println(temp.next());
+            }
+            return temp;
         }
-        
+
+        @Override
+        public void print() {
+            //TODO
+//            System.out.println("testintintti");
+//            Iterator<Symbol> temp = sequences.iterator();
+//            while(temp.hasNext()){
+//                System.out.println(temp.next());
+//            }
+//            return temp;
+        }
+
+        @Override
+        public String toString() {
+            // TODO: (TO FIX) there is probably a more efficient way to implement that using iterators
+            String s = null;
+            for(int i=0; i<this.sequences.size();i++){
+                s+= this.sequences.get(i);
+            }
+            return s;
+        }
+
+      
+
     }
     
 }
