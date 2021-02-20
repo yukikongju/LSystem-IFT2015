@@ -100,7 +100,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Symbol.Seq getAxiom() {
-        applyRules(axiom, step);
+        applyRules(axiom, 0);
         return null; // to change
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -168,19 +168,29 @@ public class LSystem extends AbstractLSystem {
 //       2. for each symbol, get the corresponding substitution with rewrite
 //       3. append the substitution to the auxiliary
 //       4. 
+        System.out.println(n);
 
+        if(n>=this.rounds) {
+            System.out.println("sdfdsf");
+            return this.axiom;
+        }
+        
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
-//        System.out.println(newSequence.toString());
+        System.out.println(newSequence.getSequences());
         
         ArrayList<Symbol> sequence = this.axiom.getSequences();
 
         for(int i=0; i<sequence.size(); i++){
             Sequence substitution = rewrite(sequence.get(i));
-//            newSequence.concatToSequence(substitution);
+            newSequence.concatToSequence(substitution);
             System.out.println(substitution);
         }
+        
+        System.out.println(newSequence);
+        
 
+        applyRules(this.axiom, n++);
         return null;
     }
 
