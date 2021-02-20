@@ -29,13 +29,7 @@ public class Symbol {
         
         void print();
         
-        
     }
-    
-    public class Test extends ArrayList<Symbol.Seq>{
-        
-    }
-    
     
     public class Sequence implements Seq{
         private ArrayList<Symbol> sequences;
@@ -49,7 +43,7 @@ public class Symbol {
             //TODO
             Iterator<Symbol> temp = sequences.iterator();
             while(temp.hasNext()){
-                System.out.println(temp.next());
+                System.out.print(temp.next());
             }
             return temp;
         }
@@ -74,8 +68,6 @@ public class Symbol {
             }
             return s;
         }
-
-      
 
     }
     

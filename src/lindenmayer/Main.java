@@ -14,10 +14,10 @@ public class Main {
         String file3 = "test/herbe.json";
         
         // 2. Read num iterations
-        int numIter = 3;
+        int rounds = 3;
         
         // 3. Initialize LSystem
-        LSystem system = new LSystem(file3, numIter);
+        LSystem system = new LSystem(file3, rounds);
     }
     
 }

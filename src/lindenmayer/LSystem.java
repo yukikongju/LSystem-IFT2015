@@ -7,15 +7,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import lindenmayer.Symbol.Sequence;
-import lindenmayer.Symbol.Test;
+//import lindenmayer.Symbol.Test;
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
     
     private String file;
-    private int numIter;
+    private int rounds;
     private HashMap<Character, Symbol> alphabet;
-    private String axiom;
+//    private String axiom;
+    private Symbol.Seq axiom;
+
 //    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
 //    private HashMap<Symbol, List<Symbol>> rules;
     private HashMap<Symbol, List<Symbol.Seq>> rules;
@@ -27,8 +29,8 @@ public class LSystem extends AbstractLSystem {
     private TurtleModel turtle;
     
     /** TODO: Constructor **/
-    public LSystem(String file, int numIter) throws IOException{
-        this.numIter = numIter;
+    public LSystem(String file, int rounds) throws IOException{
+        this.rounds = rounds;
         this.file = file;
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
@@ -46,19 +48,17 @@ public class LSystem extends AbstractLSystem {
         JSONObject actions = new JSONObject(input, "actions").getJSONObject("actions");
         JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
         
-        // Set axiom
-        this.setAxiom(axiom);
-        
         // add alphabet
         readAlphabetFromJSONFile(alphabet);
+        
+        // Set axiom
+        this.setAxiom(axiom);
         
         // set actions
         readActionsFromJSONFile(actions);
         
         // add rules
         readRulesFromJSONFile(rules);
-        
-//        System.out.println(this.rules);
         
         // add parameters
         readParametersFromJSONFile(parameters);
@@ -84,7 +84,13 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void setAxiom(String str) {
-        this.axiom = str;
+//        this.axiom = str;
+//        System.out.println(str);
+        char character = str.charAt(0);
+        Symbol sym = getSymbolFromCharacter(character);
+//        System.out.println(sym);
+        this.axiom = getSequenceFromStringExpansion(sym, str);
+        System.out.println(this.axiom.iterator());
     }
 
     @Override
@@ -130,6 +136,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
+       
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -175,10 +182,6 @@ public class LSystem extends AbstractLSystem {
         // TODO: initialize the turtle with the json file
         turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
                 this.angle, this.step);
-        // dummy 
-//        Symbol symbol = getSymbolFromCharacter('R');
-//        System.out.println(this.rules.get(symbol));
-//        tell(turtle, symbol);
     }
 
     private String getActionFromSymbol(Symbol sym) {
@@ -192,30 +195,19 @@ public class LSystem extends AbstractLSystem {
 //        3. Add the symbol and all its expansion to this.rules
         
         Iterator<String> keys = rules.keys();
-        
-//        System.out.println(rules);
         while(keys.hasNext()){ // iterate through each axiom in rules
             String symbol = keys.next();
             char character = symbol.charAt(0);
             Symbol sym = getSymbolFromCharacter(character);
-//            System.out.println(keys);
-//            System.out.println(symbol);
             JSONArray allExpansions = rules.getJSONArray(symbol);
-            
-//            for (int i = 0; i < allExpansions.length(); i++) {
-////                System.out.println(rulesExpansions[i]);
-//                System.out.println(allExpansions.get(i));
-//            }
             
             ArrayList<Symbol.Seq> allRules = new ArrayList<>();
 
             for (int i = 0; i < allExpansions.length(); i++) {
                 String singleExpansion = allExpansions.getString(i);
-//                System.out.println(singleExpansion);
-//                System.out.println(rulesExpansions[i]);
                 Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
                 allRules.add(symbolExpansion);
-//              
+             
             }
             this.rules.put(sym, allRules);
             
@@ -224,17 +216,12 @@ public class LSystem extends AbstractLSystem {
 
     private Symbol.Seq getSequenceFromStringExpansion(Symbol sym, String expansion) {
         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
-//        System.out.println(sym);
         for(int j=0; j<expansion.length(); j++){
             Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
             symbolExpansion.add(temp);
         }
-        Symbol.Seq seq = sym.new Sequence(symbolExpansion); // PROBLEMMMME
-//        Sequence sequence = new Sequence(symbolExpansion);
-        
-        // BATARD: remove null starting character manually lol // okay
-        
-        System.out.println(seq.iterator());
+        Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
+//        System.out.println(seq.iterator());
         return seq;
     }
 
