@@ -39,6 +39,13 @@ public class TurtleModel implements Turtle {
             this.angle = angle;
             // TODO: check the degrees to radians conversion
         }
+
+        @Override
+        public String toString() {
+            String s = "["+x+", "+y+", "+angle+"]";
+            return s;
+//            return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        }
         
     }
 
@@ -69,6 +76,7 @@ public class TurtleModel implements Turtle {
     public void push() {
         State temp = new State(x,y,theta);
         stack.push(temp);
+        System.out.println(temp);
     }
 
     @Override

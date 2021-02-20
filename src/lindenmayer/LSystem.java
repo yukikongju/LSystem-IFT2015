@@ -114,24 +114,32 @@ public class LSystem extends AbstractLSystem {
         switch(action){
             case "draw":
                 this.turtle.draw();
+//                System.out.print("-draw-");
                 break;
             case "move":
                 this.turtle.move();
+//                System.out.print("-move-");
+
                 break;
             case "turnL":
                 this.turtle.turnL();
+//                System.out.print("-turnL-");
                 break;
             case "turnR":
                 this.turtle.turnR();
+//                System.out.println("-turnR-");
                 break;
             case "push":
                 this.turtle.push();
+//                System.out.println("-push-");
                 break;
             case "pop":
                 this.turtle.pop();
+//                System.out.println("-pop-");
                 break;
             case "stay":
                 this.turtle.stay();
+//                System.out.println("-stay-");
                 break;
             default:
                 break;
@@ -152,6 +160,10 @@ public class LSystem extends AbstractLSystem {
         }
         n++;
         System.out.println(newSequence);
+        // call tell()
+        turtleCalculation(newSequence); // should be refractored
+//        System.out.println("");
+        
         return applyRules(newSequence, n); // new sequence
 
     }
@@ -242,6 +254,16 @@ public class LSystem extends AbstractLSystem {
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void turtleCalculation(Sequence sequence) {
+        Iterator iter = sequence.getSequences().iterator();
+        
+        while(iter.hasNext()){
+            Symbol symbol = (Symbol) iter.next();
+//            System.out.println(symbol);
+            tell(this.turtle, symbol);
+        }
     }
     
 }
