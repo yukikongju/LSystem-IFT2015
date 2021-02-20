@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import lindenmayer.Symbol.Sequence;
-//import lindenmayer.Symbol.Test;
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
@@ -16,14 +15,9 @@ public class LSystem extends AbstractLSystem {
     private String file;
     private int rounds;
     private HashMap<Character, Symbol> alphabet;
-//    private String axiom;
-//    private Symbol.Seq axiom;
     private Sequence axiom;
 
-//    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
-//    private HashMap<Symbol, List<Symbol>> rules;
-//    private HashMap<Symbol, List<Symbol.Seq>> rules;
-        private HashMap<Symbol, List<Sequence>> rules;
+    private HashMap<Symbol, List<Sequence>> rules;
 
     private HashMap<Symbol, String> actions;
     private int step;
@@ -99,7 +93,6 @@ public class LSystem extends AbstractLSystem {
     public Symbol.Seq getAxiom() {
 //        applyRules(axiom, 0);
         return null; // to change
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
      public Sequence rewrite(Symbol sym) { // untested
@@ -145,7 +138,6 @@ public class LSystem extends AbstractLSystem {
         }
     }
 
-//    @Override
     public Sequence applyRules(Sequence seq, int n) { //replace Symbol.Seq by this.axiom
         if(n>=this.rounds) return seq;
         
