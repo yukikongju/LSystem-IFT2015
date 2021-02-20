@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import lindenmayer.Symbol.Seq;
-import lindenmayer.Symbol;
 import lindenmayer.Symbol.Sequence;
 import org.json.*;
 
@@ -18,7 +16,8 @@ public class LSystem extends AbstractLSystem {
     private HashMap<Character, Symbol> alphabet;
     private String axiom;
 //    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
-    private HashMap<Symbol, List<Symbol>> rules;
+//    private HashMap<Symbol, List<Symbol>> rules;
+    private HashMap<Symbol, List<Symbol.Seq>> rules;
     private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
@@ -38,12 +37,8 @@ public class LSystem extends AbstractLSystem {
         this.initTurtleModel();
     }
     
-//    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
-//        // deprecated?
-//    }
-    
     private void readJSONFile() throws java.io.IOException {
-        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
+        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file))); // lecture de fichier JSON avec JSONTokener
         JSONArray alphabet = input.getJSONArray("alphabet");
         String axiom = input.getString("axiom");
         JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
@@ -60,18 +55,7 @@ public class LSystem extends AbstractLSystem {
         readActionsFromJSONFile(actions);
         
         // add rules
-        Iterator<String> keys = rules.keys();
-        while(keys.hasNext()){
-            String symbol = keys.next(); 
-            // ISSUE: read expansion as string, not JSONArray
-            String expansion = rules.get(symbol).toString();
-            expansion = expansion.replace("\"", "");
-            expansion = expansion.replace("[", "");
-            expansion = expansion.replace("]", "");
-            char character = symbol.charAt(0);
-            Symbol sym = getSymbolFromCharacter(character);
-            addRule(sym, expansion);
-        }
+        readRulesFromJSONFile(rules);
         
         System.out.println(this.rules);
         
@@ -89,24 +73,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void addRule(Symbol sym, String expansion) {
-        // add rule with its expansion
-        // ISSUE: not implemented liked the prof asked
-        // 1. Get a list of symbol from the string expansion
-
-        ArrayList<Symbol> symbolExpansion = new ArrayList<>();
-        for(int i=0; i<expansion.length(); i++){
-            Symbol temp = getSymbolFromCharacter(expansion.charAt(i));
-            symbolExpansion.add(temp);
-        }
-//        System.out.println(symbolExpansion);
-        
-        // the new interface (test)
-//        Symbol symbol = new Symbol('R'); // test with arbitrary char
-        Symbol.Seq seq = sym.new Sequence(symbolExpansion);
-        seq.print();
-        
-         // 2. Add the rule to HashMap
-        this.rules.put(sym, symbolExpansion);
+        // TODO: refractor from readRulesFromJSONFile
     }
 
     @Override
@@ -215,6 +182,60 @@ public class LSystem extends AbstractLSystem {
 
     private String getActionFromSymbol(Symbol sym) {
         return (String) this.actions.get(sym);
+    }
+
+    private void readRulesFromJSONFile(JSONObject rules) {
+        // TODO
+//        1. get chacune des expansions
+//        2. transformer chaque expansion as a Symbol.Seq
+//        3. Add the symbol and all its expansion to this.rules
+        
+        Iterator<String> keys = rules.keys();
+        
+//        System.out.println(rules);
+        while(keys.hasNext()){ // iterate through each axiom in rules
+            String symbol = keys.next();
+            char character = symbol.charAt(0);
+            Symbol sym = getSymbolFromCharacter(character);
+//            System.out.println(keys);
+//            System.out.println(symbol);
+            String expansion = rules.get(symbol).toString();
+            
+            // TO FIX: read all expansions inside ""
+            JSONArray allExpansions = rules.getJSONArray(symbol);
+            
+            
+//            System.out.println(allExpansions.get(0));
+//            String[] rulesExpansions = expansion.split(",");
+            
+//            for (int i = 0; i < allExpansions.length(); i++) {
+////                System.out.println(rulesExpansions[i]);
+//                System.out.println(allExpansions.get(i));
+//            }
+            
+            ArrayList<Symbol.Seq> allRules = new ArrayList<>();
+
+            for (int i = 0; i < allExpansions.length(); i++) {
+                String singleExpansion = allExpansions.getString(i);
+                System.out.println(singleExpansion);
+//                System.out.println(rulesExpansions[i]);
+                Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
+                allRules.add(symbolExpansion);
+//              
+            }
+            this.rules.put(sym, allRules);
+            
+        }
+    }
+
+    private Symbol.Seq getSequenceFromStringExpansion(Symbol sym, String expansion) {
+        ArrayList<Symbol> symbolExpansion = new ArrayList<>();
+        for(int j=0; j<expansion.length(); j++){
+            Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
+            symbolExpansion.add(temp);
+        }
+        Symbol.Seq seq = sym.new Sequence(symbolExpansion);
+        return seq;
     }
 
 }
