@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import lindenmayer.Symbol.Sequence;
 //import lindenmayer.Symbol.Test;
 import org.json.*;
@@ -38,6 +39,7 @@ public class LSystem extends AbstractLSystem {
         this.start = new int[3];
         this.readJSONFile();
         this.initTurtleModel();
+        this.applyRules(this.axiom, this.rounds);
     }
     
     private void readJSONFile() throws java.io.IOException {
@@ -90,17 +92,27 @@ public class LSystem extends AbstractLSystem {
         Symbol sym = getSymbolFromCharacter(character);
 //        System.out.println(sym);
         this.axiom = getSequenceFromStringExpansion(sym, str);
-        System.out.println(this.axiom.iterator());
+//        System.out.println(this.axiom.iterator());
     }
 
     @Override
     public Symbol.Seq getAxiom() {
+        applyRules(axiom, step);
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Symbol.Seq rewrite(Symbol sym) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Symbol.Seq rewrite(Symbol sym) { // untested
+        if(this.rules.containsKey(sym)){
+            // get random rule
+            Random random = new Random();
+            List<Symbol.Seq> allRules = this.rules.get(sym);
+//            System.out.println(allRules.size());
+            int index = random.nextInt(allRules.size()) % allRules.size(); // verify randomness
+            return allRules.get(index);
+        }
+        // return the same key if no mappings
+        return getSequenceFromSymbol(sym);
     }
 
     @Override
@@ -135,9 +147,34 @@ public class LSystem extends AbstractLSystem {
     }
 
     @Override
-    public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
-       
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
+//        Symbol symbol = new Symbol('F'); // dummy
+//        Symbol.Seq newSequence = symbol.new Sequence(); 
+        if(this.rounds>0){
+//           Iterator<Symbol> sequence = seq.iterator();
+            Iterator<Symbol> sequence = this.axiom.iterator();
+//            System.out.println(sequence.next());
+           Symbol symbol = new Symbol('F'); // dummy
+           Symbol.Seq newSequence = symbol.new Sequence(); 
+           while(sequence.hasNext()){
+               Symbol temp = sequence.next();
+               System.out.println(temp.toString());
+               System.out.println(temp);
+               Symbol.Seq substitution = rewrite(temp);
+               System.out.println(substitution);
+//               newSequence.concatToSequence(substitution);
+//               newSequence.concatToSequence(substitution);
+// subsitute symbol with its sequence
+               
+           }
+//        System.out.println(newSequence);
+        this.axiom = newSequence;
+          this.rounds--;
+       }
+        
+        return null;
+
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -207,7 +244,6 @@ public class LSystem extends AbstractLSystem {
                 String singleExpansion = allExpansions.getString(i);
                 Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
                 allRules.add(symbolExpansion);
-             
             }
             this.rules.put(sym, allRules);
             
@@ -223,6 +259,12 @@ public class LSystem extends AbstractLSystem {
         Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
 //        System.out.println(seq.iterator());
         return seq;
+    }
+
+    private Symbol.Seq getSequenceFromSymbol(Symbol sym) {
+        ArrayList<Symbol> sequence = new ArrayList<>();
+        sequence.add(sym);
+        return sym.new Sequence(sequence);
     }
 
 }

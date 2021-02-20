@@ -28,6 +28,7 @@ public class Symbol {
         Iterator<Symbol> iterator();
         
         void print();
+        void concatToSequence(Sequence concatenation);
         
     }
     
@@ -37,17 +38,30 @@ public class Symbol {
         public Sequence(ArrayList<Symbol> sequences){
             this.sequences = sequences;
         }
+        
+        public Sequence(){
+        }
+
+        public ArrayList<Symbol> getSequences() {
+            return sequences;
+        }
+
+        @Override
+        public void concatToSequence(Sequence concatenation){
+            this.sequences.addAll(concatenation.getSequences());
+        }
 
         @Override
         public Iterator<Symbol> iterator() {
             //TODO
             Iterator<Symbol> temp = sequences.iterator();
             while(temp.hasNext()){
-                System.out.print(temp.next());
+//                System.out.print(temp.next());
+                temp.next();
             }
             return temp;
         }
-
+        
         @Override
         public void print() {
             //TODO
