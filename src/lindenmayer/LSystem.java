@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import lindenmayer.Symbol.Seq;
+import lindenmayer.Symbol;
+import lindenmayer.Symbol.Sequence;
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
@@ -70,6 +73,8 @@ public class LSystem extends AbstractLSystem {
             addRule(sym, expansion);
         }
         
+        System.out.println(this.rules);
+        
         // add parameters
         readParametersFromJSONFile(parameters);
     }
@@ -87,12 +92,18 @@ public class LSystem extends AbstractLSystem {
         // add rule with its expansion
         // ISSUE: not implemented liked the prof asked
         // 1. Get a list of symbol from the string expansion
+
+        // the new interface
+        Symbol symbol = new Symbol('R'); // test with arbitrary char
+        Symbol.Seq seq = symbol.new Sequence();
+        seq.print();
+        
         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
         for(int i=0; i<expansion.length(); i++){
             Symbol temp = getSymbolFromCharacter(expansion.charAt(i));
             symbolExpansion.add(temp);
         }
-//        System.out.println(symbolExpansion);
+        System.out.println(symbolExpansion);
         // 2. Add the rule to HashMap
         this.rules.put(sym, symbolExpansion);
     }

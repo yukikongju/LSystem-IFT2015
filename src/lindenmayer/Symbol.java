@@ -1,5 +1,8 @@
 package lindenmayer;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * * Symbol in an L-system's alphabet. * * @author Mikl&oacute;s
  * Cs&#369;r&ouml;s
@@ -20,7 +23,32 @@ public class Symbol {
     /**
      * * Common interface to a string of symbols. *
      */
-    public interface Seq extends Iterable<Symbol> {
+   
+    public interface Seq extends Iterable<Symbol>{
         // TODO
+   
+        void print();
     }
+    
+    public class Sequence implements Symbol.Seq{
+//        private ArrayList<Symbol> sequences;
+//        
+//        @Override
+//        public Iterator<Symbol> iterator() {
+//            Iterator<Symbol> temp = sequences.iterator();
+//            return temp;
+//        }
+
+        @Override
+        public void print() {
+            System.out.println("testintintti");
+        }
+
+        @Override
+        public Iterator<Symbol> iterator() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+    }
+    
 }
