@@ -17,11 +17,14 @@ public class LSystem extends AbstractLSystem {
     private int rounds;
     private HashMap<Character, Symbol> alphabet;
 //    private String axiom;
-    private Symbol.Seq axiom;
+//    private Symbol.Seq axiom;
+    private Sequence axiom;
 
 //    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
 //    private HashMap<Symbol, List<Symbol>> rules;
-    private HashMap<Symbol, List<Symbol.Seq>> rules;
+//    private HashMap<Symbol, List<Symbol.Seq>> rules;
+        private HashMap<Symbol, List<Sequence>> rules;
+
     private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
@@ -92,21 +95,37 @@ public class LSystem extends AbstractLSystem {
         Symbol sym = getSymbolFromCharacter(character);
 //        System.out.println(sym);
         this.axiom = getSequenceFromStringExpansion(sym, str);
-        System.out.println(this.axiom.toString());
+//        System.out.println(this.axiom.toString());
     }
 
     @Override
     public Symbol.Seq getAxiom() {
         applyRules(axiom, step);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null; // to change
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Symbol.Seq rewrite(Symbol sym) { // untested
+//    @Override
+//    public Symbol.Seq rewrite(Symbol sym) { // untested
+//        if(this.rules.containsKey(sym)){
+//            // get random rule
+//            Random random = new Random();
+//            List<Symbol.Seq> allRules = this.rules.get(sym);
+////            System.out.println(allRules.size());
+//            int index = random.nextInt(allRules.size()) % allRules.size(); // verify randomness
+//            return allRules.get(index);
+//        }
+//        // return the same key if no mappings
+//        return getSequenceFromSymbol(sym);
+//    }
+
+     public Sequence rewrite(Symbol sym) { // untested
         if(this.rules.containsKey(sym)){
             // get random rule
             Random random = new Random();
-            List<Symbol.Seq> allRules = this.rules.get(sym);
+//            List<Symbol.Seq> allRules = this.rules.get(sym);
+            List<Sequence> allRules = this.rules.get(sym);
+
 //            System.out.println(allRules.size());
             int index = random.nextInt(allRules.size()) % allRules.size(); // verify randomness
             return allRules.get(index);
@@ -114,7 +133,7 @@ public class LSystem extends AbstractLSystem {
         // return the same key if no mappings
         return getSequenceFromSymbol(sym);
     }
-
+    
     @Override
     public void tell(Turtle turtle, Symbol sym) {
         // ISSUE: changer Turtle abstraction because we now have constructor
@@ -148,29 +167,22 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
-//        Symbol symbol = new Symbol('F'); // dummy
-//        Symbol.Seq newSequence = symbol.new Sequence(); 
-        if(this.rounds>0){
-//           Iterator<Symbol> sequence = seq.iterator();
-            Iterator<Symbol> sequence = this.axiom.iterator();
-//            System.out.println(sequence.next());
-           Symbol symbol = new Symbol('F'); // dummy
-           Symbol.Seq newSequence = symbol.new Sequence(); 
-           while(sequence.hasNext()){
-               Symbol temp = sequence.next();
-               System.out.println(temp.toString());
-               System.out.println(temp);
-               Symbol.Seq substitution = rewrite(temp);
-               System.out.println(substitution);
-//               newSequence.concatToSequence(substitution);
-//               newSequence.concatToSequence(substitution);
-// subsitute symbol with its sequence
-               
-           }
-//        System.out.println(newSequence);
-        this.axiom = newSequence;
-          this.rounds--;
-       }
+//       1. traverse the sequence symbol by symbol
+//       2. for each symbol, get the corresponding substitution with rewrite
+//       3. append the substitution to the auxiliary
+//       4. 
+
+        Symbol dummy = new Symbol('F');
+        Sequence newSequence = dummy.new Sequence();
+        Iterator sequence = this.axiom.iterator();
+//        System.out.println(sequence.getClass());
+//        do{
+//            Sequence substitution = rewrite(sequence.next());
+//        }
+        
+//        do{
+////            Symbol.Seq substitution = rewrite(sequence.next());
+//        }while(sequence.hasNext());
         
         return null;
 
@@ -238,11 +250,15 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
             JSONArray allExpansions = rules.getJSONArray(symbol);
             
-            ArrayList<Symbol.Seq> allRules = new ArrayList<>();
+//            ArrayList<Symbol.Seq> allRules = new ArrayList<>();
+            ArrayList<Sequence> allRules = new ArrayList<>();
+
 
             for (int i = 0; i < allExpansions.length(); i++) {
                 String singleExpansion = allExpansions.getString(i);
-                Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
+//                Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
+                Sequence symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
+
                 allRules.add(symbolExpansion);
             }
             this.rules.put(sym, allRules);
@@ -250,21 +266,40 @@ public class LSystem extends AbstractLSystem {
         }
     }
 
-    private Symbol.Seq getSequenceFromStringExpansion(Symbol sym, String expansion) {
+     private Sequence getSequenceFromStringExpansion(Symbol sym, String expansion) {
         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
         for(int j=0; j<expansion.length(); j++){
             Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
             symbolExpansion.add(temp);
         }
-        Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
+//        Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
+        Sequence seq = sym.new Sequence(symbolExpansion);
 //        System.out.println(seq.iterator());
         return seq;
     }
+    
+//    private Symbol.Seq getSequenceFromStringExpansion(Symbol sym, String expansion) {
+//        ArrayList<Symbol> symbolExpansion = new ArrayList<>();
+//        for(int j=0; j<expansion.length(); j++){
+//            Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
+//            symbolExpansion.add(temp);
+//        }
+////        Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
+//        Sequence seq = sym.new Sequence(symbolExpansion);
+////        System.out.println(seq.iterator());
+//        return seq;
+//    }
 
-    private Symbol.Seq getSequenceFromSymbol(Symbol sym) {
+//    private Symbol.Seq getSequenceFromSymbol(Symbol sym) {
+//        ArrayList<Symbol> sequence = new ArrayList<>();
+//        sequence.add(sym);
+//        return sym.new Sequence(sequence);
+//    }
+
+     private Sequence getSequenceFromSymbol(Symbol sym) {
         ArrayList<Symbol> sequence = new ArrayList<>();
         sequence.add(sym);
         return sym.new Sequence(sequence);
     }
-
+    
 }

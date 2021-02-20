@@ -25,10 +25,11 @@ public class Symbol {
      */
    
     public interface Seq extends Iterable<Symbol>{
-        Iterator<Symbol> iterator();
+//        Iterator<Symbol> iterator();
         
         void print();
         void concatToSequence(Sequence concatenation);
+        void replaceSymbolBySequence(Sequence substitution);
         
     }
     
@@ -75,12 +76,16 @@ public class Symbol {
 
         @Override
         public String toString() {
-            // TODO: (TO FIX) there is probably a more efficient way to implement that using iterators
             String s = "";
             for(int i=0; i<this.sequences.size();i++){
                 s += this.sequences.get(i);
             }
             return s;
+        }
+
+        @Override
+        public void replaceSymbolBySequence(Sequence substitution) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
     }
