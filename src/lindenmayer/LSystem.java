@@ -92,7 +92,7 @@ public class LSystem extends AbstractLSystem {
         Symbol sym = getSymbolFromCharacter(character);
 //        System.out.println(sym);
         this.axiom = getSequenceFromStringExpansion(sym, str);
-//        System.out.println(this.axiom.iterator());
+        System.out.println(this.axiom.toString());
     }
 
     @Override

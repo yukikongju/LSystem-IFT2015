@@ -76,9 +76,9 @@ public class Symbol {
         @Override
         public String toString() {
             // TODO: (TO FIX) there is probably a more efficient way to implement that using iterators
-            String s = null;
+            String s = "";
             for(int i=0; i<this.sequences.size();i++){
-                s+= this.sequences.get(i);
+                s += this.sequences.get(i);
             }
             return s;
         }
