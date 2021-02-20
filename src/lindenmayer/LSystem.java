@@ -2,28 +2,39 @@ package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
+import lindenmayer.Symbol.Sequence;
+//import lindenmayer.Symbol.Test;
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
     
     private String file;
-    private int numIter;
+    private int rounds;
     private HashMap<Character, Symbol> alphabet;
-    private String axiom;
-//    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
-    private HashMap<Symbol, List<Symbol>> rules;
+//    private String axiom;
+//    private Symbol.Seq axiom;
+    private Sequence axiom;
+
+//    private HashMap<Symbol, List<Symbol.Seq>> rules; //(prof?)
+//    private HashMap<Symbol, List<Symbol>> rules;
+//    private HashMap<Symbol, List<Symbol.Seq>> rules;
+        private HashMap<Symbol, List<Sequence>> rules;
+
     private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
     private int[] start;
+    
     private TurtleModel turtle;
     
     /** TODO: Constructor **/
-    public LSystem(String file, int numIter) throws IOException{
-        this.numIter = numIter;
+    public LSystem(String file, int rounds) throws IOException{
+        this.rounds = rounds;
         this.file = file;
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
@@ -31,43 +42,29 @@ public class LSystem extends AbstractLSystem {
         this.start = new int[3];
         this.readJSONFile();
         this.initTurtleModel();
+        this.axiom = this.applyRules(this.axiom, 0);
     }
     
-//    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
-//        // deprecated?
-//    }
-    
     private void readJSONFile() throws java.io.IOException {
-        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
+        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file))); // lecture de fichier JSON avec JSONTokener
         JSONArray alphabet = input.getJSONArray("alphabet");
         String axiom = input.getString("axiom");
         JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
         JSONObject actions = new JSONObject(input, "actions").getJSONObject("actions");
         JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
         
-        // Set axiom
-        this.setAxiom(axiom);
-        
         // add alphabet
         readAlphabetFromJSONFile(alphabet);
+        
+        // Set axiom
+        this.setAxiom(axiom);
         
         // set actions
         readActionsFromJSONFile(actions);
         
         // add rules
-        Iterator<String> keys = rules.keys();
-        while(keys.hasNext()){
-            String symbol = keys.next(); 
-            // ISSUE: read expansion as string, not JSONArray
-            String expansion = rules.get(symbol).toString();
-            expansion = expansion.replace("\"", "");
-            expansion = expansion.replace("[", "");
-            expansion = expansion.replace("]", "");
-            char character = symbol.charAt(0);
-            Symbol sym = getSymbolFromCharacter(character);
-            addRule(sym, expansion);
-        }
-
+        readRulesFromJSONFile(rules);
+        
         // add parameters
         readParametersFromJSONFile(parameters);
     }
@@ -82,9 +79,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void addRule(Symbol sym, String expansion) {
-        // add rule with its expansion
-        // 1. Get a list of symbol from the string expansion
-        // 2. Add the rule to HashMap
+        // TODO: refractor from readRulesFromJSONFile
     }
 
     @Override
@@ -94,19 +89,31 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void setAxiom(String str) {
-        this.axiom = str;
+        char character = str.charAt(0);
+        Symbol sym = getSymbolFromCharacter(character);
+        this.axiom = getSequenceFromStringExpansion(sym, str);
+//        System.out.println(this.axiom.toString());
     }
 
     @Override
     public Symbol.Seq getAxiom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        applyRules(axiom, 0);
+        return null; // to change
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public Symbol.Seq rewrite(Symbol sym) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public Sequence rewrite(Symbol sym) { // untested
+        if(this.rules.containsKey(sym)){
+            // get random rule
+            Random random = new Random();
+            List<Sequence> allRules = this.rules.get(sym);
+            int index = random.nextInt(allRules.size()) % allRules.size(); // verify randomness
+            return allRules.get(index);
+        }
+        // return the same key if no mappings
+        return getSequenceFromSymbol(sym);
     }
-
+    
     @Override
     public void tell(Turtle turtle, Symbol sym) {
         // ISSUE: changer Turtle abstraction because we now have constructor
@@ -138,9 +145,23 @@ public class LSystem extends AbstractLSystem {
         }
     }
 
-    @Override
-    public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    @Override
+    public Sequence applyRules(Sequence seq, int n) { //replace Symbol.Seq by this.axiom
+        if(n>=this.rounds) return seq;
+        
+        Symbol dummy = new Symbol('F');
+        Sequence newSequence = dummy.new Sequence();
+        
+        ArrayList<Symbol> sequence = seq.getSequences();
+
+        for(int i=0; i<sequence.size(); i++){
+            Sequence substitution = rewrite(sequence.get(i));
+            newSequence.concatToSequence(substitution);
+        }
+        n++;
+        System.out.println(newSequence);
+        return applyRules(newSequence, n); // new sequence
+
     }
 
     @Override
@@ -182,16 +203,53 @@ public class LSystem extends AbstractLSystem {
  }
 
     private void initTurtleModel() {
-        // TODO: initialize the turtle with the json file
         turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
                 this.angle, this.step);
-        // dummy 
-//        Symbol symbol = getSymbolFromCharacter('R');
-//        tell(turtle, symbol);
     }
 
     private String getActionFromSymbol(Symbol sym) {
         return (String) this.actions.get(sym);
     }
 
+    private void readRulesFromJSONFile(JSONObject rules) {
+        Iterator<String> keys = rules.keys();
+        while(keys.hasNext()){ // iterate through each axiom in rules
+            String symbol = keys.next();
+            char character = symbol.charAt(0);
+            Symbol sym = getSymbolFromCharacter(character);
+            JSONArray allExpansions = rules.getJSONArray(symbol);
+            
+            ArrayList<Sequence> allRules = new ArrayList<>();
+
+            for (int i = 0; i < allExpansions.length(); i++) {
+                String singleExpansion = allExpansions.getString(i);
+                Sequence symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
+
+                allRules.add(symbolExpansion);
+            }
+            this.rules.put(sym, allRules);
+        }
+    }
+
+     private Sequence getSequenceFromStringExpansion(Symbol sym, String expansion) {
+        ArrayList<Symbol> symbolExpansion = new ArrayList<>();
+        for(int j=0; j<expansion.length(); j++){
+            Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
+            symbolExpansion.add(temp);
+        }
+        Sequence seq = sym.new Sequence(symbolExpansion);
+        return seq;
+    }
+    
+     private Sequence getSequenceFromSymbol(Symbol sym) {
+        ArrayList<Symbol> sequence = new ArrayList<>();
+        sequence.add(sym);
+        return sym.new Sequence(sequence);
+    }
+
+    @Override
+    public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
