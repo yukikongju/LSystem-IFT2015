@@ -93,22 +93,20 @@ public class LSystem extends AbstractLSystem {
         // ISSUE: not implemented liked the prof asked
         // 1. Get a list of symbol from the string expansion
 
-        
         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
         for(int i=0; i<expansion.length(); i++){
             Symbol temp = getSymbolFromCharacter(expansion.charAt(i));
             symbolExpansion.add(temp);
         }
-        System.out.println(symbolExpansion);
-        // 2. Add the rule to HashMap
-        this.rules.put(sym, symbolExpansion);
-        
+//        System.out.println(symbolExpansion);
         
         // the new interface (test)
-        Symbol symbol = new Symbol('R'); // test with arbitrary char
-        Symbol.Seq seq = symbol.new Sequence(symbolExpansion);
-//        System.out.println(seq);
+//        Symbol symbol = new Symbol('R'); // test with arbitrary char
+        Symbol.Seq seq = sym.new Sequence(symbolExpansion);
         seq.print();
+        
+         // 2. Add the rule to HashMap
+        this.rules.put(sym, symbolExpansion);
     }
 
     @Override
@@ -211,6 +209,7 @@ public class LSystem extends AbstractLSystem {
                 this.angle, this.step);
         // dummy 
 //        Symbol symbol = getSymbolFromCharacter('R');
+//        System.out.println(this.rules.get(symbol));
 //        tell(turtle, symbol);
     }
 
