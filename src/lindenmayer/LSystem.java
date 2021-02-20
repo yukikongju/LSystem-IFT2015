@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import lindenmayer.Symbol.Sequence;
+import lindenmayer.Symbol.Test;
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
@@ -57,7 +58,7 @@ public class LSystem extends AbstractLSystem {
         // add rules
         readRulesFromJSONFile(rules);
         
-        System.out.println(this.rules);
+//        System.out.println(this.rules);
         
         // add parameters
         readParametersFromJSONFile(parameters);
@@ -199,11 +200,7 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
 //            System.out.println(keys);
 //            System.out.println(symbol);
-//            String expansion = rules.get(symbol).toString();
             JSONArray allExpansions = rules.getJSONArray(symbol);
-            
-//            System.out.println(allExpansions.get(0));
-//            String[] rulesExpansions = expansion.split(",");
             
 //            for (int i = 0; i < allExpansions.length(); i++) {
 ////                System.out.println(rulesExpansions[i]);
@@ -214,7 +211,7 @@ public class LSystem extends AbstractLSystem {
 
             for (int i = 0; i < allExpansions.length(); i++) {
                 String singleExpansion = allExpansions.getString(i);
-                System.out.println(singleExpansion);
+//                System.out.println(singleExpansion);
 //                System.out.println(rulesExpansions[i]);
                 Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
                 allRules.add(symbolExpansion);
@@ -232,10 +229,12 @@ public class LSystem extends AbstractLSystem {
             Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
             symbolExpansion.add(temp);
         }
-        Symbol.Seq seq = sym.new Sequence(symbolExpansion);
-        // BATARD: remove null starting character manually lol
+        Symbol.Seq seq = sym.new Sequence(symbolExpansion); // PROBLEMMMME
+//        Sequence sequence = new Sequence(symbolExpansion);
         
-        System.out.println(seq);
+        // BATARD: remove null starting character manually lol // okay
+        
+        System.out.println(seq.iterator());
         return seq;
     }
 

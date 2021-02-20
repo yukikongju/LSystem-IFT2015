@@ -32,7 +32,12 @@ public class Symbol {
         
     }
     
-    public class Sequence implements Symbol.Seq{
+    public class Test extends ArrayList<Symbol.Seq>{
+        
+    }
+    
+    
+    public class Sequence implements Seq{
         private ArrayList<Symbol> sequences;
         
         public Sequence(ArrayList<Symbol> sequences){
