@@ -123,10 +123,7 @@ public class LSystem extends AbstractLSystem {
         if(this.rules.containsKey(sym)){
             // get random rule
             Random random = new Random();
-//            List<Symbol.Seq> allRules = this.rules.get(sym);
             List<Sequence> allRules = this.rules.get(sym);
-
-//            System.out.println(allRules.size());
             int index = random.nextInt(allRules.size()) % allRules.size(); // verify randomness
             return allRules.get(index);
         }
@@ -174,19 +171,17 @@ public class LSystem extends AbstractLSystem {
 
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
-        Iterator sequence = this.axiom.iterator();
-//        System.out.println(sequence.getClass());
-//        do{
-//            Sequence substitution = rewrite(sequence.next());
-//        }
+//        System.out.println(newSequence.toString());
         
-//        do{
-////            Symbol.Seq substitution = rewrite(sequence.next());
-//        }while(sequence.hasNext());
-        
-        return null;
+        ArrayList<Symbol> sequence = this.axiom.getSequences();
 
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for(int i=0; i<sequence.size(); i++){
+            Sequence substitution = rewrite(sequence.get(i));
+//            newSequence.concatToSequence(substitution);
+            System.out.println(substitution);
+        }
+
+        return null;
     }
 
     @Override
@@ -239,10 +234,7 @@ public class LSystem extends AbstractLSystem {
 
     private void readRulesFromJSONFile(JSONObject rules) {
         // TODO
-//        1. get chacune des expansions
-//        2. transformer chaque expansion as a Symbol.Seq
-//        3. Add the symbol and all its expansion to this.rules
-        
+
         Iterator<String> keys = rules.keys();
         while(keys.hasNext()){ // iterate through each axiom in rules
             String symbol = keys.next();
@@ -250,13 +242,10 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
             JSONArray allExpansions = rules.getJSONArray(symbol);
             
-//            ArrayList<Symbol.Seq> allRules = new ArrayList<>();
             ArrayList<Sequence> allRules = new ArrayList<>();
-
 
             for (int i = 0; i < allExpansions.length(); i++) {
                 String singleExpansion = allExpansions.getString(i);
-//                Symbol.Seq symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
                 Sequence symbolExpansion = getSequenceFromStringExpansion(sym, singleExpansion);
 
                 allRules.add(symbolExpansion);
@@ -272,30 +261,10 @@ public class LSystem extends AbstractLSystem {
             Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
             symbolExpansion.add(temp);
         }
-//        Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
         Sequence seq = sym.new Sequence(symbolExpansion);
-//        System.out.println(seq.iterator());
         return seq;
     }
     
-//    private Symbol.Seq getSequenceFromStringExpansion(Symbol sym, String expansion) {
-//        ArrayList<Symbol> symbolExpansion = new ArrayList<>();
-//        for(int j=0; j<expansion.length(); j++){
-//            Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
-//            symbolExpansion.add(temp);
-//        }
-////        Symbol.Seq seq = sym.new Sequence(symbolExpansion); 
-//        Sequence seq = sym.new Sequence(symbolExpansion);
-////        System.out.println(seq.iterator());
-//        return seq;
-//    }
-
-//    private Symbol.Seq getSequenceFromSymbol(Symbol sym) {
-//        ArrayList<Symbol> sequence = new ArrayList<>();
-//        sequence.add(sym);
-//        return sym.new Sequence(sequence);
-//    }
-
      private Sequence getSequenceFromSymbol(Symbol sym) {
         ArrayList<Symbol> sequence = new ArrayList<>();
         sequence.add(sym);
