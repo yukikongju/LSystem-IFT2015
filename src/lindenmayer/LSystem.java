@@ -152,12 +152,20 @@ public class LSystem extends AbstractLSystem {
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
         
-        ArrayList<Symbol> sequence = seq.getSequences();
-
-        for(int i=0; i<sequence.size(); i++){
-            Sequence substitution = rewrite(sequence.get(i));
+//        ArrayList<Symbol> sequence = seq.getSequences();
+        
+        Iterator iter = seq.getSequences().iterator();
+        
+        while(iter.hasNext()){
+            Symbol symbol = (Symbol) iter.next();
+            Sequence substitution = rewrite(symbol);
             newSequence.concatToSequence(substitution);
         }
+
+//        for(int i=0; i<sequence.size(); i++){
+//            Sequence substitution = rewrite(sequence.get(i));
+//            newSequence.concatToSequence(substitution);
+//        }
         n++;
         System.out.println(newSequence);
         // call tell()
