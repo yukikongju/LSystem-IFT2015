@@ -102,7 +102,7 @@ public class LSystem extends AbstractLSystem {
           } return rule;
     }
     
-     private void updateTurtle(AbstractTurtle turtle, String action){
+     private void updateTurtle(TurtleInterface turtle, String action){
          switch(action){
             case "draw":
                 turtle.draw();

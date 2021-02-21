@@ -8,7 +8,7 @@ import java.util.Stack;
  *
  * @author emuli
  */
-public abstract class TurtleModel extends Observable implements AbstractTurtle  {
+public abstract class TurtleModel extends Observable implements TurtleInterface  {
     
     private double step, delta;
     private Stack<State> stack;
