@@ -2,11 +2,8 @@ package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 import lindenmayer.Symbol.Seq;
 
 import org.json.*;
@@ -20,6 +17,12 @@ public class LSystem extends AbstractLSystem {
     private Seq axiom;
 
     private TurtleModel turtle;
+
+    Stack<Seq> pileSeq = new Stack<>();
+    double xmax;
+    double xmin;
+    double ymax;
+    double ymin;
     
     /** TODO: Constructor **/
     public LSystem(String file, int rounds) throws IOException{
@@ -28,6 +31,7 @@ public class LSystem extends AbstractLSystem {
         this.alphabet = new HashMap<>();
         this.readJSONFile();
         this.axiom = this.applyRules(this.axiom, 0);
+        this.tell(this.turtle, this.axiom, rounds);
     }
     
     private void readJSONFile() throws java.io.IOException {
@@ -145,9 +149,9 @@ public class LSystem extends AbstractLSystem {
         }
 
         n++;
-        System.out.println(newSequence);
-
-        turtleCalculation(newSequence); // call Turtle calculation
+        //System.out.println(newSequence);
+        pileSeq.push(newSequence);
+        //turtleCalculation(newSequence); // call Turtle calculation
         
         return applyRules(newSequence, n); // new sequence
 
@@ -156,7 +160,25 @@ public class LSystem extends AbstractLSystem {
 //    @Override
     public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
         // TODO: UI de la tortue
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Rectangle2D r = new Rectangle2D.Double(0, 0, (xmax- xmin), (ymax - ymin));
+        seq = pileSeq.peek();
+        turtleCalculation(seq);
+
+        System.out.println(pileSeq.peek());
+
+        pileSeq.pop();
+
+        if(pileSeq.empty()){
+            System.out.println("vide");
+            System.out.println(xmax +","+ ymax+"," + xmin +","+ ymin);
+            return r;
+        }
+
+        tell(this.turtle, pileSeq.peek(), rounds);
+
+        return null;
+
     }
 
     private void readParametersFromJSONFile(JSONObject parameters) {
@@ -256,6 +278,10 @@ public class LSystem extends AbstractLSystem {
         while(iter.hasNext()){
             Symbol symbol = (Symbol) iter.next();
 //            System.out.println(symbol);
+            xmax = Math.max(this.turtle.getPosition().getX(), xmax);
+            xmin = Math.min(this.turtle.getPosition().getX(), xmin);
+            ymax = Math.max(this.turtle.getPosition().getY(), ymax);
+            ymin = Math.min(this.turtle.getPosition().getY(), ymin);
             tell(this.turtle, symbol);
         }
     }
