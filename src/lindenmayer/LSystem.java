@@ -98,7 +98,6 @@ public class LSystem extends AbstractLSystem {
             case "move":
                 this.turtle.move();
 //                System.out.print("-move-");
-
                 break;
             case "turnL":
                 this.turtle.turnL();
@@ -143,7 +142,6 @@ public class LSystem extends AbstractLSystem {
 
 //    @Override
     public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
-        // TODO: UI de la tortue
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

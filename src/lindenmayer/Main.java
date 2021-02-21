@@ -18,7 +18,9 @@ public class Main {
         int rounds = 3;
         
         // 3. Initialize LSystem
-        LSystem system = new LSystem(file3, rounds);
+//        LSystem system = new LSystem(file3, rounds);
+        MainPS mainPS = new MainPS(file, rounds);
+        
     }
     
 }

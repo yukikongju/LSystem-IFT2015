@@ -12,12 +12,12 @@ import java.io.IOException;
  *
  * @author emuli
  */
-public class MainEPS {
+public class MainPS {
 
     private LSystem lsystem;
     private TurtleModel turtle;
     
-    public MainEPS(String file, int rounds) throws IOException{
+    public MainPS(String file, int rounds) throws IOException{
         lsystem = new LSystem(file, rounds);
         turtle = new TurtleModel();
         printPSHeader();
