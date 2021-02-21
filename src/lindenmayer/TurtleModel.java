@@ -77,20 +77,18 @@ public class TurtleModel implements AbstractTurtle {
     @Override
     public void push() {
         State temp = new State(currentState.x,currentState.y,currentState.theta);
-        System.out.println(" stroke ");
+        System.out.println("stroke ");
         stack.push(temp);
         printPosition();
         System.out.println(" newpath M ");
-//        System.out.println(temp);
     }
 
     @Override
     public void pop() {
         if(!stack.isEmpty()){
-            System.out.println(" stroke ");
             this.currentState = stack.pop();
+            System.out.println("stroke ");
             printPosition();
-            System.out.println(" newpath M ");
         } else {
             System.out.println("An error has occured.");
         }
@@ -103,7 +101,6 @@ public class TurtleModel implements AbstractTurtle {
     @Override
     public void init(Point2D pos, double angle_deg) {
         currentState = new State(pos.getX(), pos.getY(), angle_deg);
-        System.out.println();
     }
 
     @Override
@@ -114,7 +111,7 @@ public class TurtleModel implements AbstractTurtle {
 
     private void printPosition(){
         Point2D currentPosition = this.getPosition();
-        System.out.print(FORMAT + " " + currentPosition.getX() + " " + 
+        System.out.printf(FORMAT, currentPosition.getX(),
                 currentPosition.getY());
     }
     
