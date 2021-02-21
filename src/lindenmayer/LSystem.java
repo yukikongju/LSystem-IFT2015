@@ -13,7 +13,6 @@ public class LSystem extends AbstractLSystem {
     private String file;
     private int rounds;
     private HashMap<Character, Symbol> alphabet;
-//    private Sequence axiom;
     private Seq axiom;
 
     private TurtleModel turtle;
@@ -90,7 +89,6 @@ public class LSystem extends AbstractLSystem {
     
     @Override
     public void tell(AbstractTurtle turtle, Symbol sym) {
-//        String action = getActionFromSymbol(sym);
         String action = sym.getAction();
         switch(action){
             case "draw":
@@ -130,22 +128,15 @@ public class LSystem extends AbstractLSystem {
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
         if(n>=this.rounds) return seq;
-        
         Symbol.Seq newSequence = new Sequence();
-        
         Iterator<Symbol> iter = seq.iterator();
-        
         while(iter.hasNext()){
             Symbol symbol = (Symbol) iter.next();
             Symbol.Seq substitution = rewrite(symbol);
             newSequence.concat(substitution);
         }
-
         n++;
-//        System.out.println(newSequence);
-
         turtleCalculation(newSequence); // call Turtle calculation
-        
         return applyRules(newSequence, n); // new sequence
 
     }
@@ -225,7 +216,6 @@ public class LSystem extends AbstractLSystem {
         
         while(iter.hasNext()){
             Symbol symbol = (Symbol) iter.next();
-//            System.out.println(symbol);
             tell(this.turtle, symbol);
         }
     }
