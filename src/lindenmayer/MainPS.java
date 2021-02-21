@@ -41,8 +41,8 @@ public class MainPS {
     }
     
     private void printPSFooter(Rectangle2D rectangle){
-        System.out.print("stroke");
-	System.out.print("%%Trailer");
+        System.out.println("stroke");
+	System.out.println("%%Trailer");
         System.out.println("%%BoundingBox:" + 
                 (int) rectangle.getX() + " " + (int) rectangle.getY() + " " +
                 (int) (rectangle.getX() + rectangle.getWidth()) + " " +

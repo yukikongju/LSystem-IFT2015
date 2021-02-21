@@ -223,31 +223,34 @@ public class LSystem extends AbstractLSystem {
         return sequence;
     }
 
-    private void turtleCalculation(Symbol.Seq sequence) {
-        Iterator iter = sequence.iterator();
-        
-        while(iter.hasNext()){
-            Symbol symbol = (Symbol) iter.next();
-//            tell(this.turtle, symbol);
-            // update turtle?
-        }
-    }
+//    private void turtleCalculation(Symbol.Seq sequence) {
+//        Iterator iter = sequence.iterator();
+//        
+//        while(iter.hasNext()){
+//            Symbol symbol = (Symbol) iter.next();
+////            tell(this.turtle, symbol);
+//            // update turtle?
+//        }
+//    }
 
 //    @Override
     public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
         if(rounds == 0 ){
             tell(turtle, seq);
+            rectangle2D.add(turtle.getPosition());
         } else {
             Iterator<Symbol> iter = seq.iterator();
             if(iter == null){
                 tell(turtle, seq, rounds - 1); 
+                rectangle2D.add(turtle.getPosition());
             } else {
                 while(iter.hasNext()){
-                    tell(turtle,  rewrite(iter.next()), rounds -1); //probl^
+                    tell(turtle, rewrite(iter.next()), rounds -1); 
+                    rectangle2D.add(turtle.getPosition());
                 } 
             }
     }
-        rectangle2D.add(turtle.getPosition());
+//        rectangle2D.add(turtle.getPosition());
         return rectangle2D;
     }
 }
