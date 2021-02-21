@@ -22,10 +22,11 @@ public class Main {
 //        LSystem system = new LSystem(file2, numIter);
 //        LSystem system = new LSystem(file3, rounds);
         MainPS mainPS = new MainPS(file, rounds);
+        mainPS.printPostScript();
         
         
         // 4. GUi
-        GUI gui = new GUI();
+        GUI gui = new GUI(file);
         
     }
     

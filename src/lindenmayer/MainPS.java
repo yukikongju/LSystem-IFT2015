@@ -17,12 +17,17 @@ public class MainPS {
     private LSystem lsystem;
     private TurtleModel turtle;
     private JSONFile JSONFile;
+    private int rounds;
     
     public MainPS(String file, int rounds) throws IOException{
         turtle = new TurtleModel();
         lsystem = new LSystem(rounds);
         JSONFile = new JSONFile();
         JSONFile.readJSONFile(file, turtle, lsystem);
+        this.rounds = rounds;
+    }
+    
+    public void printPostScript(){
         printPSHeader();
         Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
         printPSFooter(rectangle);

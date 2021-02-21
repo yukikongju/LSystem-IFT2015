@@ -9,7 +9,9 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import lindenmayer.Symbol.Seq;
 
 public class GUI extends JFrame implements Observer {
     
@@ -17,11 +19,13 @@ public class GUI extends JFrame implements Observer {
     final static int WIDTH = 800;
     
     private JPanel mainPanel, generationPanel, turtlePanel;
+    private JLabel axiomLabel;
     private JButton iterButton;
     private LSystem lsystem;
     private TurtleModel turtle;
-    private int rounds;
+    private int rounds = 0;
     private JSONFile JSONFile;
+    private Seq axiom;
     
     public GUI(String file) throws IOException{
         // initialize obeserver and controler
@@ -29,12 +33,10 @@ public class GUI extends JFrame implements Observer {
         lsystem = new LSystem(rounds); // to setup later
         JSONFile = new JSONFile();
         JSONFile.readJSONFile(file, turtle, lsystem);
+        axiom = lsystem.getAxiom();
         
 //        lsystem = new LSystem(file, rounds, turtle);
         turtle.addObserver(this);
-        
-//        this.lsystem = controller;
-        rounds = 0;
         
         // init Windows
         setTitle("LSystem");
@@ -46,6 +48,10 @@ public class GUI extends JFrame implements Observer {
         generationPanel = new JPanel();
         turtlePanel = new JPanel();
         
+        // init generation panel (show the sentence)
+        axiomLabel = new JLabel("Axiom: " + axiom.toString());
+        generationPanel.add(axiomLabel);
+        
         // init button
         iterButton = new JButton("Iterate");
         iterButton.addActionListener(new ActionListener() {
@@ -53,15 +59,17 @@ public class GUI extends JFrame implements Observer {
             public void actionPerformed(ActionEvent ae) {
                 // TODO: add incrementation with button
                 rounds++;
-                lsystem.applyRules(lsystem.getAxiom(), rounds);
-                System.out.println(rounds);
+                axiom = lsystem.applyRule(axiom);
+                axiomLabel.setText("<html>" +"Axiom: " + axiom.toString() + "</html>");
+//                System.out.println(rounds);
+//                System.out.println(axiom.toString());
             }
         });
         
         // add panel to main frame
         add(turtlePanel, BorderLayout.CENTER);
-        add(iterButton, BorderLayout.NORTH);
-        add(generationPanel, BorderLayout.SOUTH);
+        add(iterButton, BorderLayout.SOUTH);
+        add(generationPanel, BorderLayout.NORTH);
        
         setVisible(true);
 

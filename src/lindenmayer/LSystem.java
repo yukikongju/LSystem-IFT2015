@@ -145,7 +145,18 @@ public class LSystem extends AbstractLSystem {
         }
     }
 
+    public Symbol.Seq applyRule(Symbol.Seq seq){ // apply rule on only one sentence
+        Symbol.Seq newSequence = new Sequence();
+        Iterator<Symbol> iter = seq.iterator();
+        while(iter.hasNext()){
+            Symbol symbol = (Symbol) iter.next();
+            Symbol.Seq substitution = rewrite(symbol);
+            newSequence.concat(substitution);
+        }
+        return newSequence;
+    }
     
+    @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
         if(n>=this.rounds) return seq;
         Symbol.Seq newSequence = new Sequence();
