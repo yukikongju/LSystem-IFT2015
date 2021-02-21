@@ -55,8 +55,8 @@ public abstract class AbstractLSystem
     public abstract void addRule(Symbol sym, String expansion);
     /**
      * Associates a turtle action with a symbol. This method is called while parsing the input. 
-     * The action must correspond to one of the methods in {@link Turtle}: {@link Turtle#draw() }, {@link Turtle#move() }, 
-     * {@link Turtle#turnL() }, {@link Turtle#turnR}, {@link Turtle#stay}, {@link Turtle#pop() }, {@link Turtle#push() }. 
+     * The action must correspond to one of the methods in {@link AbstractTurtle}: {@link AbstractTurtle#draw() }, {@link AbstractTurtle#move() }, 
+     * {@link AbstractTurtle#turnL() }, {@link AbstractTurtle#turnR}, {@link AbstractTurtle#stay}, {@link AbstractTurtle#pop() }, {@link AbstractTurtle#push() }. 
      * 
      * @param sym a symbol corresponding to a turtle action
      * @param action a turtle action
@@ -94,7 +94,7 @@ public abstract class AbstractLSystem
      * @param turtle used for executing the action
      * @param sym symbol that needs to be executed 
      */
-    public abstract void tell(Turtle turtle, Symbol sym);
+    public abstract void tell(AbstractTurtle turtle, Symbol sym);
 
     /**
      * Calculates the result of multiple rounds of rewriting. Symbols with no reriting rules are simply copied 
@@ -116,5 +116,5 @@ public abstract class AbstractLSystem
      * @param rounds number of rounds
      * @return bounding box (minimal rectangle covering all visited turtle positions)
      */
-    public abstract Rectangle2D tell(Turtle turtle, Symbol sym, int rounds);
+    public abstract Rectangle2D tell(AbstractTurtle turtle, Symbol sym, int rounds);
 }

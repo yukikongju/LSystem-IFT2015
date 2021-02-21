@@ -2,11 +2,8 @@ package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 import lindenmayer.Symbol.Seq;
 
 import org.json.*;
@@ -92,7 +89,7 @@ public class LSystem extends AbstractLSystem {
     }
     
     @Override
-    public void tell(Turtle turtle, Symbol sym) {
+    public void tell(AbstractTurtle turtle, Symbol sym) {
 //        String action = getActionFromSymbol(sym);
         String action = sym.getAction();
         switch(action){
@@ -145,7 +142,7 @@ public class LSystem extends AbstractLSystem {
         }
 
         n++;
-        System.out.println(newSequence);
+//        System.out.println(newSequence);
 
         turtleCalculation(newSequence); // call Turtle calculation
         
@@ -207,48 +204,21 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
             JSONArray allExpansions = rules.getJSONArray(symbol);
             
-//            ArrayList<Sequence> allRules = new ArrayList<>();
-
             for (int i = 0; i < allExpansions.length(); i++) {
                 String rule = allExpansions.getString(i);
-//                Symbol.Seq symbolExpansion = getSequenceFromString(singleExpansion);
                 addRule(sym, rule);
-                
-                
-//                allRules.add(symbolExpansion);
             }
-//            this.rules.put(sym, allRules);
         }
     }
 
      private Symbol.Seq getSequenceFromString(String expansion) {
         Sequence sequence = new Sequence();
-//         System.out.println(expansion.length());
         for(int i = 0; i<expansion.length(); i++){
             Symbol symbol = getSymbolFromCharacter(expansion.charAt(i));
-//            System.out.println(symbol.getClass());
             sequence.concat(symbol);
-            
         }
-        
-        
-//         ArrayList<Symbol> symbolExpansion = new ArrayList<>();
-//        for(int j=0; j<expansion.length(); j++){
-//            Symbol temp = getSymbolFromCharacter(expansion.charAt(j));
-//            symbolExpansion.add(temp);
-//        }
-//        Sequence seq = sym.new Sequence(symbolExpansion);
         return sequence;
     }
-    
-//     private Sequence getSequenceFromSymbol(Symbol sym) {
-//        ArrayList<Symbol> sequence = new ArrayList<>();
-//        sequence.add(sym);
-////        return sym.new Sequence(sequence);
-//        return null;
-//    }
-
-    
 
     private void turtleCalculation(Symbol.Seq sequence) {
         Iterator iter = sequence.iterator();
@@ -261,7 +231,7 @@ public class LSystem extends AbstractLSystem {
     }
 
     @Override
-    public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
+    public Rectangle2D tell(AbstractTurtle turtle, Symbol sym, int rounds) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

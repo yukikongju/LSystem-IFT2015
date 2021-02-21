@@ -7,14 +7,15 @@ import java.util.Stack;
  *
  * @author emuli
  */
-public class TurtleModel implements Turtle {
+public class TurtleModel implements AbstractTurtle {
     
     private double step, delta;
     private Stack<State> stack;
     private State currentState;
     
+    private final static String FORMAT = "%.1f %.1f";
+    
     public TurtleModel(double x, double y, double theta, double delta, double step) {
-        // TODO: use prof function
         this.delta = delta;
         this.step = step;
         this.stack = new Stack<>();
@@ -51,12 +52,16 @@ public class TurtleModel implements Turtle {
     public void draw() {
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
+        printPosition();
+        System.out.println(" L ");
     }
 
     @Override
     public void move() {
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
+        printPosition();
+        System.out.println(" M ");
     }
 
     @Override
@@ -72,28 +77,33 @@ public class TurtleModel implements Turtle {
     @Override
     public void push() {
         State temp = new State(currentState.x,currentState.y,currentState.theta);
+        System.out.println(" stroke ");
         stack.push(temp);
+        printPosition();
+        System.out.println(" newpath M ");
 //        System.out.println(temp);
     }
 
     @Override
     public void pop() {
         if(!stack.isEmpty()){
+            System.out.println(" stroke ");
             this.currentState = stack.pop();
+            printPosition();
+            System.out.println(" newpath M ");
         } else {
-            // TODO: implement error message
             System.out.println("An error has occured.");
         }
     }
 
     @Override
     public void stay() {
-        // do nothing
     }
 
     @Override
     public void init(Point2D pos, double angle_deg) {
         currentState = new State(pos.getX(), pos.getY(), angle_deg);
+        System.out.println();
     }
 
     @Override
@@ -102,6 +112,12 @@ public class TurtleModel implements Turtle {
         return position;
     }
 
+    private void printPosition(){
+        Point2D currentPosition = this.getPosition();
+        System.out.print(FORMAT + " " + currentPosition.getX() + " " + 
+                currentPosition.getY());
+    }
+    
     @Override
     public double getAngle() {
         return currentState.theta;

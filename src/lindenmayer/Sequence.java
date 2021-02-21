@@ -40,11 +40,6 @@ public class Sequence implements Symbol.Seq{
     }
 
     @Override
-    public int size() {
-        return sequences.size();
-    }
-
-    @Override
     public String toString() {
         String s="";
         for(int i=0; i<this.sequences.size();i++){

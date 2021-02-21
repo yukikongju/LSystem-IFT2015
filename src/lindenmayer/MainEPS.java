@@ -37,6 +37,8 @@ public class MainEPS {
         System.out.println("/M {moveto} bind def"); 
         System.out.println("/L {lineto} bind def"); 
         System.out.println("0.5 setlinewidth"); 
+        System.out.println(turtle.getPosition().getX() + " " + 
+                turtle.getPosition().getY() + " " + " newpath  move to ");
     }
     
     private void printPSFooter(Rectangle2D rectangle){

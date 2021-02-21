@@ -1,9 +1,6 @@
 package lindenmayer;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -54,7 +51,6 @@ public class Symbol {
      */
    
     public interface Seq extends Iterable<Symbol>{
-        int size();
         void concat(Symbol symbol);
         void concat(Symbol.Seq sequence);
     }
