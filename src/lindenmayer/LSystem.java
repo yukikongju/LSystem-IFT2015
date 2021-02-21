@@ -22,7 +22,7 @@ public class LSystem extends AbstractLSystem {
     private HashMap<Symbol, String> actions;
     private int step;
     private double angle;
-    private int[] start;
+    private double[] start;
     
     private TurtleModel turtle;
     
@@ -33,7 +33,7 @@ public class LSystem extends AbstractLSystem {
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
         this.actions = new HashMap<>();
-        this.start = new int[3];
+        this.start = new double[3];
         this.readJSONFile();
         this.initTurtleModel();
         this.axiom = this.applyRules(this.axiom, 0);
@@ -152,8 +152,6 @@ public class LSystem extends AbstractLSystem {
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
         
-//        ArrayList<Symbol> sequence = seq.getSequences();
-        
         Iterator iter = seq.getSequences().iterator();
         
         while(iter.hasNext()){
@@ -162,14 +160,10 @@ public class LSystem extends AbstractLSystem {
             newSequence.concatToSequence(substitution);
         }
 
-//        for(int i=0; i<sequence.size(); i++){
-//            Sequence substitution = rewrite(sequence.get(i));
-//            newSequence.concatToSequence(substitution);
-//        }
         n++;
         System.out.println(newSequence);
-        // call tell()
-        turtleCalculation(newSequence); // should be refractored
+
+        turtleCalculation(newSequence); // call Turtle calculation
 //        System.out.println("");
         
         return applyRules(newSequence, n); // new sequence
