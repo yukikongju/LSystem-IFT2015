@@ -33,7 +33,7 @@ public class LSystem extends AbstractLSystem {
 //        this.rules = new HashMap<>();
 //        this.actions = new HashMap<>();
         this.readJSONFile();
-        this.axiom = this.applyRules(this.axiom, 0);
+//        this.axiom = this.applyRules(this.axiom, 0);
     }
     
     private void readJSONFile() throws java.io.IOException {
@@ -72,20 +72,22 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public void addRule(Symbol sym, String expansion) {
-//        sym.
+        sym.addRule(getSequenceFromString(expansion));
+//        System.out.println();
     }
 
     @Override
     public void setAction(Symbol sym, String action) {
 //        this.actions.put(sym, action);
           sym.setAction(action);
+//          System.out.println(sym.getAction());
     }
 
     @Override
     public void setAxiom(String str) {
 //        char character = str.charAt(0);
 //        Symbol sym = getSymbolFromCharacter(character);
-        System.out.println(str);
+//        System.out.println(str);
         this.axiom = getSequenceFromString(str);
 //        System.out.println(this.axiom.toString());
     }
@@ -232,12 +234,14 @@ public class LSystem extends AbstractLSystem {
             Symbol sym = getSymbolFromCharacter(character);
             JSONArray allExpansions = rules.getJSONArray(symbol);
             
-            ArrayList<Sequence> allRules = new ArrayList<>();
+//            ArrayList<Sequence> allRules = new ArrayList<>();
 
             for (int i = 0; i < allExpansions.length(); i++) {
-                String singleExpansion = allExpansions.getString(i);
-                Symbol.Seq symbolExpansion = getSequenceFromString(singleExpansion);
-
+                String rule = allExpansions.getString(i);
+//                Symbol.Seq symbolExpansion = getSequenceFromString(singleExpansion);
+                addRule(sym, rule);
+                
+                
 //                allRules.add(symbolExpansion);
             }
 //            this.rules.put(sym, allRules);
@@ -246,7 +250,7 @@ public class LSystem extends AbstractLSystem {
 
      private Symbol.Seq getSequenceFromString(String expansion) {
         Sequence sequence = new Sequence();
-        
+//         System.out.println(expansion.length());
         for(int i = 0; i<expansion.length(); i++){
             Symbol symbol = getSymbolFromCharacter(expansion.charAt(i));
 //            System.out.println(symbol.getClass());
@@ -264,12 +268,12 @@ public class LSystem extends AbstractLSystem {
         return sequence;
     }
     
-     private Sequence getSequenceFromSymbol(Symbol sym) {
-        ArrayList<Symbol> sequence = new ArrayList<>();
-        sequence.add(sym);
-//        return sym.new Sequence(sequence);
-        return null;
-    }
+//     private Sequence getSequenceFromSymbol(Symbol sym) {
+//        ArrayList<Symbol> sequence = new ArrayList<>();
+//        sequence.add(sym);
+////        return sym.new Sequence(sequence);
+//        return null;
+//    }
 
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) {

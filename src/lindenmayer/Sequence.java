@@ -6,6 +6,7 @@
 package lindenmayer;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,6 +16,10 @@ import java.util.List;
 public class Sequence implements Symbol.Seq{
 
     private List<Symbol> sequences;
+    
+    public Sequence(){
+        sequences = new LinkedList<>();
+    }
     
 //    @Override
 //    public void concatToSequence(Symbol.Sequence concatenation) {

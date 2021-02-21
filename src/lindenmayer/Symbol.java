@@ -33,6 +33,10 @@ public class Symbol {
         this.action = action;
     }
 
+    public void addRule(Symbol.Seq rule){
+        this.rules.add(rule);
+    }
+
     public String getAction() {
         return action;
     }
