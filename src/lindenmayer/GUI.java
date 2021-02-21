@@ -33,7 +33,6 @@ public class GUI extends JFrame implements Observer {
     public void paintComponents(Graphics2D g) throws IOException, InterruptedException{
         super.paintComponents(g);
         turtleUI = new TurtleUI(g);
-        //        JSONFile.readJSONFile(file, turtleUI, lsystem);
         JSONFile.readJSONFile(file, turtleUI, lsystem);
         Rectangle2D rectangle2D = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
         Thread.sleep(5000);

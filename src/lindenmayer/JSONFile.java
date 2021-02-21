@@ -87,8 +87,6 @@ public class JSONFile {
         Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
         turtle.init(position, temp.getDouble(2));
         turtle.setUnits(step, angle);
-        
-//        initTurtleModel(angle, step, start);
     }
        
     private void readAlphabetFromJSONFile(JSONArray alphabet) {
