@@ -1,6 +1,5 @@
 package lindenmayer;
 
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -128,6 +127,7 @@ public class LSystem extends AbstractLSystem {
         }
      }
     
+    @Override
     public void tell(TurtleModel turtle, Symbol.Seq seq) {
         Iterator<Symbol> iter = seq.iterator();
         while(iter.hasNext()){
@@ -150,24 +150,12 @@ public class LSystem extends AbstractLSystem {
         return applyRules(newSequence, n); // new sequence
     }
 
-//    @Override
-//    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-
     private void readParametersFromJSONFile(JSONObject parameters) {
         double angle = parameters.getDouble("angle");
         double step = parameters.getDouble("step");
-//        double[] start = new double[3];
         JSONArray temp = parameters.getJSONArray("start");
-//        for (int i=0;i<temp.length();i++){ 
-//            int position = Integer.parseInt(temp.get(i).toString());
-//            start[i] = position;
-//        }     
         // Init Turtle from here?
         Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
-//        System.out.println(position);
-//        System.out.println(temp.getDouble(2));
         turtle.init(position, temp.getDouble(2));
         turtle.setUnits(step, angle);
         
@@ -195,11 +183,6 @@ public class LSystem extends AbstractLSystem {
             setAction(sym, action);
         }
  }
-
-//    private void initTurtleModel(double angle, double step, double[] start) {
-//        turtle = new TurtleModel(start[0], start[1], start[2], 
-//                angle, step);
-//    }
 
     private void readRulesFromJSONFile(JSONObject rules) {
         Iterator<String> keys = rules.keys();
@@ -235,55 +218,22 @@ public class LSystem extends AbstractLSystem {
 //        }
 //    }
 
-//    @Override
+    @Override
     public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
           if(rounds == 0 ){
             tell(turtle, seq);
-            rectangle2D.add(turtle.getPosition());
-            return rectangle2D;
         } else {
             Iterator<Symbol> iter = seq.iterator();
             if(iter == null){
                 tell(turtle, seq, rounds - 1); 
-//                rectangle2D.add(turtle.getPosition());
             } else {
                 while(iter.hasNext()){
                     tell(turtle, rewrite(iter.next()), rounds -1); 
-//                    rectangle2D.add(turtle.getPosition());
                 } 
             }
     }
-//          rectangle2D.add(turtle.getPosition());
+        rectangle2D.add(turtle.getPosition());
         return rectangle2D;
-//       
     }
-    
-//    public Rectangle2D test_tell(TurtleModel turtle, Symbol.Seq seq, int rounds){
-//        
-//        double largeur = 0;
-//        double hauteur = 0;
-//        double minX = 0;
-//        double maxX = 0;
-//        double minY = 0;
-//        double maxY = 0;
-//        Rectangle2D rectangle2D;
-//        
-//        Symbol.Seq sequence = applyRules(seq, rounds);
-//        Iterator<Symbol> iter = sequence.iterator();
-//        while(iter.hasNext()){
-//            Symbol symbol = iter.next();
-////            updateTurtle(turtle, symbol.getAction());
-//            tell(turtle, rewrite(symbol), rounds);
-//            minX = Math.min(minX, turtle.getPosition().getX());
-//            maxX = Math.max(maxX, turtle.getPosition().getX());
-//            minY = Math.min(minY, turtle.getPosition().getY());
-//            maxY = Math.max(maxY, turtle.getPosition().getY());
-//            largeur = maxX - minX;
-//            hauteur = maxY - minY;
-//        }
-//        rectangle2D = new Rectangle2D.Double(minX, maxY, largeur, hauteur);
-//        return rectangle2D;
-//    }
-    
     
 }

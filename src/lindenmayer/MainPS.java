@@ -21,13 +21,9 @@ public class MainPS {
         turtle = new TurtleModel();
         lsystem = new LSystem(file, rounds, turtle);
         printPSHeader();
-        // TODO: add call function
         Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
-//        Rectangle2D rectangle = lsystem.test_tell(turtle, lsystem.getAxiom(), rounds);
-
         printPSFooter(rectangle);
     }
-    
     
     private void printPSHeader(){
         System.out.println("%!PS-Adobe-3.0 EPSF-3.0");
