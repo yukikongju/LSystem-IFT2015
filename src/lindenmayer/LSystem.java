@@ -15,15 +15,9 @@ public class LSystem extends AbstractLSystem {
     private int rounds;
     private HashMap<Character, Symbol> alphabet;
     private Seq axiom;
-//    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
-//    private HashMap<Symbol, List<Symbol>> rules;
-//    private HashMap<Symbol, String> actions;
-//    private int step;
-//    private double angle;
-//    private int[] start;
-//    
+
     private TurtleModel turtle;
-    private GUI gui;
+//    private GUI gui;
     private Rectangle2D rectangle2D;
     
     /** TODO: Constructor **/

@@ -17,14 +17,19 @@ public class GUI extends JFrame implements Observer {
     
     private JPanel mainPanel, generationPanel, turtlePanel;
     private JButton iterButton;
-    private LSystem controller;
-    private TurtleModel model;
+    private LSystem lsystem;
+    private TurtleModel turtle;
+    private int rounds;
     
-    public GUI(LSystem controller, TurtleModel model){
+    public GUI(){
         // initialize obeserver and controler
-        this.model = model;
-        model.addObserver(this);
-        this.controller = controller;
+//        this.turtle = model;
+        TurtleModel turtle = new TurtleModel();
+//        lsystem = new LSystem(file, rounds, turtle);
+        turtle.addObserver(this);
+        
+//        this.lsystem = controller;
+        rounds = 0;
         
         // init Windows
         setTitle("LSystem");
@@ -42,6 +47,9 @@ public class GUI extends JFrame implements Observer {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // TODO: add incrementation with button
+                rounds++;
+                lsystem.applyRules(lsystem.getAxiom(), rounds);
+                System.out.println(rounds);
             }
         });
         

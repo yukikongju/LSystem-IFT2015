@@ -24,7 +24,7 @@ public class Main {
         
         
         // 4. GUi
-//        GUI gui = new GUI();
+        GUI gui = new GUI();
         
     }
     
