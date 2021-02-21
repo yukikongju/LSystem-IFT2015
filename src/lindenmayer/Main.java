@@ -27,7 +27,6 @@ public class Main {
         
         // 4. GUi
         GUI gui = new GUI(file2, rounds);
-//        gui.paint(g);
         
     }
     

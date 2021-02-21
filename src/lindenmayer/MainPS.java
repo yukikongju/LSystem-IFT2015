@@ -15,12 +15,12 @@ import java.io.IOException;
 public class MainPS {
 
     private LSystem lsystem;
-    private TurtleModel turtle;
+    private TurtlePS turtle;
     private JSONFile JSONFile;
     private int rounds;
     
     public MainPS(String file, int rounds) throws IOException{
-        turtle = new TurtleModel();
+        turtle = new TurtlePS();
         lsystem = new LSystem(rounds);
         JSONFile = new JSONFile();
         JSONFile.readJSONFile(file, turtle, lsystem);

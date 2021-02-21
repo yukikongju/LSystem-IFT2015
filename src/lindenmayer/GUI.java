@@ -1,9 +1,7 @@
 package lindenmayer;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
@@ -53,7 +51,7 @@ public class GUI extends JFrame implements Observer {
     // deprecated
     public GUI(String file) throws IOException{
         // initialize obeserver and controler
-        turtle = new TurtleModel();
+        turtle = new TurtleUI();
         rounds = 0;
         lsystem = new LSystem(rounds); // to setup later
         JSONFile = new JSONFile();

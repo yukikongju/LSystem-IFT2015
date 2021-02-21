@@ -13,11 +13,15 @@ import java.awt.geom.Point2D;
  * @author emuli
  */
 public class TurtleUI extends TurtleModel{
-
+    
     Graphics2D graphics;
 
     public TurtleUI(Graphics2D graphics) {
         this.graphics = graphics;
+    }
+
+    TurtleUI() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
@@ -27,7 +31,6 @@ public class TurtleUI extends TurtleModel{
         int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle()) ));
         
         graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
-//        super.draw(); //To change body of generated methods, choose Tools | Templates.
     }
 
     

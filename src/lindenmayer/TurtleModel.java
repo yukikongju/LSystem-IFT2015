@@ -8,7 +8,7 @@ import java.util.Stack;
  *
  * @author emuli
  */
-public class TurtleModel extends Observable implements AbstractTurtle  {
+public abstract class TurtleModel extends Observable implements AbstractTurtle  {
     
     private double step, delta;
     private Stack<State> stack;
@@ -53,16 +53,15 @@ public class TurtleModel extends Observable implements AbstractTurtle  {
     public void draw() {
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
-        printPosition();
-        System.out.println(" L ");
+        
     }
 
     @Override
     public void move() {
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
-        printPosition();
-        System.out.println(" M ");
+//        printPosition();
+//        System.out.println(" M ");
     }
 
     @Override
@@ -82,19 +81,19 @@ public class TurtleModel extends Observable implements AbstractTurtle  {
     @Override
     public void push() {
         State temp = new State(currentState.x,currentState.y,currentState.theta);
-        System.out.println("stroke");
+//        System.out.println("stroke");
         stack.push(temp);
-        printPosition();
-        System.out.println(" newpath M ");
+//        printPosition();
+//        System.out.println(" newpath M ");
     }
 
     @Override
     public void pop() {
         if(!stack.isEmpty()){
             this.currentState = stack.pop();
-            System.out.println("stroke");
-            printPosition();
-            System.out.println(" newpath M ");
+//            System.out.println("stroke");
+//            printPosition();
+//            System.out.println(" newpath M ");
         } else {
             System.out.println("An error has occured.");
         }
@@ -115,7 +114,7 @@ public class TurtleModel extends Observable implements AbstractTurtle  {
         return position;
     }
 
-    private void printPosition(){
+    protected void printPosition(){
         Point2D currentPosition = this.getPosition();
         System.out.printf(FORMAT, currentPosition.getX(),
                 currentPosition.getY(), " ");
