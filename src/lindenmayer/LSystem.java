@@ -85,9 +85,8 @@ public class LSystem extends AbstractLSystem {
     }
 
     @Override
-    public Symbol.Seq getAxiom() {
-//        applyRules(axiom, 0);
-        return null; // to change
+    public Sequence getAxiom() {
+        return this.axiom;
     }
 
      public Sequence rewrite(Symbol sym) { // untested
@@ -147,7 +146,9 @@ public class LSystem extends AbstractLSystem {
         Symbol dummy = new Symbol('F');
         Sequence newSequence = dummy.new Sequence();
         
+        
         Iterator iter = seq.getSequences().iterator();
+//        Iterator<Symbol> iter = seq.iterator();
         
         while(iter.hasNext()){
             Symbol symbol = (Symbol) iter.next();
@@ -165,8 +166,8 @@ public class LSystem extends AbstractLSystem {
 
     }
 
-    @Override
-    public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
+//    @Override
+    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
         // TODO: UI de la tortue
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -264,6 +265,11 @@ public class LSystem extends AbstractLSystem {
 //            System.out.println(symbol);
             tell(this.turtle, symbol);
         }
+    }
+
+    @Override
+    public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
