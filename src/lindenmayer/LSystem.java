@@ -20,9 +20,6 @@ public class LSystem extends AbstractLSystem {
     private HashMap<Symbol, List<Sequence>> rules;
 
     private HashMap<Symbol, String> actions;
-    private int step;
-    private double angle;
-    private double[] start;
     
     private TurtleModel turtle;
     
@@ -33,9 +30,7 @@ public class LSystem extends AbstractLSystem {
         this.alphabet = new HashMap<>();
         this.rules = new HashMap<>();
         this.actions = new HashMap<>();
-        this.start = new double[3];
         this.readJSONFile();
-        this.initTurtleModel();
         this.axiom = this.applyRules(this.axiom, 0);
     }
     
@@ -177,13 +172,16 @@ public class LSystem extends AbstractLSystem {
     }
 
     private void readParametersFromJSONFile(JSONObject parameters) {
-        this.angle = parameters.getDouble("angle");
-        this.step = parameters.getInt("step");
+        double angle = parameters.getDouble("angle");
+        double step = parameters.getDouble("step");
+        double[] start = new double[3];
         JSONArray temp = parameters.getJSONArray("start");
         for (int i=0;i<temp.length();i++){ 
             int position = Integer.parseInt(temp.get(i).toString());
-            this.start[i] = position;
+            start[i] = position;
         }     
+        // Init Turtle from here?
+        initTurtleModel(angle, step, start);
     }
 
     private void readAlphabetFromJSONFile(JSONArray alphabet) {
@@ -208,9 +206,9 @@ public class LSystem extends AbstractLSystem {
         }
  }
 
-    private void initTurtleModel() {
-        turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
-                this.angle, this.step);
+    private void initTurtleModel(double angle, double step, double[] start) {
+        turtle = new TurtleModel(start[0], start[1], start[2], 
+                angle, step);
     }
 
     private String getActionFromSymbol(Symbol sym) {
