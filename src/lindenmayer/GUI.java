@@ -19,7 +19,7 @@ public class GUI extends JFrame implements Observer {
     final static int WIDTH = 800;
     
     private JPanel mainPanel, generationPanel, turtlePanel;
-    private JLabel axiomLabel;
+    private JLabel axiomLabel, roundsLabel;
     private JButton iterButton;
     private LSystem lsystem;
     private TurtleModel turtle;
@@ -50,7 +50,9 @@ public class GUI extends JFrame implements Observer {
         
         // init generation panel (show the sentence)
         axiomLabel = new JLabel("Axiom: " + axiom.toString());
+        roundsLabel = new JLabel("Rounds: " + rounds);
         generationPanel.add(axiomLabel);
+        generationPanel.add(roundsLabel);
         
         // init button
         iterButton = new JButton("Iterate");
@@ -59,10 +61,12 @@ public class GUI extends JFrame implements Observer {
             public void actionPerformed(ActionEvent ae) {
                 // TODO: add incrementation with button
                 rounds++;
+                roundsLabel.setText("Rounds: " + rounds);
                 axiom = lsystem.applyRule(axiom);
-                axiomLabel.setText("<html>" +"Axiom: " + axiom.toString() + "</html>");
-//                System.out.println(rounds);
-//                System.out.println(axiom.toString());
+//                axiomLabel.setText("<html>" +"Axiom: " + axiom.toString() + "</html>");
+                
+                System.out.println(rounds);
+                System.out.println(axiom.toString());
             }
         });
         

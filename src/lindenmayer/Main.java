@@ -26,7 +26,7 @@ public class Main {
         
         
         // 4. GUi
-        GUI gui = new GUI(file);
+        GUI gui = new GUI(file2);
         
     }
     
