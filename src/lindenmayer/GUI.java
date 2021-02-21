@@ -1,9 +1,12 @@
 package lindenmayer;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,13 +26,35 @@ public class GUI extends JFrame implements Observer {
     private JButton iterButton;
     private LSystem lsystem;
     private TurtleModel turtle;
-    private int rounds = 0;
+    private int rounds;
+    private String file;
     private JSONFile JSONFile;
     private Seq axiom;
+    private TurtleUI turtleUI;
     
+    public void paintComponents(Graphics2D g) throws IOException, InterruptedException{
+        super.paintComponents(g);
+        turtleUI = new TurtleUI(g);
+        //        JSONFile.readJSONFile(file, turtleUI, lsystem);
+        JSONFile.readJSONFile(file, turtleUI, lsystem);
+        Rectangle2D rectangle2D = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
+        Thread.sleep(5000);
+    }
+    
+    public GUI(String file, int rounds){
+        this.file = file;
+        this.rounds= rounds;
+        setTitle("LSystem");
+        setSize(WIDTH, HEIGHT);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    
+    
+    // deprecated
     public GUI(String file) throws IOException{
         // initialize obeserver and controler
         turtle = new TurtleModel();
+        rounds = 0;
         lsystem = new LSystem(rounds); // to setup later
         JSONFile = new JSONFile();
         JSONFile.readJSONFile(file, turtle, lsystem);

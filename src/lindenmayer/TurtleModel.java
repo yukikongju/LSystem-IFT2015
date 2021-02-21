@@ -75,6 +75,10 @@ public class TurtleModel extends Observable implements AbstractTurtle  {
         currentState.theta += delta;
     }
 
+    public double getStep() {
+        return step;
+    }
+
     @Override
     public void push() {
         State temp = new State(currentState.x,currentState.y,currentState.theta);
