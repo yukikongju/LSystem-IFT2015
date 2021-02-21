@@ -21,43 +21,49 @@ public class LSystem extends AbstractLSystem {
     private Rectangle2D rectangle2D;
     
     /** TODO: Constructor **/
-    public LSystem(String file, int rounds, TurtleModel turtle) throws IOException{
-        this.rounds = rounds;
-        this.file = file;
-        this.rounds = rounds;
+//    public LSystem(String file, int rounds, TurtleModel turtle) throws IOException{
+//        this.rounds = rounds;
+//        this.file = file;
+//        this.rounds = rounds;
+//        this.alphabet = new HashMap<>();
+////        this.turtle = new TurtleModel();
+//        this.turtle = turtle;
+//        rectangle2D = new Rectangle2D.Double();
+////        this.readJSONFile();
+////        this.initTurtleModel();
+////        this.gui = new GUI(this, turtle);
+////        this.axiom = this.applyRules(this.axiom, 0);
+//    }
+
+    public LSystem(int rounds) {
         this.alphabet = new HashMap<>();
-//        this.turtle = new TurtleModel();
-        this.turtle = turtle;
+        this.rounds = rounds;
         rectangle2D = new Rectangle2D.Double();
-        this.readJSONFile();
-//        this.initTurtleModel();
-//        this.gui = new GUI(this, turtle);
-//        this.axiom = this.applyRules(this.axiom, 0);
     }
     
-    private void readJSONFile() throws java.io.IOException {
-        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file))); // lecture de fichier JSON avec JSONTokener
-        JSONArray alphabet = input.getJSONArray("alphabet");
-        String axiom = input.getString("axiom");
-        JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
-        JSONObject actions = new JSONObject(input, "actions").getJSONObject("actions");
-        JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
-        
-        // add alphabet
-        readAlphabetFromJSONFile(alphabet);
-        
-        // Set axiom
-        this.setAxiom(axiom);
-        
-        // set actions
-        readActionsFromJSONFile(actions);
-        
-        // add rules
-        readRulesFromJSONFile(rules);
-        
-        // add parameters
-        readParametersFromJSONFile(parameters);
-    }
+//    private void readJSONFile() throws java.io.IOException {
+//        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file))); // lecture de fichier JSON avec JSONTokener
+//        JSONArray alphabet = input.getJSONArray("alphabet");
+//        String axiom = input.getString("axiom");
+//        JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
+//        JSONObject actions = new JSONObject(input, "actions").getJSONObject("actions");
+//        JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
+//        
+//        // add alphabet
+//        readAlphabetFromJSONFile(alphabet);
+//        
+//        // Set axiom
+//        this.setAxiom(axiom);
+//        
+//        // set actions
+//        readActionsFromJSONFile(actions);
+//        
+//        // add rules
+//        readRulesFromJSONFile(rules);
+//        
+//        // add parameters
+//        readParametersFromJSONFile(parameters);
+//    }
 
     @Override
     public Symbol addSymbol(char sym) {
@@ -154,54 +160,54 @@ public class LSystem extends AbstractLSystem {
         return applyRules(newSequence, n); // new sequence
     }
 
-    private void readParametersFromJSONFile(JSONObject parameters) {
-        double angle = parameters.getDouble("angle");
-        double step = parameters.getDouble("step");
-        JSONArray temp = parameters.getJSONArray("start");
-        // Init Turtle from here?
-        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
-        turtle.init(position, temp.getDouble(2));
-        turtle.setUnits(step, angle);
-        
-//        initTurtleModel(angle, step, start);
-    }
+//    private void readParametersFromJSONFile(JSONObject parameters) {
+//        double angle = parameters.getDouble("angle");
+//        double step = parameters.getDouble("step");
+//        JSONArray temp = parameters.getJSONArray("start");
+//        // Init Turtle from here?
+//        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
+//        turtle.init(position, temp.getDouble(2));
+//        turtle.setUnits(step, angle);
+//        
+////        initTurtleModel(angle, step, start);
+//    }
+//
+//    private void readAlphabetFromJSONFile(JSONArray alphabet) {
+//        for(int i=0; i< alphabet.length(); i++){
+//                char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
+//                Symbol symbol = addSymbol(character);
+//            }    
+//    }
 
-    private void readAlphabetFromJSONFile(JSONArray alphabet) {
-        for(int i=0; i< alphabet.length(); i++){
-                char character = alphabet.getString(i).charAt(0); // on ne peut pas cast directement avec (Character) alphabet.get(i)
-                Symbol symbol = addSymbol(character);
-            }    
-    }
-
-    private Symbol getSymbolFromCharacter(char character) {
+    Symbol getSymbolFromCharacter(char character) {
         return (Symbol) this.alphabet.get(character);
     }
 
-    private void readActionsFromJSONFile(JSONObject actions) {
-        Iterator<String> actionKeys = actions.keys();
-        while(actionKeys.hasNext()){
-            String symbol = actionKeys.next();
-            char character = symbol.charAt(0);
-            String action = actions.getString(symbol);
-            Symbol sym = getSymbolFromCharacter(character);
-            setAction(sym, action);
-        }
- }
+//    private void readActionsFromJSONFile(JSONObject actions) {
+//        Iterator<String> actionKeys = actions.keys();
+//        while(actionKeys.hasNext()){
+//            String symbol = actionKeys.next();
+//            char character = symbol.charAt(0);
+//            String action = actions.getString(symbol);
+//            Symbol sym = getSymbolFromCharacter(character);
+//            setAction(sym, action);
+//        }
+// }
 
-    private void readRulesFromJSONFile(JSONObject rules) {
-        Iterator<String> keys = rules.keys();
-        while(keys.hasNext()){ // iterate through each axiom in rules
-            String symbol = keys.next();
-            char character = symbol.charAt(0);
-            Symbol sym = getSymbolFromCharacter(character);
-            JSONArray allExpansions = rules.getJSONArray(symbol);
-            
-            for (int i = 0; i < allExpansions.length(); i++) {
-                String rule = allExpansions.getString(i);
-                addRule(sym, rule);
-            }
-        }
-    }
+//    private void readRulesFromJSONFile(JSONObject rules) {
+//        Iterator<String> keys = rules.keys();
+//        while(keys.hasNext()){ // iterate through each axiom in rules
+//            String symbol = keys.next();
+//            char character = symbol.charAt(0);
+//            Symbol sym = getSymbolFromCharacter(character);
+//            JSONArray allExpansions = rules.getJSONArray(symbol);
+//            
+//            for (int i = 0; i < allExpansions.length(); i++) {
+//                String rule = allExpansions.getString(i);
+//                addRule(sym, rule);
+//            }
+//        }
+//    }
 
      private Symbol.Seq getSequenceFromString(String expansion) {
         Sequence sequence = new Sequence();
