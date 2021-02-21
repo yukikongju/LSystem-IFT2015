@@ -20,11 +20,6 @@ public class Sequence implements Symbol.Seq{
     public Sequence(){
         sequences = new LinkedList<>();
     }
-    
-//    @Override
-//    public void concatToSequence(Symbol.Sequence concatenation) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
     @Override
     public void concat(Symbol symbol) {
@@ -48,5 +43,16 @@ public class Sequence implements Symbol.Seq{
     public int size() {
         return sequences.size();
     }
+
+    @Override
+    public String toString() {
+        String s="";
+        for(int i=0; i<this.sequences.size();i++){
+            s += this.sequences.get(i);
+        }
+        return s;
+    }
+    
+    
     
 }
