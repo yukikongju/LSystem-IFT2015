@@ -1,5 +1,6 @@
 package lindenmayer;
 
+import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
@@ -20,11 +21,12 @@ public class LSystem extends AbstractLSystem {
     private Rectangle2D rectangle2D;
     
     /** TODO: Constructor **/
-    public LSystem(String file, int rounds) throws IOException{
+    public LSystem(String file, int rounds, TurtleModel turtle) throws IOException{
         this.rounds = rounds;
         this.file = file;
         this.alphabet = new HashMap<>();
-        this.turtle = new TurtleModel();
+//        this.turtle = new TurtleModel();
+        this.turtle = turtle;
         rectangle2D = new Rectangle2D.Double();
         this.readJSONFile();
 //        this.axiom = this.applyRules(this.axiom, 0);
@@ -94,31 +96,31 @@ public class LSystem extends AbstractLSystem {
      private void updateTurtle(AbstractTurtle turtle, String action){
          switch(action){
             case "draw":
-                this.turtle.draw();
+                turtle.draw();
 //                System.out.print("-draw-");
                 break;
             case "move":
-                this.turtle.move();
+                turtle.move();
 //                System.out.print("-move-");
                 break;
             case "turnL":
-                this.turtle.turnL();
+                turtle.turnL();
 //                System.out.print("-turnL-");
                 break;
             case "turnR":
-                this.turtle.turnR();
+                turtle.turnR();
 //                System.out.println("-turnR-");
                 break;
             case "push":
-                this.turtle.push();
+                turtle.push();
 //                System.out.println("-push-");
                 break;
             case "pop":
-                this.turtle.pop();
+                turtle.pop();
 //                System.out.println("-pop-");
                 break;
             case "stay":
-                this.turtle.stay();
+                turtle.stay();
 //                System.out.println("-stay-");
                 break;
             default:
@@ -235,22 +237,53 @@ public class LSystem extends AbstractLSystem {
 
 //    @Override
     public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
-        if(rounds == 0 ){
+          if(rounds == 0 ){
             tell(turtle, seq);
             rectangle2D.add(turtle.getPosition());
+            return rectangle2D;
         } else {
             Iterator<Symbol> iter = seq.iterator();
             if(iter == null){
                 tell(turtle, seq, rounds - 1); 
-                rectangle2D.add(turtle.getPosition());
+//                rectangle2D.add(turtle.getPosition());
             } else {
                 while(iter.hasNext()){
                     tell(turtle, rewrite(iter.next()), rounds -1); 
-                    rectangle2D.add(turtle.getPosition());
+//                    rectangle2D.add(turtle.getPosition());
                 } 
             }
     }
-//        rectangle2D.add(turtle.getPosition());
+//          rectangle2D.add(turtle.getPosition());
         return rectangle2D;
+//       
     }
+    
+//    public Rectangle2D test_tell(TurtleModel turtle, Symbol.Seq seq, int rounds){
+//        
+//        double largeur = 0;
+//        double hauteur = 0;
+//        double minX = 0;
+//        double maxX = 0;
+//        double minY = 0;
+//        double maxY = 0;
+//        Rectangle2D rectangle2D;
+//        
+//        Symbol.Seq sequence = applyRules(seq, rounds);
+//        Iterator<Symbol> iter = sequence.iterator();
+//        while(iter.hasNext()){
+//            Symbol symbol = iter.next();
+////            updateTurtle(turtle, symbol.getAction());
+//            tell(turtle, rewrite(symbol), rounds);
+//            minX = Math.min(minX, turtle.getPosition().getX());
+//            maxX = Math.max(maxX, turtle.getPosition().getX());
+//            minY = Math.min(minY, turtle.getPosition().getY());
+//            maxY = Math.max(maxY, turtle.getPosition().getY());
+//            largeur = maxX - minX;
+//            hauteur = maxY - minY;
+//        }
+//        rectangle2D = new Rectangle2D.Double(minX, maxY, largeur, hauteur);
+//        return rectangle2D;
+//    }
+    
+    
 }

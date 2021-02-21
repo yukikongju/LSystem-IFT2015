@@ -18,11 +18,13 @@ public class MainPS {
     private TurtleModel turtle;
     
     public MainPS(String file, int rounds) throws IOException{
-        lsystem = new LSystem(file, rounds);
         turtle = new TurtleModel();
+        lsystem = new LSystem(file, rounds, turtle);
         printPSHeader();
         // TODO: add call function
         Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
+//        Rectangle2D rectangle = lsystem.test_tell(turtle, lsystem.getAxiom(), rounds);
+
         printPSFooter(rectangle);
     }
     
