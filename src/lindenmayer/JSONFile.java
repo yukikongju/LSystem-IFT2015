@@ -16,20 +16,19 @@ import org.json.JSONTokener;
  *
  * @author emuli
  */
-public class ReadJSONFile {
+public class JSONFile {
     
     private String file;
     private TurtleModel turtle;
     private LSystem lsystem;
 
-    public ReadJSONFile(String file, TurtleModel turtle, LSystem lsystem) throws IOException {
+    public JSONFile() throws IOException {
+    }
+    
+    public void readJSONFile(String file, TurtleModel turtle, LSystem lsystem) throws java.io.IOException {
         this.file = file;
         this.turtle = turtle;
         this.lsystem = lsystem;
-        readJSONFile();
-    }
-    
-    private void readJSONFile() throws java.io.IOException {
         JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file))); // lecture de fichier JSON avec JSONTokener
         JSONArray alphabet = input.getJSONArray("alphabet");
         String axiom = input.getString("axiom");

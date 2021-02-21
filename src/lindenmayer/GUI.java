@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -20,11 +21,15 @@ public class GUI extends JFrame implements Observer {
     private LSystem lsystem;
     private TurtleModel turtle;
     private int rounds;
+    private JSONFile JSONFile;
     
-    public GUI(){
+    public GUI(String file) throws IOException{
         // initialize obeserver and controler
-//        this.turtle = model;
-        TurtleModel turtle = new TurtleModel();
+        turtle = new TurtleModel();
+        lsystem = new LSystem(rounds); // to setup later
+        JSONFile = new JSONFile();
+        JSONFile.readJSONFile(file, turtle, lsystem);
+        
 //        lsystem = new LSystem(file, rounds, turtle);
         turtle.addObserver(this);
         
