@@ -94,7 +94,7 @@ public abstract class AbstractLSystem
      * @param turtle used for executing the action
      * @param sym symbol that needs to be executed 
      */
-    public abstract void tell(AbstractTurtle turtle, Symbol sym);
+    public abstract void tell(TurtleModel turtle, Symbol.Seq seq);
 
     /**
      * Calculates the result of multiple rounds of rewriting. Symbols with no reriting rules are simply copied 
@@ -116,5 +116,5 @@ public abstract class AbstractLSystem
      * @param rounds number of rounds
      * @return bounding box (minimal rectangle covering all visited turtle positions)
      */
-    public abstract Rectangle2D tell(AbstractTurtle turtle, Symbol sym, int rounds);
+    public abstract Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds);
 }

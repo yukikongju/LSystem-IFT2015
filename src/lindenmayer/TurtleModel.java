@@ -112,7 +112,7 @@ public class TurtleModel implements AbstractTurtle {
     private void printPosition(){
         Point2D currentPosition = this.getPosition();
         System.out.printf(FORMAT, currentPosition.getX(),
-                currentPosition.getY());
+                currentPosition.getY(), " ");
     }
     
     @Override

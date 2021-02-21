@@ -1,5 +1,6 @@
 package lindenmayer;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.HashMap;
@@ -16,14 +17,17 @@ public class LSystem extends AbstractLSystem {
     private Seq axiom;
 
     private TurtleModel turtle;
+    private Rectangle2D rectangle2D;
     
     /** TODO: Constructor **/
     public LSystem(String file, int rounds) throws IOException{
         this.rounds = rounds;
         this.file = file;
         this.alphabet = new HashMap<>();
+        this.turtle = new TurtleModel();
+        rectangle2D = new Rectangle2D.Double();
         this.readJSONFile();
-        this.axiom = this.applyRules(this.axiom, 0);
+//        this.axiom = this.applyRules(this.axiom, 0);
     }
     
     private void readJSONFile() throws java.io.IOException {
@@ -87,10 +91,8 @@ public class LSystem extends AbstractLSystem {
           } return rule;
     }
     
-    @Override
-    public void tell(AbstractTurtle turtle, Symbol sym) {
-        String action = sym.getAction();
-        switch(action){
+     private void updateTurtle(AbstractTurtle turtle, String action){
+         switch(action){
             case "draw":
                 this.turtle.draw();
 //                System.out.print("-draw-");
@@ -122,6 +124,13 @@ public class LSystem extends AbstractLSystem {
             default:
                 break;
         }
+     }
+    
+    public void tell(TurtleModel turtle, Symbol.Seq seq) {
+        Iterator<Symbol> iter = seq.iterator();
+        while(iter.hasNext()){
+            updateTurtle(turtle, iter.next().getAction());
+        }
     }
 
     @Override
@@ -135,27 +144,32 @@ public class LSystem extends AbstractLSystem {
             newSequence.concat(substitution);
         }
         n++;
-        turtleCalculation(newSequence); // call Turtle calculation
+//        turtleCalculation(newSequence); // call Turtle calculation
         return applyRules(newSequence, n); // new sequence
-
     }
 
 //    @Override
-    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     private void readParametersFromJSONFile(JSONObject parameters) {
         double angle = parameters.getDouble("angle");
         double step = parameters.getDouble("step");
-        double[] start = new double[3];
+//        double[] start = new double[3];
         JSONArray temp = parameters.getJSONArray("start");
-        for (int i=0;i<temp.length();i++){ 
-            int position = Integer.parseInt(temp.get(i).toString());
-            start[i] = position;
-        }     
+//        for (int i=0;i<temp.length();i++){ 
+//            int position = Integer.parseInt(temp.get(i).toString());
+//            start[i] = position;
+//        }     
         // Init Turtle from here?
-        initTurtleModel(angle, step, start);
+        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
+//        System.out.println(position);
+//        System.out.println(temp.getDouble(2));
+        turtle.init(position, temp.getDouble(2));
+        turtle.setUnits(step, angle);
+        
+//        initTurtleModel(angle, step, start);
     }
 
     private void readAlphabetFromJSONFile(JSONArray alphabet) {
@@ -180,10 +194,10 @@ public class LSystem extends AbstractLSystem {
         }
  }
 
-    private void initTurtleModel(double angle, double step, double[] start) {
-        turtle = new TurtleModel(start[0], start[1], start[2], 
-                angle, step);
-    }
+//    private void initTurtleModel(double angle, double step, double[] start) {
+//        turtle = new TurtleModel(start[0], start[1], start[2], 
+//                angle, step);
+//    }
 
     private void readRulesFromJSONFile(JSONObject rules) {
         Iterator<String> keys = rules.keys();
@@ -214,13 +228,26 @@ public class LSystem extends AbstractLSystem {
         
         while(iter.hasNext()){
             Symbol symbol = (Symbol) iter.next();
-            tell(this.turtle, symbol);
+//            tell(this.turtle, symbol);
+            // update turtle?
         }
     }
 
-    @Override
-    public Rectangle2D tell(AbstractTurtle turtle, Symbol sym, int rounds) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    @Override
+    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
+        if(rounds == 0 ){
+            tell(turtle, seq);
+        } else {
+            Iterator<Symbol> iter = seq.iterator();
+            if(iter == null){
+                tell(turtle, seq, rounds - 1); 
+            } else {
+                while(iter.hasNext()){
+                    tell(turtle,  rewrite(iter.next()), rounds -1); //probl^
+                } 
+            }
     }
-    
+        rectangle2D.add(turtle.getPosition());
+        return rectangle2D;
+    }
 }
