@@ -1,168 +1,175 @@
 package lindenmayer;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
+import lindenmayer.Symbol.Seq;
+
 import org.json.*;
 
 public class LSystem extends AbstractLSystem {
     
     private String file;
-    private int numIter;
+    private int rounds;
     private HashMap<Character, Symbol> alphabet;
-    private String axiom;
+    private Seq axiom;
 //    private HashMap<Symbol, List<Symbol.Seq>> rules, actions; (deprecated?)
-    private HashMap<Symbol, List<Symbol>> rules;
-    private HashMap<Symbol, String> actions;
-    private int step;
-    private double angle;
-    private int[] start;
-    
+//    private HashMap<Symbol, List<Symbol>> rules;
+//    private HashMap<Symbol, String> actions;
+//    private int step;
+//    private double angle;
+//    private int[] start;
+//    
     private TurtleModel turtle;
     private GUI gui;
+    private Rectangle2D rectangle2D;
     
     /** TODO: Constructor **/
-    public LSystem(String file, int numIter) throws IOException{
+    public LSystem(String file, int rounds, TurtleModel turtle) throws IOException{
+        this.rounds = rounds;
         this.file = file;
-        this.numIter = numIter;
+        this.rounds = rounds;
         this.alphabet = new HashMap<>();
-        this.rules = new HashMap<>();
-        this.actions = new HashMap<>();
-        this.start = new int[3];
+//        this.turtle = new TurtleModel();
+        this.turtle = turtle;
+        rectangle2D = new Rectangle2D.Double();
         this.readJSONFile();
-        this.initTurtleModel();
-        this.gui = new GUI(this, turtle);
-
+//        this.initTurtleModel();
+//        this.gui = new GUI(this, turtle);
+//        this.axiom = this.applyRules(this.axiom, 0);
     }
     
-//    public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
-//        // deprecated?
-//    }
-    
     private void readJSONFile() throws java.io.IOException {
-        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
+        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file))); // lecture de fichier JSON avec JSONTokener
         JSONArray alphabet = input.getJSONArray("alphabet");
         String axiom = input.getString("axiom");
         JSONObject rules = new JSONObject(input, "rules").getJSONObject("rules");
         JSONObject actions = new JSONObject(input, "actions").getJSONObject("actions");
         JSONObject parameters = new JSONObject(input, "parameters").getJSONObject("parameters");
         
-        // Set axiom
-        this.setAxiom(axiom);
-        
         // add alphabet
         readAlphabetFromJSONFile(alphabet);
+        
+        // Set axiom
+        this.setAxiom(axiom);
         
         // set actions
         readActionsFromJSONFile(actions);
         
         // add rules
-        Iterator<String> keys = rules.keys();
-        while(keys.hasNext()){
-            String symbol = keys.next(); 
-            // ISSUE: read expansion as string, not JSONArray
-            String expansion = rules.get(symbol).toString();
-            expansion = expansion.replace("\"", "");
-            expansion = expansion.replace("[", "");
-            expansion = expansion.replace("]", "");
-            char character = symbol.charAt(0);
-            Symbol sym = getSymbolFromCharacter(character);
-            addRule(sym, expansion);
-        }
-
+        readRulesFromJSONFile(rules);
+        
         // add parameters
         readParametersFromJSONFile(parameters);
     }
 
     @Override
     public Symbol addSymbol(char sym) {
-        // add symbol to alphabet and return symbol
         Symbol symbol = new Symbol(sym);
         this.alphabet.put(sym, symbol);
-        return symbol;
+        return alphabet.get(sym);
     }
 
     @Override
     public void addRule(Symbol sym, String expansion) {
-        // add rule with its expansion
-        // 1. Get a list of symbol from the string expansion
-        // 2. Add the rule to HashMap
+        sym.addRule(getSequenceFromString(expansion));
     }
 
     @Override
     public void setAction(Symbol sym, String action) {
-        this.actions.put(sym, action);
+          sym.setAction(action);
     }
 
     @Override
     public void setAxiom(String str) {
-        this.axiom = str;
+        this.axiom = getSequenceFromString(str);
     }
 
     @Override
     public Symbol.Seq getAxiom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.axiom;
     }
 
     @Override
-    public Symbol.Seq rewrite(Symbol sym) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public Symbol.Seq rewrite(Symbol sym) { // untested
+          Symbol.Seq rule = sym.getRule();
+          if(rule == null){
+              rule = new Sequence();
+              rule.concat(sym);
+              return rule;
+          } return rule;
     }
-
-    @Override
-    public void tell(Turtle turtle, Symbol sym) {
-        // ISSUE: changer Turtle abstraction because we now have constructor
-        String action = getActionFromSymbol(sym);
-        switch(action){
+    
+     private void updateTurtle(AbstractTurtle turtle, String action){
+         switch(action){
             case "draw":
-                this.turtle.draw();
+                turtle.draw();
+//                System.out.print("-draw-");
                 break;
             case "move":
-                this.turtle.move();
+                turtle.move();
+//                System.out.print("-move-");
                 break;
             case "turnL":
-                this.turtle.turnL();
+                turtle.turnL();
+//                System.out.print("-turnL-");
                 break;
             case "turnR":
-                this.turtle.turnR();
+                turtle.turnR();
+//                System.out.println("-turnR-");
                 break;
             case "push":
-                this.turtle.push();
+                turtle.push();
+//                System.out.println("-push-");
                 break;
             case "pop":
-                this.turtle.pop();
+                turtle.pop();
+//                System.out.println("-pop-");
                 break;
             case "stay":
-                this.turtle.stay();
+                turtle.stay();
+//                System.out.println("-stay-");
                 break;
             default:
                 break;
         }
+     }
+    
+    @Override
+    public void tell(TurtleModel turtle, Symbol.Seq seq) {
+        Iterator<Symbol> iter = seq.iterator();
+        while(iter.hasNext()){
+            updateTurtle(turtle, iter.next().getAction());
+        }
     }
 
-    @Override
-    public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
-        // TODO: bounding box de la tortue + change tell function 
-//        if(this.numIter == 0) return tell(this.turtle, this.getAxiom());
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
+        if(n>=this.rounds) return seq;
+        Symbol.Seq newSequence = new Sequence();
+        Iterator<Symbol> iter = seq.iterator();
+        while(iter.hasNext()){
+            Symbol symbol = (Symbol) iter.next();
+            Symbol.Seq substitution = rewrite(symbol);
+            newSequence.concat(substitution);
+        }
+        n++;
+//        turtleCalculation(newSequence); // call Turtle calculation
+        return applyRules(newSequence, n); // new sequence
     }
 
     private void readParametersFromJSONFile(JSONObject parameters) {
-        this.angle = parameters.getDouble("angle");
-        this.step = parameters.getInt("step");
+        double angle = parameters.getDouble("angle");
+        double step = parameters.getDouble("step");
         JSONArray temp = parameters.getJSONArray("start");
-        for (int i=0;i<temp.length();i++){ 
-            int position = Integer.parseInt(temp.get(i).toString());
-            this.start[i] = position;
-        }     
+        // Init Turtle from here?
+        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
+        turtle.init(position, temp.getDouble(2));
+        turtle.setUnits(step, angle);
+        
+//        initTurtleModel(angle, step, start);
     }
 
     private void readAlphabetFromJSONFile(JSONArray alphabet) {
@@ -187,17 +194,56 @@ public class LSystem extends AbstractLSystem {
         }
  }
 
-    private void initTurtleModel() {
-        // TODO: initialize the turtle with the json file
-        turtle = new TurtleModel(this.start[0], this.start[1], this.start[2], 
-                this.angle, this.step);
-        // dummy 
-//        Symbol symbol = getSymbolFromCharacter('R');
-//        tell(turtle, symbol);
+    private void readRulesFromJSONFile(JSONObject rules) {
+        Iterator<String> keys = rules.keys();
+        while(keys.hasNext()){ // iterate through each axiom in rules
+            String symbol = keys.next();
+            char character = symbol.charAt(0);
+            Symbol sym = getSymbolFromCharacter(character);
+            JSONArray allExpansions = rules.getJSONArray(symbol);
+            
+            for (int i = 0; i < allExpansions.length(); i++) {
+                String rule = allExpansions.getString(i);
+                addRule(sym, rule);
+            }
+        }
     }
 
-    private String getActionFromSymbol(Symbol sym) {
-        return (String) this.actions.get(sym);
+     private Symbol.Seq getSequenceFromString(String expansion) {
+        Sequence sequence = new Sequence();
+        for(int i = 0; i<expansion.length(); i++){
+            Symbol symbol = getSymbolFromCharacter(expansion.charAt(i));
+            sequence.concat(symbol);
+        }
+        return sequence;
     }
 
+//    private void turtleCalculation(Symbol.Seq sequence) {
+//        Iterator iter = sequence.iterator();
+//        
+//        while(iter.hasNext()){
+//            Symbol symbol = (Symbol) iter.next();
+////            tell(this.turtle, symbol);
+//            // update turtle?
+//        }
+//    }
+
+    @Override
+    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
+          if(rounds == 0 ){
+            tell(turtle, seq);
+        } else {
+            Iterator<Symbol> iter = seq.iterator();
+            if(iter == null){
+                tell(turtle, seq, rounds - 1); 
+            } else {
+                while(iter.hasNext()){
+                    tell(turtle, rewrite(iter.next()), rounds -1); 
+                } 
+            }
+    }
+        rectangle2D.add(turtle.getPosition());
+        return rectangle2D;
+    }
+    
 }

@@ -29,7 +29,7 @@ import java.awt.geom.Point2D;
  * @author Mikl&oacute;s Cs&#369;r&ouml;s
  */
 
-public interface Turtle 
+public interface AbstractTurtle 
 {
     /**
      * Draws a line of unit length

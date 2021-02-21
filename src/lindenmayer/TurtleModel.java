@@ -8,104 +8,124 @@ import java.util.Stack;
  *
  * @author emuli
  */
-public class TurtleModel extends Observable implements Turtle  {
+public class TurtleModel extends Observable implements AbstractTurtle  {
     
-    private float x,y;
-    private double theta, angle;
-    private int step;
+    private double step, delta;
     private Stack<State> stack;
     private State currentState;
     
-    /** TODO: Constructor **/
-    public TurtleModel(float x, float y, double theta, double angle, int step) {
-        this.x = x;
-        this.y = y;
-        this.theta = theta;
-        this.angle = angle;
+    private final static String FORMAT = "%.1f %.1f";
+    
+    public TurtleModel(double x, double y, double theta, double delta, double step) {
+        this.delta = delta;
         this.step = step;
         this.stack = new Stack<>();
-        // TODO: check if currentState is necessary + if we need to push first state
-        State firstState = new State(this.x, this.y, this.theta);
-        stack.push(firstState);
-        this.currentState = firstState;
+        currentState = new State(x,y,theta);
+    }
+    
+    public TurtleModel(){
+        this.stack = new Stack<>();
+        currentState = new State();
     }
     
     public class State{
-        private float x,y;
-        private double angle;
+        private double x,y;
+        private double theta;
 
-        public State(float x, float y, double angle) {
+        public State(double x, double y, double theta) {
             this.x = x;
             this.y = y;
-            this.angle = angle;
-            // TODO: check the degrees to radians conversion
+            this.theta = theta;
+        }
+
+        private State() {
+        }
+
+        @Override
+        public String toString() {
+            String s = "["+x+", "+y+", "+theta+"]";
+            return s;
         }
         
     }
 
     @Override
     public void draw() {
-        x += step * Math.cos(theta);
-        y += step * Math.sin(theta);
-        // TODO: Tracer la ligne
+        currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
+        currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
+        printPosition();
+        System.out.println(" L ");
     }
 
     @Override
     public void move() {
-        x += step * Math.cos(theta);
-        y += step * Math.sin(theta);
+        currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
+        currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
+        printPosition();
+        System.out.println(" M ");
     }
 
     @Override
     public void turnR() {
-        theta -= angle;
+        currentState.theta -= delta;
     }
 
     @Override
     public void turnL() {
-        theta += angle;
+        currentState.theta += delta;
     }
 
     @Override
     public void push() {
-        State temp = new State(x,y,theta);
+        State temp = new State(currentState.x,currentState.y,currentState.theta);
+        System.out.println("stroke");
         stack.push(temp);
+        printPosition();
+        System.out.println(" newpath M ");
     }
 
     @Override
     public void pop() {
         if(!stack.isEmpty()){
-            State removedState = stack.pop();
-            currentState = stack.peek();
+            this.currentState = stack.pop();
+            System.out.println("stroke");
+            printPosition();
+            System.out.println(" newpath M ");
         } else {
-            // TODO: implement error message
             System.out.println("An error has occured.");
         }
     }
 
     @Override
     public void stay() {
-        // do nothing
     }
 
     @Override
     public void init(Point2D pos, double angle_deg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        currentState = new State(pos.getX(), pos.getY(), angle_deg);
     }
 
     @Override
     public Point2D getPosition() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Point2D position = new Point2D.Double(currentState.x, currentState.y);
+        return position;
     }
 
+    private void printPosition(){
+        Point2D currentPosition = this.getPosition();
+        System.out.printf(FORMAT, currentPosition.getX(),
+                currentPosition.getY(), " ");
+    }
+    
     @Override
     public double getAngle() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return currentState.theta;
     }
 
     @Override
     public void setUnits(double step, double delta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.step = step;
+        this.delta = delta;
     }
     
     public void majObserver(){
@@ -116,3 +136,4 @@ public class TurtleModel extends Observable implements Turtle  {
     }
     
 }
+
