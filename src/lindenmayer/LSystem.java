@@ -1,13 +1,9 @@
 package lindenmayer;
 
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import lindenmayer.Symbol.Seq;
-
-import org.json.*;
 
 public class LSystem extends AbstractLSystem {
     
@@ -19,21 +15,6 @@ public class LSystem extends AbstractLSystem {
     private TurtleModel turtle;
     private Rectangle2D rectangle2D;
     
-    /** TODO: Constructor **/
-//    public LSystem(String file, int rounds, TurtleModel turtle) throws IOException{
-//        this.rounds = rounds;
-//        this.file = file;
-//        this.rounds = rounds;
-//        this.alphabet = new HashMap<>();
-////        this.turtle = new TurtleModel();
-//        this.turtle = turtle;
-//        rectangle2D = new Rectangle2D.Double();
-////        this.readJSONFile();
-////        this.initTurtleModel();
-////        this.gui = new GUI(this, turtle);
-////        this.axiom = this.applyRules(this.axiom, 0);
-//    }
-
     public LSystem(int rounds) {
         this.alphabet = new HashMap<>();
         this.rounds = rounds;
