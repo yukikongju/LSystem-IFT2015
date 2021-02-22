@@ -2,6 +2,7 @@ package lindenmayer;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -28,6 +29,8 @@ public class GUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    
+    
     @Override
     public void paint(Graphics g){
         super.paint(g);
@@ -41,12 +44,15 @@ public class GUI extends JFrame {
         Rectangle2D rectangle2D = lsystem.tell(turtleUI, lsystem.getAxiom(), rounds);
         
 //        Graphics2D g2d = (Graphics2D) g.create();
-//        g2d.scale(2.5, 2.5);
-        
+//        AffineTransform at = new AffineTransform();
+//        at.scale(120,120);
+//        g2d.transform(at);
+//        g2d.transform(g);
 //        System.out.println(rectangle2D.getWidth());
 //        System.out.println(rectangle2D.getHeight());
-//        setSize((int) rectangle2D.getWidth()*2, (int) rectangle2D.getHeight()*2);
-        
+//        setSize((int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
+//        setPreferredSize((int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
+
 
         turtleUI.draw();
     }
