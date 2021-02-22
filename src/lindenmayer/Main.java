@@ -26,8 +26,8 @@ public class Main {
         // 3. Initialize LSystem
 //        LSystem system = new LSystem(file2, numIter);
 //        LSystem system = new LSystem(file3, rounds);
-        MainPS mainPS = new MainPS(file, rounds);
-//        mainPS.printPostScript();
+        MainPS mainPS = new MainPS(file4, rounds);
+        mainPS.printPostScript();
         
 //        https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
         // We need Swing Utilities to make sure paint(0 doesn't run before the constructor
@@ -36,7 +36,7 @@ public class Main {
             public void run() {
                 GUI gui;
                 try {
-                    gui = new GUI(file2, rounds);
+                    gui = new GUI(file, rounds);
                     gui.setVisible(true);
                 } catch (IOException ex) {
                     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

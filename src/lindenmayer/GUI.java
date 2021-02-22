@@ -1,21 +1,12 @@
 package lindenmayer;
 
-import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import lindenmayer.Symbol.Seq;
 
 public class GUI extends JFrame {
     final static int HEIGHT = 600;
@@ -49,9 +40,14 @@ public class GUI extends JFrame {
         }
         Rectangle2D rectangle2D = lsystem.tell(turtleUI, lsystem.getAxiom(), rounds);
         
+//        Graphics2D g2d = (Graphics2D) g.create();
+//        g2d.scale(2.5, 2.5);
+        
+//        System.out.println(rectangle2D.getWidth());
+//        System.out.println(rectangle2D.getHeight());
 //        setSize((int) rectangle2D.getWidth()*2, (int) rectangle2D.getHeight()*2);
         
-        
+
         turtleUI.draw();
     }
     

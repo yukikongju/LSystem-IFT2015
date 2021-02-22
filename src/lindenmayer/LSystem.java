@@ -144,6 +144,9 @@ public class LSystem extends AbstractLSystem {
                 } 
             }
     }
+//        Rectangle2D temp = new Rectangle2D.Double(turtle.getPosition());
+        /// union()
+//        System.out.println(rectangle2D);
         rectangle2D.add(turtle.getPosition());
         return rectangle2D;
     }
