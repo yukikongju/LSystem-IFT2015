@@ -1,0 +1,20 @@
+{
+	"alphabet" : 	["A", "B", "F", "[", "]", "+", "-"],
+	"rules" : {
+		"A" : ["X+YF"],
+		"B" : ["-FX-Y"]
+	},
+	"axiom":"FX",
+	"actions": {
+		"A":"draw", 
+		"B":"draw",
+		"F": "draw",
+		"[":"push",
+		"]":"pop", 
+		"+":"turnL", 
+		"-":"turnR"},
+	"parameters" : {"step": 3, "angle": 90, "start":[250,0,90]}
+}
+
+
+

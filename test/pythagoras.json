@@ -1,0 +1,18 @@
+{
+	"alphabet" : 	["A", "B", "[", "]", "+", "-"],
+	"rules" : {
+		"A" : ["B[-A]+A"],
+		"B" : ["BB"]
+	},
+	"axiom":"A",
+	"actions": {
+		"A":"draw", 
+		"B":"draw",
+		"[":"push",
+		"]":"pop", 
+		"+":"turnL", 
+		"-":"turnR"},
+	"parameters" : {"step": 3, "angle": 90, "start":[250,0,90]}
+}
+
+

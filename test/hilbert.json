@@ -1,0 +1,21 @@
+{
+	"alphabet" : 	["A", "B", "F", "[", "]", "+", "-"],
+	"rules" : {
+		"A" : ["+BF-AFA-FB"],
+		"B" : ["-AF+BFB+FA-"]
+	},
+	"axiom":"A",
+	"actions": {
+		"A":"draw", 
+		"B":"draw",
+		"F":"draw",
+		"[":"push",
+		"]":"pop", 
+		"+":"turnL", 
+		"-":"turnR"},
+	"parameters" : {"step": 3, "angle": 90, "start":[250,0,90]}
+}
+
+
+
+
