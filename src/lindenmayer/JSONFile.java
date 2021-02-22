@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lindenmayer;
 
 import java.awt.geom.Point2D;
@@ -12,10 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-/**
- *
- * @author emuli
- */
 public class JSONFile {
     
     private String file;

@@ -21,16 +21,16 @@
 
 ## [Implementation](#implementation)
 
-- [r] 1. Reading JSON File
-- [ ] 2. Implement Axioms and Rules
-- [ ] 3. Implement turtle's actions
-- [ ] 4. Graphical view
-- [ ] 5. Postscript implementation
+- [x] 1. Reading JSON File
+- [x] 2. Implement Recursion
+- [x] 3. Implement turtle's actions
+- [r] 4. Graphical view
+- [x] 5. Postscript implementation
 
 ### Part 1 - JSON File
 
 - [x] Add alphabet
-- [r] Add rules
+- [x] Add rules
 - [x] add axiom
 - [x] add actions
 - [x] read parameters

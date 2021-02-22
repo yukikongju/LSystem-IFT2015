@@ -47,7 +47,7 @@ public class LSystem extends AbstractLSystem {
     }
 
     @Override
-     public Symbol.Seq rewrite(Symbol sym) { // untested
+     public Symbol.Seq rewrite(Symbol sym) { 
           Symbol.Seq rule = sym.getRule();
           if(rule == null){
               rule = new Sequence();
@@ -144,9 +144,6 @@ public class LSystem extends AbstractLSystem {
                 } 
             }
     }
-//        Rectangle2D temp = new Rectangle2D.Double(turtle.getPosition());
-        /// union()
-//        System.out.println(rectangle2D);
         rectangle2D.add(turtle.getPosition());
         return rectangle2D;
     }

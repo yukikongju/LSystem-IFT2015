@@ -3,10 +3,6 @@ package lindenmayer;
 import java.awt.geom.Point2D;
 import java.util.Stack;
 
-/**
- *
- * @author emuli
- */
 public abstract class TurtleModel implements TurtleInterface  {
     
     private double step, delta;

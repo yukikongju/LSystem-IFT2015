@@ -39,14 +39,6 @@ public class GUI extends JFrame {
             Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         Rectangle2D rectangle2D = lsystem.tell(turtleUI, lsystem.getAxiom(), rounds);
-        
-//        Graphics2D g2d = (Graphics2D) g.create();
-//        g2d.scale(2.5, 2.5);
-        
-//        System.out.println(rectangle2D.getWidth());
-//        System.out.println(rectangle2D.getHeight());
-//        setSize((int) rectangle2D.getWidth()*2, (int) rectangle2D.getHeight()*2);
-        
 
         turtleUI.draw();
     }
