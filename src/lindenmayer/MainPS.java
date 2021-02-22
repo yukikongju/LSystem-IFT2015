@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
-/**
- *
- * @author emuli
- */
 public class MainPS {
 
     private LSystem lsystem;
@@ -52,7 +43,7 @@ public class MainPS {
         System.out.println("%%BoundingBox:" + 
                 (int) rectangle.getX() + " " + (int) rectangle.getY() + " " +
                 (int) (rectangle.getX() + rectangle.getWidth()) + " " +
-                (int) rectangle.getHeight()); // TODO add bounding box
+                (int) rectangle.getHeight()); 
         System.out.println("%%EOF");
     }
     

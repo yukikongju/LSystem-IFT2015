@@ -11,20 +11,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        
-        // 1. Read JSON file
-        String file = "test/buisson.json";
-        String file2 = "test/hexamaze.json";
-        String file3 = "test/herbe.json";
-        String file4 = "test/sierpinski.json";
 
-        // 2. Read num iterations
-//        int rounds = Integer.parseInt(args[0]);
+        int rounds = Integer.parseInt(args[1]);
+        String file = args[0];
 
-        int rounds = 3;
-        
-        // 3. Initialize LSystem
-        MainPS mainPS = new MainPS(file4, rounds);
+        MainPS mainPS = new MainPS(file, rounds);
         mainPS.printPostScript();
         
 //        https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called

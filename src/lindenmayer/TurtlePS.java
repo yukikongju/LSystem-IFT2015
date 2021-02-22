@@ -31,11 +31,5 @@ public class TurtlePS extends TurtleModel{
         printPosition();
         System.out.println(" M ");
     }
-    
-    
-    
-    
-    
-    
-    
+  
 }
