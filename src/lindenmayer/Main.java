@@ -16,11 +16,12 @@ public class Main {
         String file = "test/buisson.json";
         String file2 = "test/hexamaze.json";
         String file3 = "test/herbe.json";
+        String file4 = "test/sierpinski.json";
 
         // 2. Read num iterations
 //        int rounds = Integer.parseInt(args[0]);
 
-        int rounds = 3;
+        int rounds = 5;
         
         // 3. Initialize LSystem
 //        LSystem system = new LSystem(file2, numIter);
