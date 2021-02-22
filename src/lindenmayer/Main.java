@@ -11,7 +11,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-//        https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
         
         // 1. Read JSON file
         String file = "test/buisson.json";
@@ -27,8 +26,10 @@ public class Main {
 //        LSystem system = new LSystem(file2, numIter);
 //        LSystem system = new LSystem(file3, rounds);
         MainPS mainPS = new MainPS(file, rounds);
-        mainPS.printPostScript();
+//        mainPS.printPostScript();
         
+//        https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
+        // We need Swing Utilities to make sure paint(0 doesn't run before the constructor
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

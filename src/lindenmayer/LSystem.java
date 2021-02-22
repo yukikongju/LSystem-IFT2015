@@ -7,12 +7,10 @@ import lindenmayer.Symbol.Seq;
 
 public class LSystem extends AbstractLSystem {
     
-    private String file;
     private int rounds;
     private HashMap<Character, Symbol> alphabet;
     private Seq axiom;
 
-    private TurtleModel turtle;
     private Rectangle2D rectangle2D;
     
     public LSystem(int rounds) {

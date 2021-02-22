@@ -1,14 +1,13 @@
 package lindenmayer;
 
 import java.awt.geom.Point2D;
-import java.util.Observable;
 import java.util.Stack;
 
 /**
  *
  * @author emuli
  */
-public abstract class TurtleModel extends Observable implements TurtleInterface  {
+public abstract class TurtleModel implements TurtleInterface  {
     
     private double step, delta;
     private Stack<State> stack;
@@ -119,13 +118,6 @@ public abstract class TurtleModel extends Observable implements TurtleInterface 
     public void setUnits(double step, double delta) {
         this.step = step;
         this.delta = delta;
-    }
-    
-    public void majObserver(){
-        // send updated value to ui
-        // TODO: add majObserver() in tell()???
-        setChanged();
-        notifyObservers();
     }
     
 }

@@ -83,7 +83,7 @@ public class JSONFile {
         double angle = parameters.getDouble("angle");
         double step = parameters.getDouble("step");
         JSONArray temp = parameters.getJSONArray("start");
-        // Init Turtle from here?
+        // Init Turtle 
         Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
         turtle.init(position, temp.getDouble(2));
         turtle.setUnits(step, angle);
