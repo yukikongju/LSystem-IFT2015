@@ -8,7 +8,7 @@
 	"actions": {
 		"A":"draw", 
 		"B":"draw",
-		"F":"draw",
+		"F":"move",
 		"[":"push",
 		"]":"pop", 
 		"+":"turnL", 
