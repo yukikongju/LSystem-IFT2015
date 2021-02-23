@@ -20,6 +20,7 @@
 ## [Usage](#usage)
 
 Step 1: Generate a new json file of your desired LSystem in test/*.json
+
 Step 2: Call the json file from the main
 
 ## [Implementation](#implementation)
