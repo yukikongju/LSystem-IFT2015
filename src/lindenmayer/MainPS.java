@@ -21,6 +21,7 @@ public class MainPS {
     public void printPostScript(){
         printPSHeader();
         Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
+//        System.out.println((int) rectangle.getX() +" " + (int) rectangle.getY());
         printPSFooter(rectangle);
     }
     

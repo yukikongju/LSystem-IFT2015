@@ -12,14 +12,17 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-        int rounds = Integer.parseInt(args[1]);
-        String file = args[0];
+//        int rounds = Integer.parseInt(args[1]);
+//        String file = args[0];
+
+         int rounds = 3;
+         String file = "test/buisson.json";
 
         MainPS mainPS = new MainPS(file, rounds);
         mainPS.printPostScript();
         
 //        https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
-        // We need Swing Utilities to make sure paint(0 doesn't run before the constructor
+        // We need Swing Utilities to make sure paint() doesn't run before the constructor
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

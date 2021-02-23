@@ -145,6 +145,7 @@ public class LSystem extends AbstractLSystem {
             }
     }
         rectangle2D.add(turtle.getPosition());
+//        System.out.println(rectangle2D.getX() + " " + rectangle2D.getY());
         return rectangle2D;
     }
     
