@@ -2,10 +2,10 @@
 
 ## Table des Matières
 
-### [Prerequisites](#prerequisites)
-### [Usage](#usage)
-### [Implementation](#implementation)
-### [Ressources](#ressources)
+1. [Prerequisites](#prerequisites)
+2. [Usage](#usage)
+3. [Implementation](#implementation)
+4. [Ressources](#ressources)
 
 ## [Prerequisites](#prerequisites)
 
