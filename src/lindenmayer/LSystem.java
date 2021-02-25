@@ -7,9 +7,9 @@ import lindenmayer.Symbol.Seq;
 
 public class LSystem extends AbstractLSystem {
     
-//    private int rounds;
     private HashMap<Character, Symbol> alphabet;
     private Seq axiom;
+    double minX = 0, maxX = 0, minY = 0, maxY = 0;
 
     private Rectangle2D rectangle2D;
     
@@ -104,7 +104,7 @@ public class LSystem extends AbstractLSystem {
     
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
-        if(n < 1) return seq; // test
+        if(n == 0) return seq; // test
         Symbol.Seq newSequence = new Sequence();
         Iterator<Symbol> iter = seq.iterator();
         while(iter.hasNext()){
@@ -112,11 +112,10 @@ public class LSystem extends AbstractLSystem {
             Symbol.Seq substitution = rewrite(symbol);
             newSequence.concat(substitution);
         }
-//        n++;
-        return applyRules(newSequence, n - 1); // new sequence
+        return applyRules(newSequence, n - 1); 
     }
 
-    Symbol getSymbolFromCharacter(char character) {
+    public Symbol getSymbolFromCharacter(char character) {
         return (Symbol) this.alphabet.get(character);
     }
 
@@ -131,7 +130,7 @@ public class LSystem extends AbstractLSystem {
 
     @Override
     public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
-          if(rounds == 0 ){
+        if(rounds == 0 ){
             tell(turtle, seq);
         } else {
             Iterator<Symbol> iter = seq.iterator();
@@ -143,9 +142,18 @@ public class LSystem extends AbstractLSystem {
                 } 
             }
     }
-        rectangle2D.add(turtle.getPosition());
+        minX = Math.min(minX, turtle.getPosition().getX());
+        maxX = Math.max(maxX, turtle.getPosition().getX());
+        minY = Math.min(minY, turtle.getPosition().getY());
+        maxY = Math.max(maxY, turtle.getPosition().getY());
+        double largeur = maxX - minX;
+        double hauteur = maxY - minY;
+        Rectangle2D temp = new Rectangle2D.Double(minX, maxY, largeur, hauteur);
+        
+//    rectangle2D.add(turtle.getPosition());
 //        System.out.println(rectangle2D.getX() + " " + rectangle2D.getY());
-        return rectangle2D;
+//        return rectangle2D;
+        return temp;
     }
     
 }

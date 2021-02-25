@@ -21,7 +21,9 @@ public class TurtleUI extends TurtleModel{
         int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle()) ));
         int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle()) ));
         
+//        graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
         graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
+
     }
 
   
