@@ -5,6 +5,7 @@
  */
 package lindenmayer;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.Iterator;
@@ -83,12 +84,10 @@ public class JSONFile {
         double angle = parameters.getDouble("angle");
         double step = parameters.getDouble("step");
         JSONArray temp = parameters.getJSONArray("start");
-        // Init Turtle from here?
-        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
+        // Init Turtle 
+        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1)- GUI.HEIGHT);
         turtle.init(position, temp.getDouble(2));
-        turtle.setUnits(step, angle);
-        
-//        initTurtleModel(angle, step, start);
+        turtle.setUnits(step*(-1), angle);
     }
        
     private void readAlphabetFromJSONFile(JSONArray alphabet) {
@@ -97,6 +96,5 @@ public class JSONFile {
             Symbol symbol = lsystem.addSymbol(character);
         }    
 }
-    
     
 }

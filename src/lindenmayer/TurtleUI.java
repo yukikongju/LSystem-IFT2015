@@ -21,18 +21,16 @@ public class TurtleUI extends AbstractTurtle{
     }
 
     TurtleUI() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
     public void draw() {
+        super.draw();
         Point2D position = getPosition();
         int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle()) ));
         int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle()) ));
         
         graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
     }
-
-    
    
 }
