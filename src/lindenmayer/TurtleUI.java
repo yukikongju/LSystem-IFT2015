@@ -16,6 +16,9 @@ public class TurtleUI extends TurtleModel{
     
     @Override
     public void draw() {
+        // TODO: change position with rectangle (utiliser transformation linéaire)
+        // ne pas calculer 2 fois
+        
         super.draw();
         Point2D position = getPosition();
         int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle()) ));
@@ -23,5 +26,9 @@ public class TurtleUI extends TurtleModel{
         
         graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
     }
+
+  
+    
+    
    
 }

@@ -1,18 +1,15 @@
 package lindenmayer;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class GUI extends JLabel {
+public class GUI extends JPanel { // TODO: switch to JPanel
     final static int HEIGHT = 600;
     final static int WIDTH = 800;
     
@@ -23,12 +20,11 @@ public class GUI extends JLabel {
     private TurtleUI turtleUI;
     private JFrame frame;
     
-    public GUI(String file, int rounds) throws IOException{
+    public GUI(String file, int rounds) throws IOException{ // deprecated
         this.file = file;
         this.rounds = rounds;
-        lsystem = new LSystem(rounds);
-        JSONFile = new JSONFile();
-//        this.setBackground(Color.RED);
+//        lsystem = new LSystem(rounds);
+//        JSONFile = new JSONFile();
         frame = new JFrame();
         frame.setTitle("LSystem");
         frame.setSize(WIDTH, HEIGHT);
@@ -39,12 +35,17 @@ public class GUI extends JLabel {
 
     }
     
+//    public GUI(LSystem lsystem, TurtleUI turtle){
+//        this.turtleUI = turtle;
+//        this.lsystem = lsystem;
+//    }
+    
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-//        g.set(Color.GREEN);
         turtleUI = new TurtleUI((Graphics2D) g);
-        lsystem = new LSystem(rounds);
+//        lsystem = new LSystem(rounds);
+        lsystem = new LSystem();
         try {
             JSONFile.readJSONFile(file, turtleUI, lsystem);
         } catch (IOException ex) {

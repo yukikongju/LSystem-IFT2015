@@ -7,15 +7,15 @@ import lindenmayer.Symbol.Seq;
 
 public class LSystem extends AbstractLSystem {
     
-    private int rounds;
+//    private int rounds;
     private HashMap<Character, Symbol> alphabet;
     private Seq axiom;
 
     private Rectangle2D rectangle2D;
     
-    public LSystem(int rounds) {
+    public LSystem() {
         this.alphabet = new HashMap<>();
-        this.rounds = rounds;
+//        this.rounds = rounds;
         rectangle2D = new Rectangle2D.Double();
     }
     
@@ -105,7 +105,7 @@ public class LSystem extends AbstractLSystem {
     
     @Override
     public Symbol.Seq applyRules(Symbol.Seq seq, int n) { //replace Symbol.Seq by this.axiom
-        if(n>=this.rounds) return seq;
+        if(n < 1) return seq; // test
         Symbol.Seq newSequence = new Sequence();
         Iterator<Symbol> iter = seq.iterator();
         while(iter.hasNext()){
@@ -113,8 +113,8 @@ public class LSystem extends AbstractLSystem {
             Symbol.Seq substitution = rewrite(symbol);
             newSequence.concat(substitution);
         }
-        n++;
-        return applyRules(newSequence, n); // new sequence
+//        n++;
+        return applyRules(newSequence, n - 1); // new sequence
     }
 
     Symbol getSymbolFromCharacter(char character) {

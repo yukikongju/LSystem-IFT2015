@@ -10,11 +10,17 @@ public class MainPS {
     private JSONFile JSONFile;
     private int rounds;
     
-    public MainPS(String file, int rounds) throws IOException{
-        turtle = new TurtlePS();
-        lsystem = new LSystem(rounds);
-        JSONFile = new JSONFile();
-        JSONFile.readJSONFile(file, turtle, lsystem);
+//    public MainPS(String file, int rounds) throws IOException{ // deprecated
+//        turtle = new TurtlePS();
+//        lsystem = new LSystem(rounds);
+////        JSONFile = new JSONFile(); // TODO: put JSON File outside
+//        JSONFile.readJSONFile(file, turtle, lsystem);
+//        this.rounds = rounds;
+//    }
+    
+    public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){
+        this.turtle = turtle;
+        this.lsystem = lsystem;
         this.rounds = rounds;
     }
     
@@ -28,7 +34,7 @@ public class MainPS {
     private void printPSHeader(){
         System.out.println("%!PS-Adobe-3.0 EPSF-3.0");
         System.out.println("%%Title: L-system");
-        System.out.println("%%Creator: "+getClass().getName());
+        System.out.println("%%Creator: "+ getClass().getName());
         System.out.println("%%BoundingBox: (atend)"); 
         System.out.println("%%EndComments");
         System.out.println("/M {moveto} bind def"); 
