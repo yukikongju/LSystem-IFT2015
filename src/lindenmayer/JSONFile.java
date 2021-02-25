@@ -19,13 +19,13 @@ import org.json.JSONTokener;
 public class JSONFile {
     
     private String file;
-    private TurtleModel turtle;
+    private AbstractTurtle turtle;
     private LSystem lsystem;
 
     public JSONFile() throws IOException {
     }
     
-    public void readJSONFile(String file, TurtleModel turtle, LSystem lsystem) throws java.io.IOException {
+    public void readJSONFile(String file, AbstractTurtle turtle, LSystem lsystem) throws java.io.IOException {
         this.file = file;
         this.turtle = turtle;
         this.lsystem = lsystem;

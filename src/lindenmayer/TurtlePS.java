@@ -9,7 +9,7 @@ package lindenmayer;
  *
  * @author emuli
  */
-public class TurtlePS extends TurtleModel{
+public class TurtlePS extends AbstractTurtle{
     
     @Override
     public void draw() {

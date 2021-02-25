@@ -12,7 +12,7 @@ import java.awt.geom.Point2D;
  *
  * @author emuli
  */
-public class TurtleUI extends TurtleModel{
+public class TurtleUI extends AbstractTurtle{
     
     Graphics2D graphics;
 

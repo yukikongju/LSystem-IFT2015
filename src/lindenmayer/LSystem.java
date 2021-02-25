@@ -16,7 +16,7 @@ public class LSystem extends AbstractLSystem {
     private HashMap<Character, Symbol> alphabet;
     private Seq axiom;
 
-    private TurtleModel turtle;
+    private AbstractTurtle turtle;
 //    private GUI gui;
     private Rectangle2D rectangle2D;
     
@@ -102,7 +102,7 @@ public class LSystem extends AbstractLSystem {
           } return rule;
     }
     
-     private void updateTurtle(AbstractTurtle turtle, String action){
+     private void updateTurtle(TurtleModel turtle, String action){
          switch(action){
             case "draw":
                 turtle.draw();
@@ -138,7 +138,7 @@ public class LSystem extends AbstractLSystem {
      }
     
     @Override
-    public void tell(TurtleModel turtle, Symbol.Seq seq) {
+    public void tell(AbstractTurtle turtle, Symbol.Seq seq) {
         Iterator<Symbol> iter = seq.iterator();
         while(iter.hasNext()){
             updateTurtle(turtle, iter.next().getAction());
@@ -240,7 +240,7 @@ public class LSystem extends AbstractLSystem {
 //    }
 
     @Override
-    public Rectangle2D tell(TurtleModel turtle, Symbol.Seq seq, int rounds) {
+    public Rectangle2D tell(AbstractTurtle turtle, Symbol.Seq seq, int rounds) {
           if(rounds == 0 ){
             tell(turtle, seq);
         } else {

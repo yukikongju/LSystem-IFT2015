@@ -23,7 +23,7 @@ public class GUI extends JFrame implements Observer {
     private JLabel axiomLabel, roundsLabel;
     private JButton iterButton;
     private LSystem lsystem;
-    private TurtleModel turtle;
+    private AbstractTurtle turtle;
     private int rounds;
     private String file;
     private JSONFile JSONFile;
