@@ -10,14 +10,6 @@ public class MainPS {
     private JSONFile JSONFile;
     private int rounds;
     
-//    public MainPS(String file, int rounds) throws IOException{ // deprecated
-//        turtle = new TurtlePS();
-//        lsystem = new LSystem(rounds);
-////        JSONFile = new JSONFile(); // TODO: put JSON File outside
-//        JSONFile.readJSONFile(file, turtle, lsystem);
-//        this.rounds = rounds;
-//    }
-    
     public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){
         this.turtle = turtle;
         this.lsystem = lsystem;

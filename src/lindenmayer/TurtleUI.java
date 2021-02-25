@@ -7,13 +7,10 @@ public class TurtleUI extends TurtleModel{
     
     Graphics2D graphics;
 
-    public TurtleUI(Graphics2D graphics) {
+    public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
     }
 
-    TurtleUI() {
-    }
-    
     @Override
     public void draw() {
         // TODO: change position with rectangle (utiliser transformation linéaire)

@@ -15,7 +15,6 @@ public class LSystem extends AbstractLSystem {
     
     public LSystem() {
         this.alphabet = new HashMap<>();
-//        this.rounds = rounds;
         rectangle2D = new Rectangle2D.Double();
     }
     
