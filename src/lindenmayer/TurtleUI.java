@@ -21,9 +21,22 @@ public class TurtleUI extends TurtleModel{
         int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle()) ));
         int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle()) ));
         
-//        graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
         graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
+//        graphics.drawLine(x, y, x, y);
+//        graphics.drawLine((int) getPosition().getX(), (int) getPosition().getY(),
+//                (int) (GUI.WIDTH - getPosition().getX()), (int) (GUI.HEIGHT - getPosition().getX()));
+//        System.out.println(getPosition().getX() + " " + getPosition().getY());
+//        graphics.drawLine(y, y, y, y);
+    }
 
+    @Override
+    public void turnL() {
+        super.turnR(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void turnR() {
+        super.turnL(); //To change body of generated methods, choose Tools | Templates.
     }
 
   

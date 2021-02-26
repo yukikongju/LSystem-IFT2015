@@ -4,7 +4,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JFrame;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+//import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GUI extends JPanel { 
@@ -14,19 +16,19 @@ public class GUI extends JPanel {
     private LSystem lsystem;
     private int rounds;
     private TurtleUI turtleUI;
-    private JFrame frame;
+//    private JFrame frame;
     
     public GUI(LSystem lsystem, TurtleUI turtle, int rounds){
         this.turtleUI = turtle;
         this.lsystem = lsystem;
         this.rounds = rounds;
-        frame = new JFrame();
-        frame.setTitle("LSystem");
-        frame.setSize(WIDTH, HEIGHT);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(this);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+//        frame = new JFrame();
+//        frame.setTitle("LSystem");
+//        frame.setSize(WIDTH, HEIGHT);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.add(this);
+////        frame.setLocationRelativeTo(null);
+//        frame.setVisible(true);
     }
     
     @Override
@@ -35,14 +37,27 @@ public class GUI extends JPanel {
         turtleUI.setGraphics((Graphics2D) g);
 
         Rectangle2D rectangle2D = lsystem.tell(turtleUI, lsystem.getAxiom(), rounds);
+//        rectangle2D.getMaxX();
+
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        System.out.println(rectangle2D.getMaxX() + " " + rectangle2D.getMaxY());
 
 //        System.out.println((int) rectangle2D.getWidth()+" " + (int) rectangle2D.getHeight());
-//        this.setSize((int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
+//        setSize((int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
         turtleUI.draw();
 //        Dimension dimension = new Dimension((int) rectangle2D.getWidth(), 
 //                (int) rectangle2D.getHeight());
 //        frame.setPreferredSize(dimension);
     }
+ 
+//    public Dimension getPreferresSize(){
+//        return new Dimension(600, 800);
+//    }
     
 }
 

@@ -1,6 +1,7 @@
 package lindenmayer;
 
 import java.io.IOException;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class Main {
@@ -32,7 +33,17 @@ public class Main {
             @Override
             public void run() {
                 new GUI(lsystem, turtleUI, rounds).setVisible(true);
+                createAndShowGUI(lsystem, turtleUI, rounds);
             }
+
+            private void createAndShowGUI(LSystem lsystem, TurtleUI turtleUI, int rounds) {
+                JFrame frame = new JFrame("LSystem");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+                frame.add(new GUI(lsystem, turtleUI, rounds));
+                frame.pack();
+                frame.setSize(600,800);
+                frame.setVisible(true);
+             }
         });
         
     }
