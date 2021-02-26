@@ -1,5 +1,6 @@
 package lindenmayer;
 
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -112,7 +113,7 @@ public class LSystem extends AbstractLSystem {
             Symbol.Seq substitution = rewrite(symbol);
             newSequence.concat(substitution);
         }
-        return applyRules(newSequence, n - 1); 
+        return applyRules(newSequence, n - 1);
     }
 
     public Symbol getSymbolFromCharacter(char character) {
@@ -149,9 +150,7 @@ public class LSystem extends AbstractLSystem {
         double largeur = maxX - minX;
         double hauteur = maxY - minY;
         Rectangle2D temp = new Rectangle2D.Double(minX, maxY, largeur, hauteur);
-        
 //    rectangle2D.add(turtle.getPosition());
-//        System.out.println(rectangle2D.getX() + " " + rectangle2D.getY());
 //        return rectangle2D;
         return temp;
     }

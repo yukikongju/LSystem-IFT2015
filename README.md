@@ -60,7 +60,7 @@ Step 2: Call the json file from the main
 
 
 - [ ] Spécifications du Projet: https://ift2015h21.wordpress.com/2021/02/01/projet-1-planter-un-arbre-dans-lordinateur/#more-136  
-- [ ] Java Swind Documentation: https://docs.oracle.com/javase/tutorial/uiswing/
+- [ ] Java Swing Documentation: https://docs.oracle.com/javase/tutorial/uiswing/
 - [ ] SimonDev's Explanation of LSystems: https://www.youtube.com/watch?v=feNVBEPXAcE
 - [ ] Kbhadury's Example of LSytem: https://github.com/kbhadury/LSystem
 

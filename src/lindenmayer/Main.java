@@ -1,5 +1,6 @@
 package lindenmayer;
 
+import java.awt.Color;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -32,7 +33,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new GUI(lsystem, turtleUI, rounds).setVisible(true);
+//                new GUI(lsystem, turtleUI, rounds).setVisible(true);
                 createAndShowGUI(lsystem, turtleUI, rounds);
             }
 

@@ -2,10 +2,12 @@ package lindenmayer;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import static lindenmayer.GUI.HEIGHT;
 
 public class TurtleUI extends TurtleModel{
     
     Graphics2D graphics;
+    private int buffer = 10;
 
     public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
@@ -18,25 +20,20 @@ public class TurtleUI extends TurtleModel{
         
         super.draw();
         Point2D position = getPosition();
-        int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle()) ));
-        int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle()) ));
-        
-        graphics.drawLine((int) position.getX(), (int) position.getY(), x, y);
-//        graphics.drawLine(x, y, x, y);
-//        graphics.drawLine((int) getPosition().getX(), (int) getPosition().getY(),
-//                (int) (GUI.WIDTH - getPosition().getX()), (int) (GUI.HEIGHT - getPosition().getX()));
-//        System.out.println(getPosition().getX() + " " + getPosition().getY());
-//        graphics.drawLine(y, y, y, y);
+        int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle())));
+        int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle())));
+
+        graphics.drawLine((int) getPosition().getX(), (int) (HEIGHT - getPosition().getY()), x, HEIGHT - y);
     }
 
     @Override
-    public void turnL() {
-        super.turnR(); //To change body of generated methods, choose Tools | Templates.
+    public void turnL() { // mirror the image
+        super.turnR(); 
     }
 
     @Override
-    public void turnR() {
-        super.turnL(); //To change body of generated methods, choose Tools | Templates.
+    public void turnR() { // mirror the image
+        super.turnL(); 
     }
 
   

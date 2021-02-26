@@ -7,7 +7,6 @@ public class MainPS {
 
     private LSystem lsystem;
     private TurtlePS turtle;
-    private JSONFile JSONFile;
     private int rounds;
     
     public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){
@@ -19,7 +18,6 @@ public class MainPS {
     public void printPostScript(){
         printPSHeader();
         Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
-//        System.out.println((int) rectangle.getX() +" " + (int) rectangle.getY());
         printPSFooter(rectangle);
     }
     
