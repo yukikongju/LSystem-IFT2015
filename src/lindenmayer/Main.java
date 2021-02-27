@@ -36,14 +36,14 @@ public class Main {
             }
 
             private void createGUI() {
-                JFrame frame = new JFrame("LSystem");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                JFrame frame = new JFrame("LSystem");
+//                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI gui = new GUI(turtleModel);
-                turtleModel.addObserver(gui); // make gui observe any turtle changes
-                frame.add(gui);
-                frame.pack(); // might be an error
-                frame.setSize(600,600);
-                frame.setVisible(true);
+//                turtleModel.addObserver(gui); // make gui observe any turtle changes
+//                frame.add(gui);
+//                frame.pack(); // might be an error
+//                frame.setSize(600,600);
+//                frame.setVisible(true);
              }
            
             private void printPostScriptHeader(){
