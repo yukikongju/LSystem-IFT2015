@@ -15,13 +15,16 @@ public class GUI extends JFrame implements Observer{
     final static int WIDTH = 600;
     
     private TurtleModel turtle;
-    private Point2D position;
+//    private Point2D position;
+    
+    TurtleUI turtlePanel;
     
      public GUI(TurtleModel turtle){
         this.turtle = turtle;
-        this.position = turtle.getPosition();
-        TurtleUI turtlePanel = new TurtleUI(turtle);
-        this.add(turtlePanel);
+//        this.position = turtle.getPosition();
+        turtlePanel = new TurtleUI(turtle);
+        this.getContentPane().add(turtlePanel);
+        this.setLocationRelativeTo(null);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         turtle.addObserver(this); // make gui observe any turtle changes
@@ -32,30 +35,11 @@ public class GUI extends JFrame implements Observer{
         
     }
     
-//    @Override
-//    public void paintComponent(Graphics g){
-//        super.paintComponent(g);
-//        
-//        int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
-//        int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
-//
-//        g.drawLine((int) position.getX(),(int) position.getY(), x, y);
-//        
-//        System.out.println(turtle.getPosition());
-//        
-////        try {
-////            Thread.sleep(1000);
-////        } catch (InterruptedException ex) {
-////            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-////        }
-//
-//    }
-
     @Override
     public void update(Observable o, Object o1) {        // update turtle and position
-        position = turtle.getPosition();
-//        System.out.println("update: " + position); // update works
+//        position = turtle.getPosition();
         repaint(); // Problem: repaint doesn't call paintComponent bc repaint should be called in JFrame, not JPanel
+        turtlePanel.repaint();
     }
  
 }
