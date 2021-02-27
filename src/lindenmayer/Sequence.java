@@ -32,7 +32,7 @@ public class Sequence implements Symbol.Seq{
 
     @Override
     public String toString() {
-        String s= "";
+        String s = "";
         for(int i=0; i<this.sequences.size();i++){
             s += this.sequences.get(i);
         }
