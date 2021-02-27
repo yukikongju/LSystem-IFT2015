@@ -24,7 +24,7 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
         
         // set alpha
         float alpha = 0.5f;
-        Color color = new Color(1, 0, 0, alpha);
+        Color color = new Color(0, 0, 0, alpha);
         g.setPaint(color);
         
         int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
