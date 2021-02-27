@@ -20,12 +20,14 @@ public class GUI extends JFrame implements Observer{
      public GUI(TurtleModel turtle){
         this.turtle = turtle;
         this.position = turtle.getPosition();
+        TurtleUI turtlePanel = new TurtleUI(turtle);
+        this.add(turtlePanel);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         turtle.addObserver(this); // make gui observe any turtle changes
 //        add(this);
         pack(); // might be an error
-        setSize(600,600);
+        setSize(WIDTH,HEIGHT);
         setVisible(true);
         
     }
