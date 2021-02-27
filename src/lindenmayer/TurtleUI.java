@@ -13,26 +13,24 @@ import javax.swing.JPanel;
 public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
     
     private TurtleModel turtle;
-    private Point2D position;
+//    private Point2D position;
     private int buffer = 25;
 
     public TurtleUI(TurtleModel turtle) {
         this.turtle = turtle;
-        this.position = turtle.getPosition();
+//        this.position = turtle.getPosition();
         turtle.addObserver(this);
         setSize(300,300); // to change
         setVisible(true);
     }
     
-    public void draw(Point2D point){
-        Graphics2D g = (Graphics2D) getGraphics();
+    public void draw(Point2D position){
+        Graphics2D g = (Graphics2D) getGraphics(); // get graphics from JPanel
         
         int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
         int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
 
         g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY() - buffer) , x, (int)(GUI.HEIGHT - y - buffer));
-//        g.drawLine((int) position.getX(),(int) (HEIGHT - position.getY()), x, (HEIGHT - y));
-//        g.drawLine((int) position.getX(),(int) (position.getY()), x, (y));
 
         try {
             Thread.sleep(25);
@@ -44,7 +42,7 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
     
     @Override
     public void update(Observable o, Object o1) {
-        position = turtle.getPosition();
+        Point2D position = turtle.getPosition();
 //        this.repaint();
         draw(position);
     }
