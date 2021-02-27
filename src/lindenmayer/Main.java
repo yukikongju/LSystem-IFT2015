@@ -14,7 +14,7 @@ public class Main {
 //        int rounds = Integer.parseInt(args[1]);
 //        String file = args[0];
 
-         int rounds = 6;
+         int rounds = 4;
          String file = "test/buisson.json";
 
          // Read JSON file
