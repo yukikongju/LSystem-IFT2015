@@ -32,6 +32,7 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
 
         g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY() - buffer) , x, (int)(GUI.HEIGHT - y - buffer));
 
+        // TODO: removed thread because it slow down 
         try {
             Thread.sleep(25);
         } catch (InterruptedException ex) {
