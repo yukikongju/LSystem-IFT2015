@@ -2,6 +2,7 @@ package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.Observer;
 
 public class MainPS {
 

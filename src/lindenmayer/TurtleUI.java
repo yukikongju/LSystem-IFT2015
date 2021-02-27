@@ -4,10 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import static lindenmayer.GUI.HEIGHT;
 
-public class TurtleUI extends TurtleModel{
+public class TurtleUI extends TurtleModel{ // deprecated?
     
     Graphics2D graphics;
-    private int buffer = 10;
+//    private int buffer = 10;
 
     public void setGraphics(Graphics2D graphics) {
         this.graphics = graphics;
@@ -16,14 +16,19 @@ public class TurtleUI extends TurtleModel{
     @Override
     public void draw() {
         // TODO: change position with rectangle (utiliser transformation linéaire)
-        // ne pas calculer 2 fois
+        // Ici, on ne recalcule pas la position, on obtient les positions du prochain states.
         
         super.draw();
         Point2D position = getPosition();
         int x = (int) (position.getX() + getStep() * Math.cos(Math.toRadians(getAngle())));
         int y = (int) (position.getY() + getStep() * Math.sin(Math.toRadians(getAngle())));
 
+        
+        
         graphics.drawLine((int) getPosition().getX(), (int) (HEIGHT - getPosition().getY()), x, HEIGHT - y);
+//        graphics.drawLine((int) getPosition().getX(), (int) (HEIGHT - getPosition().getY()), 
+//                (int) getPosition().getX(), (int) (HEIGHT - getPosition().getY()));
+
     }
 
     @Override

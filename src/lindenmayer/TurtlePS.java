@@ -1,6 +1,6 @@
 package lindenmayer;
 
-public class TurtlePS extends TurtleModel{
+public class TurtlePS extends TurtleModel { // implements Observable
     
     @Override
     public void draw() {

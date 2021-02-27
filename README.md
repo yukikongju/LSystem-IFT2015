@@ -63,4 +63,5 @@ Step 2: Call the json file from the main
 - [ ] Java Swing Documentation: https://docs.oracle.com/javase/tutorial/uiswing/
 - [ ] SimonDev's Explanation of LSystems: https://www.youtube.com/watch?v=feNVBEPXAcE
 - [ ] Kbhadury's Example of LSytem: https://github.com/kbhadury/LSystem
+- [ ] Java Oberserver and Observable example: https://www.concretepage.com/java/example-observer-observable-java
 

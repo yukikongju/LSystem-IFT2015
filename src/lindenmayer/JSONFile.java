@@ -43,6 +43,19 @@ public class JSONFile {
         return turtle;
     }
     
+    public TurtleModel getTurtleModel() throws FileNotFoundException{
+        JSONObject parameters = new JSONObject(this.input, "parameters").getJSONObject("parameters");
+        double angle = parameters.getDouble("angle");
+        double step = parameters.getDouble("step");
+        JSONArray temp = parameters.getJSONArray("start");
+        // Init Turtle 
+        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
+        TurtleModel turtle = new TurtleModel();
+        turtle.init(position, temp.getDouble(2));
+        turtle.setUnits(step, angle);
+        return turtle;
+    }
+    
     public LSystem getLSystem(){
         LSystem lsystem = new LSystem();
         

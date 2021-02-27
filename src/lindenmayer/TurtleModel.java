@@ -1,9 +1,10 @@
 package lindenmayer;
 
 import java.awt.geom.Point2D;
+import java.util.Observable;
 import java.util.Stack;
 
-public abstract class TurtleModel implements TurtleInterface  {
+public class TurtleModel extends Observable implements TurtleInterface { // change to normal class, not abstract
     
     private double step, delta;
     private Stack<State> stack;
@@ -47,6 +48,7 @@ public abstract class TurtleModel implements TurtleInterface  {
     public void draw() {
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
+        majObservers();
     }
 
     @Override
@@ -116,5 +118,9 @@ public abstract class TurtleModel implements TurtleInterface  {
         this.delta = delta;
     }
     
+    public void majObservers(){
+        setChanged();
+        notifyObservers();
+    }
 }
 

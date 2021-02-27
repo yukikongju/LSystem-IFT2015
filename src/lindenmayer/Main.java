@@ -1,6 +1,7 @@
 package lindenmayer;
 
 import java.awt.Color;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -15,17 +16,17 @@ public class Main {
 //        int rounds = Integer.parseInt(args[1]);
 //        String file = args[0];
 
-         int rounds = 3;
-         String file = "test/buisson.json";
+         int rounds = 4;
+         String file = "test/herbe.json";
 
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);
         LSystem lsystem = jsonFile.getLSystem();
-        TurtleUI turtleUI = jsonFile.getTurtleUI();
-        TurtlePS turtlePS = jsonFile.getTurtlePS();
-         
+        TurtlePS turtlePS = jsonFile.getTurtlePS(); 
+        TurtleModel turtleModel = jsonFile.getTurtleModel();
+        
         // Print postscript 
-        MainPS mainPS = new MainPS(lsystem, turtlePS, rounds);
+        MainPS mainPS = new MainPS(lsystem, turtlePS, rounds); // to change
         mainPS.printPostScript();
         
         // https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
@@ -33,17 +34,20 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-//                new GUI(lsystem, turtleUI, rounds).setVisible(true);
-                createAndShowGUI(lsystem, turtleUI, rounds);
+                createAndShowGUI(lsystem, rounds);
             }
 
-            private void createAndShowGUI(LSystem lsystem, TurtleUI turtleUI, int rounds) {
+            private void createAndShowGUI(LSystem lsystem, int rounds) {
                 JFrame frame = new JFrame("LSystem");
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-                frame.add(new GUI(lsystem, turtleUI, rounds));
-                frame.pack();
-                frame.setSize(600,800);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                GUI gui = new GUI(turtleModel);
+                turtleModel.addObserver(gui);
+                frame.add(gui);
+                frame.pack(); // might be an error
+                frame.setSize(600,600);
                 frame.setVisible(true);
+                Rectangle2D rectangle2D = lsystem.tell(turtleModel, lsystem.getAxiom(), rounds);
+
              }
         });
         
