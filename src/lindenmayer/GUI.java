@@ -1,24 +1,15 @@
 package lindenmayer;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Toolkit;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class GUI extends JFrame implements Observer{ 
     final static int HEIGHT = 600;
     final static int WIDTH = 600;
     
     private TurtleModel turtle;
-    
-    TurtlePanel turtlePanel;
+    private TurtlePanel turtlePanel;
     
      public GUI(TurtleModel turtle){
         this.turtle = turtle;
@@ -39,7 +30,7 @@ public class GUI extends JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object o1) {        // update turtle and position
-        repaint(); // unecessary?
+        repaint(); // could be removed
     }
  
 }
