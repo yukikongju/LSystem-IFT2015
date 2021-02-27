@@ -1,6 +1,8 @@
 package lindenmayer;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Observable;
@@ -22,11 +24,13 @@ public class GUI extends JFrame implements Observer{
         this.turtle = turtle;
         turtlePanel = new TurtleUI(turtle);
         this.getContentPane().add(turtlePanel);
-        this.setLocationRelativeTo(null);
+        
+        // Set JFrame in the middle of the screen
+//        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         turtle.addObserver(this); // make gui observe any turtle changes
-//        add(this);
         pack(); // might be an error
         setSize(WIDTH,HEIGHT);
         setVisible(true);

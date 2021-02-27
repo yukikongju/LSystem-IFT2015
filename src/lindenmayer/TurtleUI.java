@@ -19,7 +19,7 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
         this.turtle = turtle;
         this.position = turtle.getPosition();
         turtle.addObserver(this);
-        setSize(200,200); // to change
+        setSize(300,300); // to change
         setVisible(true);
     }
     
@@ -30,18 +30,19 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
         int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
 
 //        g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY()), x, (GUI.HEIGHT - y));
-        g.drawLine((int) position.getX(),(int) (HEIGHT - position.getY()), x, (HEIGHT - y));
-//        g.drawLine((int) position.getX(),(int) (position.getY()), x, (y));
+//        g.drawLine((int) position.getX(),(int) (HEIGHT - position.getY()), x, (HEIGHT - y));
+        g.drawLine((int) position.getX(),(int) (position.getY()), x, (y));
 
         
-        System.out.println(turtle.getPosition());
+//        System.out.println(turtle.getPosition());
+        
     }
     
     @Override
     public void update(Observable o, Object o1) {
         position = turtle.getPosition();
 //        this.repaint();
-        draw(position);
+            draw(position);
     }
 
   
