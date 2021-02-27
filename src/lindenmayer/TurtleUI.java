@@ -14,6 +14,7 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
     
     private TurtleModel turtle;
     private Point2D position;
+    private int buffer = 25;
 
     public TurtleUI(TurtleModel turtle) {
         this.turtle = turtle;
@@ -29,12 +30,15 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
         int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
         int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
 
-//        g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY()), x, (GUI.HEIGHT - y));
+        g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY() - buffer) , x, (int)(GUI.HEIGHT - y - buffer));
 //        g.drawLine((int) position.getX(),(int) (HEIGHT - position.getY()), x, (HEIGHT - y));
-        g.drawLine((int) position.getX(),(int) (position.getY()), x, (y));
+//        g.drawLine((int) position.getX(),(int) (position.getY()), x, (y));
 
-        
-//        System.out.println(turtle.getPosition());
+        try {
+            Thread.sleep(25);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TurtleUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
@@ -42,7 +46,7 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
     public void update(Observable o, Object o1) {
         position = turtle.getPosition();
 //        this.repaint();
-            draw(position);
+        draw(position);
     }
 
   

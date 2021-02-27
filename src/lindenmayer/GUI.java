@@ -39,7 +39,7 @@ public class GUI extends JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object o1) {        // update turtle and position
-//        repaint(); // Problem: repaint doesn't call paintComponent bc repaint should be called in JFrame, not JPanel
+        repaint(); // Problem: repaint doesn't call paintComponent bc repaint should be called in JFrame, not JPanel
 //        turtlePanel.repaint();
     }
  
