@@ -10,7 +10,7 @@ public class MainPS {
     private TurtlePS turtle;
     private int rounds;
     
-    public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){
+    public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){ // deprecated
         this.turtle = turtle;
         this.lsystem = lsystem;
         this.rounds = rounds;
@@ -18,8 +18,8 @@ public class MainPS {
     
     public void printPostScript(){
         printPSHeader();
-        Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
-        printPSFooter(rectangle);
+//        Rectangle2D rectangle = lsystem.tell(turtle, lsystem.getAxiom(), rounds);
+//        printPSFooter(rectangle);
     }
     
     private void printPSHeader(){
@@ -31,8 +31,8 @@ public class MainPS {
         System.out.println("/M {moveto} bind def"); 
         System.out.println("/L {lineto} bind def"); 
         System.out.println("0.5 setlinewidth"); 
-        System.out.println(turtle.getPosition().getX() + " " + 
-                turtle.getPosition().getY() + " " + " newpath  move to ");
+//        System.out.println(turtle.getPosition().getX() + " " + 
+//                turtle.getPosition().getY() + " " + " newpath  move to ");
     }
     
     private void printPSFooter(Rectangle2D rectangle){

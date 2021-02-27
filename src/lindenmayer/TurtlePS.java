@@ -1,35 +1,36 @@
 package lindenmayer;
 
-public class TurtlePS extends TurtleModel { // implements Observable
+import java.awt.geom.Point2D;
+
+public class TurtlePS  { // implements Observable? // extends TurtleModel?
     
-    @Override
-    public void draw() {
-        super.draw(); 
-        printPosition();
+    private final static String FORMAT = "%.1f %.1f";
+    
+    public void draw(Point2D position) {
+        printPosition(position);
         System.out.println(" L ");
     }
 
-    @Override
-    public void pop() {
-        super.pop(); 
+    public void pop(Point2D position) {
         System.out.println("stroke");
-        printPosition();
+        printPosition(position);
         System.out.println(" newpath M ");
     }
 
-    @Override
-    public void push() {
-        super.push(); 
+    public void push(Point2D position) {
         System.out.println("stroke");
-        printPosition();
+        printPosition(position);
         System.out.println(" newpath M ");
     }
 
-    @Override
-    public void move() {
-        super.move(); 
-        printPosition();
+    public void move(Point2D position) {
+        printPosition(position);
         System.out.println(" M ");
     }
   
+    protected void printPosition(Point2D position){
+        System.out.printf(FORMAT, position.getX(),
+                position.getY(), " ");
+    }
+    
 }

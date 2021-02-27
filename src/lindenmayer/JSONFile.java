@@ -17,31 +17,18 @@ public class JSONFile {
         input = new JSONObject(new JSONTokener(new java.io.FileReader(this.file)));
     }
     
-    public TurtleUI getTurtleUI() throws FileNotFoundException{
-        JSONObject parameters = new JSONObject(this.input, "parameters").getJSONObject("parameters");
-        double angle = parameters.getDouble("angle");
-        double step = parameters.getDouble("step");
-        JSONArray temp = parameters.getJSONArray("start");
-        // Init Turtle 
-        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
-        TurtleUI turtle = new TurtleUI();
-        turtle.init(position, temp.getDouble(2));
-        turtle.setUnits(step, angle);
-        return turtle;
-    }
-    
-    public TurtlePS getTurtlePS() throws FileNotFoundException{
-        JSONObject parameters = new JSONObject(this.input, "parameters").getJSONObject("parameters");
-        double angle = parameters.getDouble("angle");
-        double step = parameters.getDouble("step");
-        JSONArray temp = parameters.getJSONArray("start");
-        // Init Turtle 
-        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
-        TurtlePS turtle = new TurtlePS();
-        turtle.init(position, temp.getDouble(2));
-        turtle.setUnits(step, angle);
-        return turtle;
-    }
+//    public TurtlePS getTurtlePS() throws FileNotFoundException{
+//        JSONObject parameters = new JSONObject(this.input, "parameters").getJSONObject("parameters");
+//        double angle = parameters.getDouble("angle");
+//        double step = parameters.getDouble("step");
+//        JSONArray temp = parameters.getJSONArray("start");
+//        // Init Turtle 
+//        Point2D position = new Point2D.Double(temp.getDouble(0), temp.getDouble(1));
+//        TurtlePS turtle = new TurtlePS();
+//        turtle.init(position, temp.getDouble(2));
+//        turtle.setUnits(step, angle);
+//        return turtle;
+//    }
     
     public TurtleModel getTurtleModel() throws FileNotFoundException{
         JSONObject parameters = new JSONObject(this.input, "parameters").getJSONObject("parameters");

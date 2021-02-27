@@ -22,35 +22,63 @@ public class Main {
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);
         LSystem lsystem = jsonFile.getLSystem();
-        TurtlePS turtlePS = jsonFile.getTurtlePS(); 
+//        TurtlePS turtlePS = jsonFile.getTurtlePS(); 
         TurtleModel turtleModel = jsonFile.getTurtleModel();
         
         // Print postscript 
-        MainPS mainPS = new MainPS(lsystem, turtlePS, rounds); // to change
-        mainPS.printPostScript();
+//        MainPS mainPS = new MainPS(lsystem, turtlePS, rounds); // to change
+//        mainPS.printPostScript();
         
         // https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
         // We need Swing Utilities to make sure paint() doesn't run before the constructor
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                createAndShowGUI(lsystem, rounds);
+                createGUI();
+                printPostScriptHeader();
+//                createTurtlePS();
+                Rectangle2D rectangle2D = lsystem.tell(turtleModel, lsystem.getAxiom(), rounds);
+                printPostScriptFooter(rectangle2D);
             }
 
-            private void createAndShowGUI(LSystem lsystem, int rounds) {
+            private void createGUI() {
                 JFrame frame = new JFrame("LSystem");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI gui = new GUI(turtleModel);
-                turtleModel.addObserver(gui);
+                turtleModel.addObserver(gui); // make gui observe any turtle changes
                 frame.add(gui);
                 frame.pack(); // might be an error
                 frame.setSize(600,600);
                 frame.setVisible(true);
-                Rectangle2D rectangle2D = lsystem.tell(turtleModel, lsystem.getAxiom(), rounds);
-
              }
+           
+            private void printPostScriptHeader(){
+                System.out.println("%!PS-Adobe-3.0 EPSF-3.0");
+                System.out.println("%%Title: L-system");
+                System.out.println("%%Creator: "+ getClass().getName());
+                System.out.println("%%BoundingBox: (atend)"); 
+                System.out.println("%%EndComments");
+                System.out.println("/M {moveto} bind def"); 
+                System.out.println("/L {lineto} bind def"); 
+                System.out.println("0.5 setlinewidth"); 
+                System.out.println(turtleModel.getPosition().getX() + " " + 
+                        turtleModel.getPosition().getY() + " " + " newpath  move to ");
+    }
+    
+            private void printPostScriptFooter(Rectangle2D rectangle){
+                System.out.println("stroke");
+                System.out.println("%%Trailer");
+                System.out.println("%%BoundingBox:" + 
+                        (int) rectangle.getX() + " " + (int) rectangle.getY() + " " +
+                        (int) (rectangle.getX() + rectangle.getWidth()) + " " +
+                        (int) rectangle.getHeight()); 
+                System.out.println("%%EOF");
+            }
+
         });
         
     }
+    
+    
     
 }

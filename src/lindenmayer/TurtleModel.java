@@ -9,19 +9,22 @@ public class TurtleModel extends Observable implements TurtleInterface { // chan
     private double step, delta;
     private Stack<State> stack;
     private State currentState;
+    private TurtlePS turtlePS;
     
-    private final static String FORMAT = "%.1f %.1f";
+//    private final static String FORMAT = "%.1f %.1f";
     
-    public TurtleModel(double x, double y, double theta, double delta, double step) {
-        this.delta = delta;
-        this.step = step;
-        this.stack = new Stack<>();
-        currentState = new State(x,y,theta);
-    }
+//    public TurtleModel(double x, double y, double theta, double delta, double step) {
+//        this.delta = delta;
+//        this.step = step;
+//        this.stack = new Stack<>();
+//        currentState = new State(x,y,theta);
+//        turtlePS = new TurtlePS();
+//    }
     
     public TurtleModel(){
         this.stack = new Stack<>();
         currentState = new State();
+        turtlePS = new TurtlePS();
     }
     
     public class State{
@@ -49,12 +52,14 @@ public class TurtleModel extends Observable implements TurtleInterface { // chan
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
         majObservers();
+        turtlePS.draw(getPosition());
     }
 
     @Override
     public void move() {
         currentState.x += step * Math.cos(Math.toRadians(currentState.theta));
         currentState.y += step * Math.sin(Math.toRadians(currentState.theta));
+        turtlePS.move(getPosition());
     }
 
     @Override
@@ -75,12 +80,14 @@ public class TurtleModel extends Observable implements TurtleInterface { // chan
     public void push() {
         State temp = new State(currentState.x,currentState.y,currentState.theta);
         stack.push(temp);
+        turtlePS.push(getPosition());
     }
 
     @Override
     public void pop() {
         if(!stack.isEmpty()){
             this.currentState = stack.pop();
+            turtlePS.pop(getPosition());
         } else {
             System.out.println("An error has occured.");
         }
@@ -101,11 +108,11 @@ public class TurtleModel extends Observable implements TurtleInterface { // chan
         return position;
     }
 
-    protected void printPosition(){
-        Point2D currentPosition = this.getPosition();
-        System.out.printf(FORMAT, currentPosition.getX(),
-                currentPosition.getY(), " ");
-    }
+//    protected void printPosition(){
+//        Point2D currentPosition = this.getPosition();
+//        System.out.printf(FORMAT, currentPosition.getX(),
+//                currentPosition.getY(), " ");
+//    }
     
     @Override
     public double getAngle() {
