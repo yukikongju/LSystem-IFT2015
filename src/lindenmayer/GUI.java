@@ -15,13 +15,11 @@ public class GUI extends JFrame implements Observer{
     final static int WIDTH = 600;
     
     private TurtleModel turtle;
-//    private Point2D position;
     
     TurtleUI turtlePanel;
     
      public GUI(TurtleModel turtle){
         this.turtle = turtle;
-//        this.position = turtle.getPosition();
         turtlePanel = new TurtleUI(turtle);
         this.getContentPane().add(turtlePanel);
         this.setLocationRelativeTo(null);
@@ -37,9 +35,8 @@ public class GUI extends JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object o1) {        // update turtle and position
-//        position = turtle.getPosition();
-        repaint(); // Problem: repaint doesn't call paintComponent bc repaint should be called in JFrame, not JPanel
-        turtlePanel.repaint();
+//        repaint(); // Problem: repaint doesn't call paintComponent bc repaint should be called in JFrame, not JPanel
+//        turtlePanel.repaint();
     }
  
 }
