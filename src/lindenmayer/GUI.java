@@ -1,16 +1,12 @@
 package lindenmayer;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 public class GUI extends JPanel implements Observer{ 
@@ -34,22 +30,21 @@ public class GUI extends JPanel implements Observer{
 
         g.drawLine((int) position.getX(),(int) position.getY(), x, y);
         
-//        System.out.println(turtle.getPosition());
+        System.out.println(turtle.getPosition());
         
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 
     @Override
-    public void update(Observable o, Object o1) {
-        // update turtle and position
-        
+    public void update(Observable o, Object o1) {        // update turtle and position
         position = turtle.getPosition();
-        repaint(); // Problem: repaint doesn't call paintComponent
+//        System.out.println("update: " + position); // update works
+        repaint(); // Problem: repaint doesn't call paintComponent bc repaint should be called in JFrame, not JPanel
     }
  
 }

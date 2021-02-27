@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import static lindenmayer.GUI.HEIGHT;
 
-public class TurtleUI extends TurtleModel{ // deprecated?
+public class TurtleUI extends TurtleModel{ // deprecated?: JPanel
     
     Graphics2D graphics;
 //    private int buffer = 10;
@@ -31,15 +31,15 @@ public class TurtleUI extends TurtleModel{ // deprecated?
 
     }
 
-    @Override
-    public void turnL() { // mirror the image
-        super.turnR(); 
-    }
-
-    @Override
-    public void turnR() { // mirror the image
-        super.turnL(); 
-    }
+//    @Override
+//    public void turnL() { // mirror the image
+//        super.turnR(); 
+//    }
+//
+//    @Override
+//    public void turnR() { // mirror the image
+//        super.turnL(); 
+//    }
 
   
     

@@ -4,22 +4,12 @@ import java.awt.geom.Point2D;
 import java.util.Observable;
 import java.util.Stack;
 
-public class TurtleModel extends Observable implements TurtleInterface { // change to normal class, not abstract
+public class TurtleModel extends Observable implements TurtleInterface { 
     
     private double step, delta;
     private Stack<State> stack;
     private State currentState;
     private TurtlePS turtlePS;
-    
-//    private final static String FORMAT = "%.1f %.1f";
-    
-//    public TurtleModel(double x, double y, double theta, double delta, double step) {
-//        this.delta = delta;
-//        this.step = step;
-//        this.stack = new Stack<>();
-//        currentState = new State(x,y,theta);
-//        turtlePS = new TurtlePS();
-//    }
     
     public TurtleModel(){
         this.stack = new Stack<>();
@@ -108,12 +98,6 @@ public class TurtleModel extends Observable implements TurtleInterface { // chan
         return position;
     }
 
-//    protected void printPosition(){
-//        Point2D currentPosition = this.getPosition();
-//        System.out.printf(FORMAT, currentPosition.getX(),
-//                currentPosition.getY(), " ");
-//    }
-    
     @Override
     public double getAngle() {
         return currentState.theta;

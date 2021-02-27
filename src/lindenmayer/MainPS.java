@@ -10,7 +10,7 @@ public class MainPS {
     private TurtlePS turtle;
     private int rounds;
     
-    public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){ // deprecated
+    public MainPS(LSystem lsystem, TurtlePS turtle, int rounds){ // deprecated: to delete
         this.turtle = turtle;
         this.lsystem = lsystem;
         this.rounds = rounds;

@@ -1,6 +1,5 @@
 package lindenmayer;
 
-import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import javax.swing.JFrame;
@@ -22,12 +21,7 @@ public class Main {
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);
         LSystem lsystem = jsonFile.getLSystem();
-//        TurtlePS turtlePS = jsonFile.getTurtlePS(); 
         TurtleModel turtleModel = jsonFile.getTurtleModel();
-        
-        // Print postscript 
-//        MainPS mainPS = new MainPS(lsystem, turtlePS, rounds); // to change
-//        mainPS.printPostScript();
         
         // https://stackoverflow.com/questions/1676187/why-is-paint-paintcomponent-never-called
         // We need Swing Utilities to make sure paint() doesn't run before the constructor
@@ -36,7 +30,7 @@ public class Main {
             public void run() {
                 createGUI();
                 printPostScriptHeader();
-//                createTurtlePS();
+//                createTurtlePS(); // TODO: turtlePS as observer?
                 Rectangle2D rectangle2D = lsystem.tell(turtleModel, lsystem.getAxiom(), rounds);
                 printPostScriptFooter(rectangle2D);
             }
