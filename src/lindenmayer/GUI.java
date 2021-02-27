@@ -18,11 +18,11 @@ public class GUI extends JFrame implements Observer{
     
     private TurtleModel turtle;
     
-    TurtleUI turtlePanel;
+    TurtlePanel turtlePanel;
     
      public GUI(TurtleModel turtle){
         this.turtle = turtle;
-        turtlePanel = new TurtleUI(turtle);
+        turtlePanel = new TurtlePanel(turtle);
         this.getContentPane().add(turtlePanel);
         
         // Set JFrame in the middle of the screen

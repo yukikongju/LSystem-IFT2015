@@ -10,13 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 
-public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
+public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPanel
     
     private TurtleModel turtle;
 //    private Point2D position;
     private int buffer = 25;
 
-    public TurtleUI(TurtleModel turtle) {
+    public TurtlePanel(TurtleModel turtle) {
         this.turtle = turtle;
 //        this.position = turtle.getPosition();
         turtle.addObserver(this);
@@ -36,7 +36,7 @@ public class TurtleUI extends JPanel implements Observer{ // deprecated?: JPanel
         try {
             Thread.sleep(25);
         } catch (InterruptedException ex) {
-            Logger.getLogger(TurtleUI.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TurtlePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
