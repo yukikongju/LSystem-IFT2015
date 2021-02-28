@@ -28,6 +28,12 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); 
+        
+        // alpha
+        float alpha = 0.5f;
+        Color color = new Color(0, 0, 0, alpha);
+        g.setColor(color);
+        
         for(final Line line: lines){
             g.drawLine((int) line.getStartX(), (int) line.getStartY(), 
                     (int) line.getEndX(), (int) line.getEndY());

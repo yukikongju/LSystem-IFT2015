@@ -30,7 +30,7 @@ public class GUI extends JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object o1) {        // update turtle and position
-        repaint(); // could be removed
+//        repaint(); // could be removed
     }
  
 }
