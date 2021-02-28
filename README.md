@@ -64,4 +64,5 @@ Step 2: Call the json file from the main
 - [ ] Kbhadury's Example of LSytem: https://github.com/kbhadury/LSystem
 - [ ] Java Oberserver and Observable example: https://www.concretepage.com/java/example-observer-observable-java
 - [ ] More LSystem Drawings: http://paulbourke.net/fractals/lsys/
+- [ ] The Algorithmic Beauty of Plants by Przemyslaw Prusinkiewicz: http://algorithmicbotany.org/papers/abop/abop.pdf
 
