@@ -4,15 +4,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javafx.scene.shape.Line;
 import javax.swing.JPanel;
 
 public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPanel
     
     private TurtleModel turtle;
     private Point2D position;
-    private int buffer = 25;
+    private int buffer = 50;
+    private ArrayList<Line> lines = new ArrayList<>();
 
     public TurtlePanel(TurtleModel turtle) {
         this.turtle = turtle;
@@ -22,47 +25,28 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
         setVisible(true);
     }
     
-//    public void draw(Point2D position){
-//        Graphics2D g = (Graphics2D) getGraphics(); // get graphics from JPanel
-//        
-//        // set alpha
-//        float alpha = 0.5f;
-//        Color color = new Color(0, 0, 0, alpha);
-//        g.setPaint(color);
-//        
-//        int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
-//        int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
-//
-//        g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY() - buffer) , x, (int)(GUI.HEIGHT - y - buffer));
-//
-//    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); 
-        // set alpha
-//        float alpha = 0.5f;
-//        Color color = new Color(0, 0, 0, alpha);
-//        g.setPaint(color);
-        
-        int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
-        int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
-
-        g.drawLine((int) position.getX(),(int) (GUI.HEIGHT - position.getY() - buffer) , x, (int)(GUI.HEIGHT - y - buffer));
+        for(final Line line: lines){
+            g.drawLine((int) line.getStartX(), (int) line.getStartY(), 
+                    (int) line.getEndX(), (int) line.getEndY());
+        }
     }
-    
-    
     
     @Override
     public void update(Observable o, Object o1) {
-//        Point2D position = turtle.getPosition();
-//        this.repaint();
-//        draw(position);
-        position = turtle.getPosition();
-        Graphics2D g = (Graphics2D) getGraphics(); // get graphics from JPanel
+        addLines(turtle.getPosition());
+//        repaint();
+    }
 
-        paintComponent(g);
-//        revalidate();
+    private void addLines(Point2D position) {
+        int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
+        int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
+
+        Line line = new Line((int) position.getX(),(int) (GUI.HEIGHT - position.getY() - buffer) , x, (int)(GUI.HEIGHT - y - buffer));
+        this.lines.add(line);
+        
     }
 
   
