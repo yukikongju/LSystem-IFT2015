@@ -34,13 +34,13 @@ Step 2: Call the json file from the main
 ### Part 0 - Initialize some JSON File
 
 - [x] buisson.json
-- [r] herbe.json
-- [r] hexamaze.json
-- [r] sierpinski.json
-- [ ] pythagoras.json
-- [ ] dragon.json
-- [ ] hilbert.json
-- [ ] snowflake.json
+- [x] herbe.json
+- [x] hexamaze.json
+- [x] sierpinski.json
+- [r] pythagoras.json
+- [r] dragon.json
+- [r] hilbert.json
+- [r] snowflake.json
 - [ ] plant.json
 - [ ] stochastic_plant.json
 
@@ -58,10 +58,10 @@ Step 2: Call the json file from the main
 
 ## [Ressources](#ressources)
 
-
 - [ ] Spécifications du Projet: https://ift2015h21.wordpress.com/2021/02/01/projet-1-planter-un-arbre-dans-lordinateur/#more-136  
 - [ ] Java Swing Documentation: https://docs.oracle.com/javase/tutorial/uiswing/
 - [ ] SimonDev's Explanation of LSystems: https://www.youtube.com/watch?v=feNVBEPXAcE
 - [ ] Kbhadury's Example of LSytem: https://github.com/kbhadury/LSystem
 - [ ] Java Oberserver and Observable example: https://www.concretepage.com/java/example-observer-observable-java
+- [ ] More LSystem Drawings: http://paulbourke.net/fractals/lsys/
 
