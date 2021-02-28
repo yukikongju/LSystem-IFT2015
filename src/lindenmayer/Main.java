@@ -15,8 +15,8 @@ public class Main {
 //        int rounds = Integer.parseInt(args[1]);
 //        String file = args[0];
 
-         int rounds = 6;
-         String file = "test/pythagoras.json";
+         int rounds = 5;
+         String file = "test/snowflake.json";
 
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);
