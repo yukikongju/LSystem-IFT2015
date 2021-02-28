@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-//import javafx.scene.shape.Line;
 import javax.swing.JPanel;
 
 public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPanel
@@ -18,7 +17,7 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
     public TurtlePanel(TurtleModel turtle) {
         this.turtle = turtle;
         turtle.addObserver(this);
-        setSize(GUI.WIDTH,GUI.HEIGHT); // to change
+        setSize(GUI.WIDTH,GUI.HEIGHT); // the size should be changed after the repaint()
         setVisible(true);
     }
     
@@ -43,6 +42,7 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
     }
 
     private void addLines(Point2D position) {
+        // calculate next step to form the line
         int x = (int) (position.getX() + turtle.getStep() * Math.cos(Math.toRadians(turtle.getAngle())));
         int y = (int) (position.getY() + turtle.getStep() * Math.sin(Math.toRadians(turtle.getAngle())));
 

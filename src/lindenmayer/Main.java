@@ -1,6 +1,5 @@
 package lindenmayer;
 
-import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import javax.swing.SwingUtilities;
@@ -16,7 +15,7 @@ public class Main {
 //        String file = args[0];
 
          int rounds = 5;
-         String file = "test/buisson.json";
+         String file = "test/herbe.json";
 
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);

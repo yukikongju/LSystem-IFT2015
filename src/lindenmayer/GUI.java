@@ -16,7 +16,7 @@ public class GUI extends JFrame implements Observer{
      public GUI(TurtleModel turtle){
         this.turtle = turtle;
         turtlePanel = new TurtlePanel(turtle);
-        this.getContentPane().add(turtlePanel);
+        this.getContentPane().add(turtlePanel); 
         
         // Set JFrame in the middle of the screen
 //        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -25,7 +25,7 @@ public class GUI extends JFrame implements Observer{
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         turtle.addObserver(this); // make gui observe any turtle changes
-        pack(); // might be an error
+        pack(); 
         setSize(WIDTH,HEIGHT);
         setVisible(true);
         
