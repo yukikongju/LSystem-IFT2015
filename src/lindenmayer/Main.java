@@ -1,5 +1,6 @@
 package lindenmayer;
 
+import java.awt.Dimension;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import javax.swing.SwingUtilities;
@@ -14,8 +15,8 @@ public class Main {
 //        int rounds = Integer.parseInt(args[1]);
 //        String file = args[0];
 
-         int rounds = 5;
-         String file = "test/buisson.json";
+         int rounds = 6;
+         String file = "test/pythagoras.json";
 
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);
@@ -30,6 +31,11 @@ public class Main {
                 GUI gui = new GUI(turtleModel);
                 printPostScriptHeader();
                 Rectangle2D rectangle2D = lsystem.tell(turtleModel, lsystem.getAxiom(), rounds);
+                // set dimension to rectangle
+//                Dimension dimension = new Dimension((int) rectangle2D.getWidth(), (int) rectangle2D.getHeight());
+//                gui.getTurtlePanel().setPreferredSize(dimension);
+//                gui.setPreferredSize(dimension);
+//                gui.pack();
                 printPostScriptFooter(rectangle2D);
             }
 

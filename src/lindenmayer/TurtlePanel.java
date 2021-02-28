@@ -2,7 +2,6 @@ package lindenmayer;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -13,15 +12,13 @@ import javax.swing.JPanel;
 public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPanel
     
     private TurtleModel turtle;
-    private Point2D position;
     private int buffer = 50;
     private ArrayList<Line> lines = new ArrayList<>();
 
     public TurtlePanel(TurtleModel turtle) {
         this.turtle = turtle;
-        this.position = turtle.getPosition();
         turtle.addObserver(this);
-        setSize(300,300); // to change
+        setSize(GUI.WIDTH,GUI.HEIGHT); // to change
         setVisible(true);
     }
     
@@ -29,7 +26,7 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); 
         
-        // alpha
+        // set alpha
         float alpha = 0.5f;
         Color color = new Color(0, 0, 0, alpha);
         g.setColor(color);
@@ -42,8 +39,7 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
     
     @Override
     public void update(Observable o, Object o1) {
-        addLines(turtle.getPosition());
-//        repaint();
+        addLines(turtle.getPosition()); // comment this line if you don't want to draw
     }
 
     private void addLines(Point2D position) {
