@@ -2,7 +2,7 @@ package lindenmayer;
 
 import java.awt.geom.Point2D;
 
-public class TurtlePS  { // implements Observable? // extends TurtleModel?
+public class TurtlePS  { // implements Observable?
     
     private final static String FORMAT = "%.1f %.1f";
     

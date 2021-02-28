@@ -16,7 +16,7 @@ public class Main {
 //        String file = args[0];
 
          int rounds = 5;
-         String file = "test/snowflake.json";
+         String file = "test/buisson.json";
 
          // Read JSON file
         JSONFile jsonFile = new JSONFile(file);

@@ -6,7 +6,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.scene.shape.Line;
+//import javafx.scene.shape.Line;
 import javax.swing.JPanel;
 
 public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPanel
@@ -50,9 +50,36 @@ public class TurtlePanel extends JPanel implements Observer{ // deprecated?: JPa
         this.lines.add(line);
         
     }
+    
+    public class Line{
+        private int startX;
+        private int startY;
+        private int endX;
+        private int endY;
 
-  
-    
-    
-   
+        public Line(int startX, int startY, int endX, int endY) {
+            this.startX = startX;
+            this.startY = startY;
+            this.endX = endX;
+            this.endY = endY;
+        }
+
+        public int getStartX() {
+            return startX;
+        }
+
+        public int getStartY() {
+            return startY;
+        }
+
+        public int getEndX() {
+            return endX;
+        }
+
+        public int getEndY() {
+            return endY;
+        }
+        
+    }
+
 }
