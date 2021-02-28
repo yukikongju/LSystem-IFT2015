@@ -1,13 +1,13 @@
 {
-	"alphabet" : 	["A", "B", "F", "[", "]", "+", "-"],
+	"alphabet" : 	["X", "Y", "F", "[", "]", "+", "-"],
 	"rules" : {
-		"A" : ["X+YF"],
-		"B" : ["-FX-Y"]
+		"X" : ["X+YF"],
+		"Y" : ["-FX-Y"]
 	},
 	"axiom":"FX",
 	"actions": {
-		"A":"draw", 
-		"B":"draw",
+		"X":"draw", 
+		"Y":"draw",
 		"F":"move",
 		"[":"push",
 		"]":"pop", 
